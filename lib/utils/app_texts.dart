@@ -136,4 +136,24 @@ class AppTexts {
   String optionTextFavoritesOfModalBottomSheet = "Favorites";
   String optionTextLogoutOfModalBottomSheet = "Logout";
   String optionTextLoginOrSigninOfModalBottomSheet = "Login or Signin";
+
+  //My Account Page screen Texts
+  String myAccountTextSubtitleMenuIconBottomNavigationBar = "Menu";
+  String myAccountTextSubtitleChatIconBottomNavigationBar = "Chat";
+
+  String myAccountOptionTextHomeOfModalBottomSheet = "Home";
+  String myAccountOptionTextMyAccountOfModalBottomSheet = "My Account";
+  String myAccountOptionTextMyAdsOfModalBottomSheet = "My Ads";
+  String myAccountOptionTextFavoritesOfModalBottomSheet = "Favorites";
+  String myAccountOptionTextLogoutOfModalBottomSheet = "Logout";
+
+  String myAccountOptionTextMyAccountOfBodyOptions = "My Account";
+  String myAccountOptionTextMyAdsOfBodyOptions = "My Ads";
+  String myAccountOptionTextFavoritesOfBodyOptions = "Favorites";
+  String myAccountOptionTextLogoutOfBodyOptions = "Logout";
+
+  static const String myAccountTextToWaitForFutureBuilderDataToGetTheName =
+      "Waiting for the data";
+  static const String myAccountFutureBuildersWelcomeTextToGetTheName =
+      "Welcome,";
 }

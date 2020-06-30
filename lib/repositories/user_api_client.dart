@@ -7,7 +7,7 @@ class UserApiClient {
 
   UserApiClient();
 
-  Future<String> login(String email, password) async {
+  Future<User> login(String email, password) async {
     final userLoginUrl = '$baseUrl/login';
     final user = User.login(email, password);
     final data = user.userLogintoJson();
@@ -26,8 +26,10 @@ class UserApiClient {
         }
       }
     }
-    Map responseBody = userLoginResponse.data;
-    return (responseBody)['token'];
+    User userLoginSuccess = new User();
+    userLoginSuccess =
+        userLoginSuccess.fromJsonSharedPrefenrence(userLoginResponse.data);
+    return userLoginSuccess;
   }
 
   Future signup(User dataToCreateUser) async {

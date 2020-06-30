@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:varied_rent/blocs/blocs.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 
 import 'package:varied_rent/blocs/authentication_bloc/authentication.dart';
@@ -30,9 +31,27 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginButtonPressed) {
       yield LoginLoading();
       try {
-        final token = await userRepository.userLoginRepository(
+        final User userLogin = await userRepository.userLoginRepository(
             event.email, event.password);
-        authenticationBloc.add(LoggedIn(token: token));
+        authenticationBloc.add(LoggedIn(
+            token: userLogin.token,
+            name: userLogin.name,
+            genre: userLogin.genre,
+            landlordType: userLogin.landlord_type,
+            cpfCnpj: userLogin.cpf_cnpj,
+            phones: Phones(
+              telephone1: userLogin.phones.telephone1,
+              telephone2: userLogin.phones.telephone2,
+            ),
+            address: Address(
+              userLogin.address.country,
+              userLogin.address.state,
+              userLogin.address.city,
+              userLogin.address.zip_code,
+              userLogin.address.neighborhood,
+              userLogin.address.street,
+              userLogin.address.number,
+            )));
         yield LoginInitial();
       } catch (error) {
         if (error is DioError) {

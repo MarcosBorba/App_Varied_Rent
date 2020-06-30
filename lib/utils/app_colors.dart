@@ -24,26 +24,50 @@ class AppColors {
   static const Color hintTextColorSearchTextField = secondaryColor;
   static const Color prefixIconColorSearchTextField = tertiaryColor;
   static const Color defaultFormColorBorderSearchTextField = secondaryColor;
-  static const Color focusedDefaultFormColorBorderSearchTextField = tertiaryColor;
+  static const Color focusedDefaultFormColorBorderSearchTextField =
+      tertiaryColor;
   static const Color fillColorBorderSearchTextField = Colors.white;
 
-  static const Color backgroundColorBottomNanigationBar = AppColors.tertiaryColor;
-  static const Color selectedItemBorderColorBottomNanigationBar = AppColors.tertiaryColor;
-  static const Color selectedItemBackgroundColorBottomNanigationBar = Colors.black38;
+  static const Color backgroundColorBottomNanigationBar =
+      AppColors.tertiaryColor;
+  static const Color selectedItemBorderColorBottomNanigationBar =
+      AppColors.tertiaryColor;
+  static const Color selectedItemBackgroundColorBottomNanigationBar =
+      Colors.black38;
   static const Color selectedItemIconColorBottomNanigationBar = Colors.white;
   static const Color selectedItemLabelColorBottomNanigationBar = Colors.white;
   static const Color unselectedItemIconColorBottomNanigationBar = Colors.white;
   static const Color unselectedItemLabelColorBottomNanigationBar = Colors.white;
 
-  static const Color borderColorForCategoryOptionsButton = AppColors.tertiaryColor;
+  static const Color borderColorForCategoryOptionsButton =
+      AppColors.tertiaryColor;
   static const Color buttonColorForCategoryOptions = Colors.white;
 
   static const Color iconColorOptionDefaultOfModalBottomSheet = Colors.black;
-  static const Color iconColorOptionBorderRightOfModalBottomSheet = Colors.black;
-  static const Color iconColorOptionHomeOfModalBottomSheet = AppColors.secondaryColor;
+  static const Color iconColorOptionBorderRightOfModalBottomSheet =
+      Colors.black;
+  static const Color iconColorOptionHomeOfModalBottomSheet =
+      AppColors.secondaryColor;
   static const Color iconColorOptionMyAccountOfModalBottomSheet = Colors.black;
   static const Color iconColorOptionMyAdsOfModalBottomSheet = Colors.blue;
   static const Color iconColorOptionFavoritesOfModalBottomSheet = Colors.red;
   static const Color iconColorOptionLogoutOfModalBottomSheet = Colors.black;
-  static const Color iconColorOptionLoginOrSigninOfModalBottomSheet = Colors.black;
+  static const Color iconColorOptionLoginOrSigninOfModalBottomSheet =
+      Colors.black;
+
+  //Colors MyAccount Page
+  static const Color bodyColorBackground = Colors.white;
+
+  static const Color myAccountPageIconColorOptionHomeOfModalBottomSheet =
+      AppColors.secondaryColor;
+  static const Color myAccountPageIconColorOptionMyAccountOfModalBottomSheet =
+      Colors.black;
+  static const Color myAccountPageIconColorOptionMyAdsOfModalBottomSheet =
+      Colors.blue;
+  static const Color myAccountPageIconColorOptionFavoritesOfModalBottomSheet =
+      Colors.red;
+  static const Color myAccountPageIconColorOptionLogoutOfModalBottomSheet =
+      Colors.black;
+
+  static const Color myAccountPageDividerColorBody = Colors.black;
 }

@@ -21,13 +21,14 @@ import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_routes.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 import 'package:varied_rent/utils/app_texts.dart';
+import 'package:varied_rent/views/myAccountPage/myAccountPage.dart';
 
 //TODO: nivel - 4 depois de criar outras telas, adicionar a navegacao de cada uma
 
 //rotas a serem atualizadas depois de criar outras telas:
-//categorias
+//todas categorias
 //chat
-//buscas
+//buscas - colocar controller para pesquisa
 //minha conta
 //meus anuncios
 //favoritos
@@ -62,12 +63,19 @@ class HomePageState extends State<HomePage> {
     stateAuthentication =
         BlocProvider.of<AuthenticationBloc>(context).state.toString() ==
             "AuthenticationAuthenticated";
+
     KeyboardVisibility.onChange.listen((bool showKeyboard) {
-      setState(() {
-        showKeyboard == false
-            ? selectedSearchButton = false
-            : selectedSearchButton = true;
-      });
+      print(
+          "###########################################################################passou visibility 1");
+      if (mounted) {
+        setState(() {
+          print(
+              "###########################################################################passou visibility 2");
+          showKeyboard == false
+              ? selectedSearchButton = false
+              : selectedSearchButton = true;
+        });
+      }
     });
   }
 
@@ -374,7 +382,7 @@ class HomePageState extends State<HomePage> {
   }
 
   navigationFunctionForMyAccountScreen() {
-    print("navega para tela de minha conta");
+    AppRoutes.push(context, MyAccountPage());
   }
 
   navigationFunctionForMyAdsScreen() {
@@ -394,6 +402,7 @@ class HomePageState extends State<HomePage> {
     final UserRepository userRepository = UserRepository(
       userApiClient: UserApiClient(),
     );
+    print("passou funciton logout");
     AppRoutes.makeFirst(context, App(userRepository: userRepository));
   }
 

@@ -31,17 +31,27 @@ class AuthenticationBloc
       } else {
         yield AuthenticationUnauthenticated();
       }
-    }else
+    } else
     //se o evento for logado como usuario, retorna um estado usuario autenticado.
     if (event is LoggedIn) {
       yield AuthenticationLoading();
       await sharedPref.save('token', event.token);
+      await sharedPref.save('name', event.name);
+      await sharedPref.save('genre', event.genre);
+      await sharedPref.save('landlordType', event.landlordType);
+      await sharedPref.save('cpfCnpj', event.cpfCnpj);
+      await sharedPref.save('phones', event.phones);
+      await sharedPref.save('address', event.address);
       yield AuthenticationAuthenticated();
-    }else
-    //se o evento for logado como visitante, retorna um estado visitante autenticado.
-    if (event is LoggedOut) {
+    } else if (event is LoggedOut) {
       yield AuthenticationLoading();
       await sharedPref.remove('token');
+      await sharedPref.remove('name');
+      await sharedPref.remove('genre');
+      await sharedPref.remove('landlordType');
+      await sharedPref.remove('cpfCnpj');
+      await sharedPref.remove('phones');
+      await sharedPref.remove('address');
       yield AuthenticationUnauthenticated();
     }
   }

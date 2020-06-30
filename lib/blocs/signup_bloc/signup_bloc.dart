@@ -31,10 +31,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       try {
         await userRepository.userSignupRepository(event.user);
 
-        final token = await userRepository.userLoginRepository(
+        final User userLogin = await userRepository.userLoginRepository(
             event.user.email, event.user.password);
 
-        yield SignupSuccessfullyConcluded(token: token);
+        yield SignupSuccessfullyConcluded(token: userLogin.token);
       } catch (error) {
         if (error is DioError) {
           yield SignupFailure(error: error.message);
