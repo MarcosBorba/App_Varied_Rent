@@ -147,7 +147,7 @@ class AppTexts {
   String myAccountOptionTextFavoritesOfModalBottomSheet = "Favorites";
   String myAccountOptionTextLogoutOfModalBottomSheet = "Logout";
 
-  String myAccountOptionTextMyAccountOfBodyOptions = "My Account";
+  String myAccountOptionTextMyAccountOfBodyOptions = "Edit My Account";
   String myAccountOptionTextMyAdsOfBodyOptions = "My Ads";
   String myAccountOptionTextFavoritesOfBodyOptions = "Favorites";
   String myAccountOptionTextLogoutOfBodyOptions = "Logout";
@@ -156,4 +156,16 @@ class AppTexts {
       "Waiting for the data";
   static const String myAccountFutureBuildersWelcomeTextToGetTheName =
       "Welcome,";
+
+  //Edit My Account Page Screen Texts
+  String editMyAccountNavigationOptionTextToEditAccountData = "Account";
+  String editMyAccountNavigationOptionTextToEditAProfileData = "Profile";
+  String editMyAccountNavigationOptionTextToEditAddressData = "Address";
+
+  String editMyAccountNavigationOptionHelperTextToEditAccountData =
+      "Email and Password.";
+  String editMyAccountNavigationOptionHelperTextToEditProfileData =
+      "Name, Cpf/Cnpj, Gender, Landlord Type, Phones.";
+  String editMyAccountNavigationOptionHelperTextToEditAddressData =
+      "Country, State, City, Zip Code, Neighborhood, Street, Number.";
 }

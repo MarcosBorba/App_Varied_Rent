@@ -5,11 +5,10 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:varied_rent/blocs/authentication_bloc/authentication.dart';
 
-import 'package:varied_rent/components/componentsLogin/getInitialImage.dart';
+import 'package:varied_rent/components/componentsMyAccountPage/getInitialImage.dart';
 import 'package:varied_rent/components/componentsMyAccountPage/getMyAccountPageFFNavigationBar.dart';
 import 'package:varied_rent/components/componentsMyAccountPage/getMyAccountPageMaterialButtonsCategories.dart';
 import 'package:varied_rent/components/componentsMyAccountPage/getMyAccountPageMenuListTiles.dart';
-import 'package:varied_rent/components/componentsMyAccountPage/removeGlowScrollGridView.dart';
 import 'package:varied_rent/main.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/app_colors.dart';
@@ -17,6 +16,7 @@ import 'package:varied_rent/utils/app_routes.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 import 'package:varied_rent/utils/app_text_sizes.dart';
 import 'package:varied_rent/utils/app_texts.dart';
+import 'package:varied_rent/views/editMyAccountPage/editMyAccountPage.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
 
 class MyAccountPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class MyAccountPage extends StatefulWidget {
 //TODO: nivel 4 - depois de criar outras telas, adicionar a navegacao de cada uma
 
 //rotas a serem atualizadas depois de criar outras telas:
-//Body => MyFavorite, MyAds, Logout e Edit MyAccount
+//Body => MyFavorite, MyAds
 //chat
 //meus anuncios
 //favoritos
@@ -49,54 +49,50 @@ class MyAccountPageState extends State<MyAccountPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: heightBodyScaffold * 0.28,
-                      width: screenWidth,
-                      child: ScrollConfiguration(
-                        behavior: NoGlowBehavior(),
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          children: <Widget>[
-                            Container(
-                                margin: EdgeInsets.all(AppSizes.size12),
-                                child: InitialImage()),
-                            Container(
+                Container(
+                    height: heightBodyScaffold * 0.28,
+                    width: screenWidth,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        //TODO: nivel 1 - buscar forma de colocar imagem do usuario aqui
+                        Expanded(
+                          child: Container(
                               margin: EdgeInsets.all(AppSizes.size12),
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: FutureBuilder(
-                                      future: getFutureDados(),
-                                      initialData: AppTexts
-                                          .myAccountTextToWaitForFutureBuilderDataToGetTheName,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Center(
-                                            child: Text(
-                                              AppTexts.myAccountFutureBuildersWelcomeTextToGetTheName +
-                                                  "\n" +
-                                                  snapshot.data,
-                                              style: TextStyle(
-                                                  fontSize: AppFontSize.s20),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          );
-                                        } else {
-                                          return Center(
-                                            child: Text(AppTexts
-                                                .myAccountTextToWaitForFutureBuilderDataToGetTheName),
-                                          );
-                                        }
-                                      })),
-                            ),
-                          ],
+                              child: ImageLogoApp()),
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.all(AppSizes.size12),
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: FutureBuilder(
+                                    future: getFutureDados(),
+                                    initialData: AppTexts
+                                        .myAccountTextToWaitForFutureBuilderDataToGetTheName,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Center(
+                                          child: Text(
+                                            AppTexts.myAccountFutureBuildersWelcomeTextToGetTheName +
+                                                "\n" +
+                                                snapshot.data,
+                                            style: TextStyle(
+                                                fontSize: AppFontSize.s20),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        );
+                                      } else {
+                                        return Center(
+                                          child: Text(AppTexts
+                                              .myAccountTextToWaitForFutureBuilderDataToGetTheName),
+                                        );
+                                      }
+                                    })),
+                          ),
+                        ),
+                      ],
+                    )),
                 Divider(
                   color: AppColors.myAccountPageDividerColorBody,
                   indent: AppSizes.size20,
@@ -105,19 +101,26 @@ class MyAccountPageState extends State<MyAccountPage> {
                   thickness: heightBodyScaffold * 0.001,
                 ),
                 Container(
-                  height: heightBodyScaffold * 0.61,
+                  height: heightBodyScaffold * 0.30,
                   width: screenWidth,
-                  child: ScrollConfiguration(
-                    behavior: NoGlowBehavior(),
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      children: <Widget>[
-                        returnsNavigationButtonForMyFavorites(),
-                        returnsNavigationButtonForMyAds(),
-                        returnsNavigationButtonToLogoutUser(),
-                        returnsNavigationButtonForMyAccount(),
-                      ],
-                    ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(child: returnsNavigationButtonForMyFavorites()),
+                      Expanded(child: returnsNavigationButtonForMyAds()),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: heightBodyScaffold * 0.30,
+                  width: screenWidth,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(child: returnsNavigationButtonToLogoutUser()),
+                      Expanded(
+                          child: returnsNavigationButtonForEditMyAccount()),
+                    ],
                   ),
                 ),
               ],
@@ -187,10 +190,10 @@ class MyAccountPageState extends State<MyAccountPage> {
     );
   }
 
-  Widget returnsNavigationButtonForMyAccount() {
+  Widget returnsNavigationButtonForEditMyAccount() {
     return MyAccountPageMaterialButtonsCategories(
       onPressed: () => navigationFunctionForUserDataEditingScreen(),
-      icon: FontAwesome5.user,
+      icon: FontAwesome5.user_edit,
       subTitle: AppTexts().myAccountOptionTextMyAccountOfBodyOptions,
     );
   }
@@ -212,7 +215,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   navigationFunctionForUserDataEditingScreen() {
-    print("navega para tela de edicao de dados do usuario do usuario");
+    AppRoutes.push(context, EditMyAccountPage());
   }
 
   Widget openBottomDrawerMyAccountPage() {

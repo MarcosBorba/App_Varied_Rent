@@ -57,7 +57,6 @@ class AppColors {
 
   //Colors MyAccount Page
   static const Color bodyColorBackground = Colors.white;
-
   static const Color myAccountPageIconColorOptionHomeOfModalBottomSheet =
       AppColors.secondaryColor;
   static const Color myAccountPageIconColorOptionMyAccountOfModalBottomSheet =
@@ -68,6 +67,11 @@ class AppColors {
       Colors.red;
   static const Color myAccountPageIconColorOptionLogoutOfModalBottomSheet =
       Colors.black;
-
   static const Color myAccountPageDividerColorBody = Colors.black;
+
+  //Colors EditMyAccount Page
+  static const Color editMyAccountPageMaterialButtonsOptionsBackgroundColor =
+      Colors.white;
+  static const Color editMyAccountPageMaterialButtonsOptionsBorderColor =
+      AppColors.tertiaryColor;
 }
