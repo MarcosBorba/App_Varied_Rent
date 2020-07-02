@@ -168,4 +168,11 @@ class AppTexts {
       "Name, Cpf/Cnpj, Gender, Landlord Type, Phones.";
   String editMyAccountNavigationOptionHelperTextToEditAddressData =
       "Country, State, City, Zip Code, Neighborhood, Street, Number.";
+
+  //Edit My Account Email or Password texts
+  String navigationOptionTextToEditEmail = "Email";
+  String navigationOptionTextToEditPassword = "Password";
+  String navigationOptionSubTextToEditEmail = "Click to change user Email.";
+  String navigationOptionSubTextToEditPassword =
+      "Click to change user Password.";
 }

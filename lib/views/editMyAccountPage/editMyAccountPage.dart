@@ -4,8 +4,10 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:varied_rent/components/componentsEditMyAccountPage/getEditMyAccountPageFFBottomNavigationBar.dart';
 import 'package:varied_rent/components/componentsEditMyAccountPage/getEditMyAccountPageMaterialButtonsOptions.dart';
+import 'package:varied_rent/utils/app_routes.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 import 'package:varied_rent/utils/app_texts.dart';
+import 'package:varied_rent/views/editMyAccountEmailOrPasswordPage/editMyAccountEmailOrPasswordPage.dart';
 
 class EditMyAccountPage extends StatefulWidget {
   @override
@@ -73,8 +75,8 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         EditMyAccountPageMaterialButtonsOptions(
-          heightButton: heightBodyScaffold * 0.25,
-          widthButton: screenWidth,
+          heightButton: heightButtons,
+          widthButton: widthButtons,
           icon: Icons.alternate_email,
           title: AppTexts().editMyAccountNavigationOptionTextToEditAccountData,
           subTitle: AppTexts()
@@ -82,8 +84,8 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
           onPressed: () => navigatesToTheEditAccountDataScreen(),
         ),
         EditMyAccountPageMaterialButtonsOptions(
-          heightButton: heightBodyScaffold * 0.25,
-          widthButton: screenWidth,
+          heightButton: heightButtons,
+          widthButton: widthButtons,
           icon: FontAwesome5.user,
           title: AppTexts().editMyAccountNavigationOptionTextToEditAProfileData,
           subTitle: AppTexts()
@@ -91,8 +93,8 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
           onPressed: () => navigatesToTheEditProfileDataScreen(),
         ),
         EditMyAccountPageMaterialButtonsOptions(
-          heightButton: heightBodyScaffold * 0.25,
-          widthButton: screenWidth,
+          heightButton: heightButtons,
+          widthButton: widthButtons,
           icon: Entypo.location,
           title: AppTexts().editMyAccountNavigationOptionTextToEditAddressData,
           subTitle: AppTexts()
@@ -105,6 +107,7 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
 
   navigatesToTheEditAccountDataScreen() {
     print("navega para tela de editar email e senha");
+    AppRoutes.push(context, EditMyAccountEmailOrPasswordPage());
   }
 
   navigatesToTheEditProfileDataScreen() {
