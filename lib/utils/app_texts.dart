@@ -169,7 +169,7 @@ class AppTexts {
   String editMyAccountNavigationOptionHelperTextToEditAddressData =
       "Country, State, City, Zip Code, Neighborhood, Street, Number.";
 
-  //Edit My Account Email or Password texts
+  //Edit Email or Password Page texts
   String navigationOptionTextToEditEmail = "Email";
   String navigationOptionTextToEditPassword = "Password";
   String navigationOptionSubTextToEditEmail = "Click to change user Email.";

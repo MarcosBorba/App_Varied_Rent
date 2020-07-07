@@ -75,11 +75,10 @@ class AppColors {
   static const Color editMyAccountPageMaterialButtonsOptionsBorderColor =
       AppColors.tertiaryColor;
 
-  //Colors EditMyAccount Email or Password Page
+  //Colors Email or Password Page
   static const Color
-      editMyAccountEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor =
+      editEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor =
       Colors.white;
-  static const Color
-      editMyAccountEmailOrPasswordPageMaterialButtonsOptionsBorderColor =
+  static const Color editEmailOrPasswordPageMaterialButtonsOptionsBorderColor =
       AppColors.tertiaryColor;
 }

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 
-class EditMyAccountEmailOrPasswordPageMaterialButtonsOptions
-    extends StatelessWidget {
+class EditEmailOrPasswordPageMaterialButtonsOptions extends StatelessWidget {
   final Color buttonColor;
   final Color borderColor;
   final double elevation;
@@ -17,15 +16,15 @@ class EditMyAccountEmailOrPasswordPageMaterialButtonsOptions
   final double heightButton;
   final double widthButton;
 
-  const EditMyAccountEmailOrPasswordPageMaterialButtonsOptions({
+  const EditEmailOrPasswordPageMaterialButtonsOptions({
     Key key,
-    this.buttonColor = AppColors
-        .editMyAccountEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor,
+    this.buttonColor =
+        AppColors.editEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor,
     this.elevation,
     this.onPressed,
     this.borderRadius,
-    this.borderColor = AppColors
-        .editMyAccountEmailOrPasswordPageMaterialButtonsOptionsBorderColor,
+    this.borderColor =
+        AppColors.editEmailOrPasswordPageMaterialButtonsOptionsBorderColor,
     this.borderWidth,
     this.icon,
     this.iconSize,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,6 +57,7 @@ class HomePageState extends State<HomePage> {
   bool selectedSearchButton;
   FocusNode searchTextFieldFocusNode = FocusNode();
   bool stateAuthentication;
+  StreamSubscription<bool> listenKeyboardVisibleOrNot;
 
   @override
   void initState() {
@@ -63,8 +66,8 @@ class HomePageState extends State<HomePage> {
     stateAuthentication =
         BlocProvider.of<AuthenticationBloc>(context).state.toString() ==
             "AuthenticationAuthenticated";
-
-    KeyboardVisibility.onChange.listen((bool showKeyboard) {
+    listenKeyboardVisibleOrNot =
+        KeyboardVisibility.onChange.listen((bool showKeyboard) {
       print(
           "###########################################################################passou visibility 1");
       if (mounted) {
@@ -382,7 +385,13 @@ class HomePageState extends State<HomePage> {
   }
 
   navigationFunctionForMyAccountScreen() {
-    AppRoutes.push(context, MyAccountPage());
+    print("passou my account navigation");
+    Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => MyAccountPage()))
+        .then((value) {
+      print("passou my account pause");
+      listenKeyboardVisibleOrNot.pause();
+    });
   }
 
   navigationFunctionForMyAdsScreen() {
@@ -402,8 +411,13 @@ class HomePageState extends State<HomePage> {
     final UserRepository userRepository = UserRepository(
       userApiClient: UserApiClient(),
     );
-    print("passou funciton logout");
-    AppRoutes.makeFirst(context, App(userRepository: userRepository));
+    /*AppRoutes.makeFirst(context, App(userRepository: userRepository)); */
+    print("passa na funcao de tezte");
+    Navigator.of(context).popUntil((predicate) => predicate.isFirst);
+    Navigator.of(context).pushReplacement(
+      new MaterialPageRoute(
+          builder: (context) => App(userRepository: userRepository)),
+    );
   }
 
   navigateToConversationScreen() {
@@ -413,6 +427,7 @@ class HomePageState extends State<HomePage> {
   @override
   void dispose() {
     searchTextFieldFocusNode.dispose();
+    listenKeyboardVisibleOrNot.cancel();
     super.dispose();
   }
 }

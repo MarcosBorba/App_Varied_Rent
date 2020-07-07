@@ -39,6 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             genre: userLogin.genre,
             landlordType: userLogin.landlord_type,
             cpfCnpj: userLogin.cpf_cnpj,
+            email: userLogin.email,
             phones: Phones(
               telephone1: userLogin.phones.telephone1,
               telephone2: userLogin.phones.telephone2,

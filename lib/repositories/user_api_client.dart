@@ -62,4 +62,55 @@ class UserApiClient {
       }
     }
   }
+
+  Future checkUser(User dataToCreateUser, String token) async {
+    final userCheckUserUrl = '$baseUrl/check_user';
+    final data = dataToCreateUser.userLogintoJson();
+    try {
+      dio.options.headers['x-access-token'] = token;
+      await dio.post(
+        userCheckUserUrl,
+        data: data,
+      );
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: e.response.statusCode.toString() +
+                  " - " +
+                  e.response.data['message']);
+        }
+      }
+    }
+  }
+
+  Future updateEmailUser(String oldEmail, String newEmail,
+      String newEmailConfirmed, String token) async {
+    final userCheckUserUrl = '$baseUrl/update_email';
+    final Map<String, String> data = {
+      "oldEmail": oldEmail,
+      "newEmail": newEmail,
+      "newEmailConfirmed": newEmailConfirmed
+    };
+    try {
+      dio.options.headers['x-access-token'] = token;
+      await dio.put(
+        userCheckUserUrl,
+        data: data,
+      );
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: e.response.statusCode.toString() +
+                  " - " +
+                  e.response.data['message']);
+        }
+      }
+    }
+  }
 }

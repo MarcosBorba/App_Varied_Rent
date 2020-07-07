@@ -42,6 +42,7 @@ class AuthenticationBloc
       await sharedPref.save('cpfCnpj', event.cpfCnpj);
       await sharedPref.save('phones', event.phones);
       await sharedPref.save('address', event.address);
+      await sharedPref.save('email', event.email);
       yield AuthenticationAuthenticated();
     } else if (event is LoggedOut) {
       yield AuthenticationLoading();
@@ -52,6 +53,7 @@ class AuthenticationBloc
       await sharedPref.remove('cpfCnpj');
       await sharedPref.remove('phones');
       await sharedPref.remove('address');
+      await sharedPref.remove('email');
       yield AuthenticationUnauthenticated();
     }
   }

@@ -20,6 +20,7 @@ class LoggedIn extends AuthenticationEvent {
   final String genre;
   final String landlordType;
   final String cpfCnpj;
+  final String email;
   final Phones phones;
   final Address address;
 
@@ -30,15 +31,16 @@ class LoggedIn extends AuthenticationEvent {
       @required this.phones,
       @required this.address,
       @required this.token,
+      @required this.email,
       @required this.name});
 
   @override
   List<Object> get props =>
-      [token, name, genre, landlordType, cpfCnpj, phones, address];
+      [token, name, genre, landlordType, cpfCnpj, email, phones, address];
 
   @override
   String toString() =>
-      'LoggedIn { token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj , phones: ' +
+      'LoggedIn { token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj, email: $email, phones: ' +
       phones.toString() +
       ', address: ' +
       address.toString();

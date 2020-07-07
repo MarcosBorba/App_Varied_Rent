@@ -14,9 +14,17 @@ class UserRepository {
     return token;
   }
 
-  Future<int> userSignupRepository(User dataToCreateUser) async {
-    final int responseRequestCreateUser =
-        await userApiClient.signup(dataToCreateUser);
-    return responseRequestCreateUser;
+  Future userSignupRepository(User dataToCreateUser) async {
+    return await userApiClient.signup(dataToCreateUser);
+  }
+
+  Future userCheckUserRepository(User user, String token) async {
+    return await userApiClient.checkUser(user, token);
+  }
+
+  Future userUpdateEmailRepository(String oldEmail, String newEmail,
+      String newEmailConfirmed, String token) async {
+    return await userApiClient.updateEmailUser(
+        oldEmail, newEmail, newEmailConfirmed, token);
   }
 }

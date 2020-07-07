@@ -7,7 +7,7 @@ import 'package:varied_rent/components/componentsEditMyAccountPage/getEditMyAcco
 import 'package:varied_rent/utils/app_routes.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 import 'package:varied_rent/utils/app_texts.dart';
-import 'package:varied_rent/views/editMyAccountEmailOrPasswordPage/editMyAccountEmailOrPasswordPage.dart';
+import 'package:varied_rent/views/editEmailOrPasswordPage/editEmailOrPasswordPage.dart';
 
 class EditMyAccountPage extends StatefulWidget {
   @override
@@ -107,7 +107,7 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
 
   navigatesToTheEditAccountDataScreen() {
     print("navega para tela de editar email e senha");
-    AppRoutes.push(context, EditMyAccountEmailOrPasswordPage());
+    AppRoutes.push(context, EditEmailOrPasswordPage());
   }
 
   navigatesToTheEditProfileDataScreen() {
