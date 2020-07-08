@@ -18,11 +18,11 @@ class EditEmailButtons extends StatelessWidget {
       this.splashColor,
       this.disabledColor,
       this.onPressed,
-      this.color = AppColors.tertiaryColor,
+      this.color = AppColors.editEmailColorButtons,
       this.textButton,
       this.minWidthButton,
       this.heightButton,
-      this.colorText = Colors.white})
+      this.colorText = AppColors.editEmailColorTextButtons})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

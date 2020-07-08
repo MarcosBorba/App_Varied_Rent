@@ -10,7 +10,7 @@ class SuffixIconEditEmailPasswordInput extends StatelessWidget {
       {Key key,
       this.onPressed,
       this.obscurePassword,
-      this.color = AppColors.tertiaryColor})
+      this.color = AppColors.editEmailColorSufixIconPassword})
       : super(key: key);
   @override
   IconButton build(BuildContext context) {

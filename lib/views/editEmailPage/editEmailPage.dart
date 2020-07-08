@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:varied_rent/main.dart';
 
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/blocs/blocs.dart';
@@ -20,44 +21,84 @@ class EditEmailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: BlocProvider(create: (context) {
-        return EditEmailBloc(userRepository: userRepository);
-      }, child: BlocBuilder<EditEmailBloc, EditEmailState>(
+        body: BlocProvider(
+          create: (context) {
+            return EditEmailBloc(userRepository: userRepository);
+          },
+          child: BlocListener<EditEmailBloc, EditEmailState>(
+            listener: (context, state) {
+              if (state is EditEmailFailure) {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${state.error}'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              } else if (state is EditEmailConfirmedUser) {
+                final UserRepository userRepository = UserRepository(
+                  userApiClient: UserApiClient(),
+                );
+                AppRoutes.push(
+                  context,
+                  EditEmailPage(
+                    userRepository: userRepository,
+                    editEmailForm: 2,
+                  ),
+                );
+              } else if (state is EditEmailSuccessfullyConcluded) {
+                BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                final UserRepository userRepository = UserRepository(
+                  userApiClient: UserApiClient(),
+                );
+                AppRoutes.makeFirst(
+                    context, App(userRepository: userRepository));
+              }
+            },
+            child: BlocBuilder<EditEmailBloc, EditEmailState>(
               builder: (context, state) {
-        return Container(
-            height: screenHeight,
-            width: screenWidth,
-            color: AppColors.tertiaryColor,
-            child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                Container(
-                    decoration: returnsBoxDecorationForm(),
-                    height: heightFormConfirmUser,
-                    margin: EdgeInsets.only(
-                        left: screenWidth * 0.03, right: screenWidth * 0.03),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: screenWidth * 0.01,
-                        right: screenWidth * 0.02,
+                return Container(
+                  height: screenHeight,
+                  width: screenWidth,
+                  color: AppColors.editEmailColorPageBackground,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
-                      child: returnsFormConfirmUserTextsFields(state),
-                    )),
-              ],
-            ));
-      })));
+                      Container(
+                        decoration: returnsBoxDecorationForm(),
+                        height: heightFormConfirmUser,
+                        margin: EdgeInsets.only(
+                            left: screenWidth * 0.03,
+                            right: screenWidth * 0.03),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: screenWidth * 0.01,
+                            right: screenWidth * 0.02,
+                          ),
+                          child: returnsFormConfirmUserTextsFields(state),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
 
   returnsBoxDecorationForm() {
     return BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(AppSizes.size40)),
-        color: Colors.white,
-        border: Border.all(
-          color: AppColors.primaryColor,
-          width: 2,
-        ));
+      borderRadius: BorderRadius.all(Radius.circular(AppSizes.size40)),
+      color: AppColors.editEmailColorMainPageBackground,
+      border: Border.all(
+        color: AppColors.editEmailColorMainPageBorder,
+        width: AppSizes.size2,
+      ),
+    );
   }
 
   returnsFormConfirmUserTextsFields(EditEmailState state) {
@@ -99,15 +140,16 @@ class EditEmailPage extends StatelessWidget {
           child: Icon(
             Icons.mode_edit,
             size: AppSizes.size40,
-            color: AppColors.tertiaryColor,
+            color: AppColors.editEmailColorIconTitle,
           ),
         ),
         Expanded(
           flex: 2,
           child: Text(
-            "Edit Email Account",
+            AppTexts().editEmailPageTitle,
             style: TextStyle(
-                color: AppColors.tertiaryColor, fontSize: AppFontSize.s20),
+                color: AppColors.editEmailColorTitle,
+                fontSize: AppFontSize.s20),
           ),
         ),
       ],

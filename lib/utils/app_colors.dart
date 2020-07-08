@@ -75,10 +75,27 @@ class AppColors {
   static const Color editMyAccountPageMaterialButtonsOptionsBorderColor =
       AppColors.tertiaryColor;
 
-  //Colors Email or Password Page
+  //Colors Edit Email or Password Page
   static const Color
       editEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor =
       Colors.white;
   static const Color editEmailOrPasswordPageMaterialButtonsOptionsBorderColor =
       AppColors.tertiaryColor;
+
+  //Colors Edit Email Page
+  static const Color editEmailColorPageBackground = tertiaryColor;
+  static const Color editEmailColorMainPageBackground = Colors.white;
+  static const Color editEmailColorMainPageBorder = primaryColor;
+  static const Color editEmailColorIconTitle = tertiaryColor;
+  static const Color editEmailColorTextButtons = Colors.white;
+  static const Color editEmailColorButtons = tertiaryColor;
+  static const Color editEmailColorTitle = tertiaryColor;
+  static const Color editEmailColorMainHelperText = Colors.black87;
+  static const Color editEmailColorSufixIconPassword = tertiaryColor;
+  static const Color editEmailColorCursorTextField = secondaryColor;
+  static const Color editEmailColorHintTextField = secondaryColor;
+  static const Color editEmailColorPrefixIconTextField = tertiaryColor;
+  static const Color editEmailColorLabelTextField = tertiaryColor;
+  static const Color editEmailColorBorderTextField = secondaryColor;
+  static const Color editEmailColorBorderFocusedTextField = tertiaryColor;
 }

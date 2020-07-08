@@ -385,13 +385,9 @@ class HomePageState extends State<HomePage> {
   }
 
   navigationFunctionForMyAccountScreen() {
-    print("passou my account navigation");
-    Navigator.push(context,
-            new MaterialPageRoute(builder: (context) => MyAccountPage()))
-        .then((value) {
-      print("passou my account pause");
-      listenKeyboardVisibleOrNot.pause();
-    });
+    listenKeyboardVisibleOrNot.cancel();
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => MyAccountPage()));
   }
 
   navigationFunctionForMyAdsScreen() {
@@ -411,13 +407,7 @@ class HomePageState extends State<HomePage> {
     final UserRepository userRepository = UserRepository(
       userApiClient: UserApiClient(),
     );
-    /*AppRoutes.makeFirst(context, App(userRepository: userRepository)); */
-    print("passa na funcao de tezte");
-    Navigator.of(context).popUntil((predicate) => predicate.isFirst);
-    Navigator.of(context).pushReplacement(
-      new MaterialPageRoute(
-          builder: (context) => App(userRepository: userRepository)),
-    );
+    AppRoutes.makeFirst(context, App(userRepository: userRepository));
   }
 
   navigateToConversationScreen() {

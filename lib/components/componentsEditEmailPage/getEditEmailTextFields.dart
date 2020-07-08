@@ -17,35 +17,35 @@ class EditEmailTextsFields extends StatelessWidget {
   final Color hintTextColor;
   final Color prefixIconColor;
   final Color labelTextColor;
-  final Color defaultFormColor;
-  final Color focusedDefaultFormColor;
+  final Color borderColor;
+  final Color borderFocusedColor;
   final TextInputType keyboardType;
   final List<TextInputFormatter> inputFormatters;
   final TextInputAction textInputAction;
   final Function onFieldSubmitted;
 
-  const EditEmailTextsFields(
-      {Key key,
-      this.inputController,
-      this.labelText,
-      this.validator,
-      this.hintText,
-      this.obscureText = false,
-      this.prefixIcon,
-      this.helperText,
-      this.suffixIcon,
-      this.contentPadding,
-      this.cursorColor = AppColors.secondaryColor,
-      this.hintTextColor = AppColors.secondaryColor,
-      this.prefixIconColor = AppColors.tertiaryColor,
-      this.labelTextColor = AppColors.tertiaryColor,
-      this.defaultFormColor = AppColors.secondaryColor,
-      this.focusedDefaultFormColor = AppColors.tertiaryColor,
-      this.keyboardType,
-      this.inputFormatters,
-      this.textInputAction,
-      this.onFieldSubmitted})
-      : super(key: key);
+  const EditEmailTextsFields({
+    Key key,
+    this.inputController,
+    this.labelText,
+    this.validator,
+    this.hintText,
+    this.obscureText = false,
+    this.prefixIcon,
+    this.helperText,
+    this.suffixIcon,
+    this.contentPadding,
+    this.cursorColor = AppColors.editEmailColorCursorTextField,
+    this.hintTextColor = AppColors.editEmailColorHintTextField,
+    this.prefixIconColor = AppColors.editEmailColorPrefixIconTextField,
+    this.labelTextColor = AppColors.editEmailColorLabelTextField,
+    this.borderColor = AppColors.editEmailColorBorderTextField,
+    this.borderFocusedColor = AppColors.editEmailColorBorderFocusedTextField,
+    this.keyboardType,
+    this.inputFormatters,
+    this.textInputAction,
+    this.onFieldSubmitted,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +59,11 @@ class EditEmailTextsFields extends StatelessWidget {
 
     borderDefault(Color color) {
       return OutlineInputBorder(
-          borderSide: BorderSide(color: color, width: AppSizes.size4),
-          borderRadius: BorderRadius.all(Radius.circular(AppSizes.size30)));
+        borderSide: BorderSide(color: color, width: AppSizes.size4),
+        borderRadius: BorderRadius.all(
+          Radius.circular(AppSizes.size30),
+        ),
+      );
     }
 
     return TextFormField(
@@ -77,10 +80,10 @@ class EditEmailTextsFields extends StatelessWidget {
           hintStyle: TextStyle(
             color: hintTextColor,
           ),
-          enabledBorder: borderDefault(defaultFormColor),
-          focusedBorder: borderDefault(focusedDefaultFormColor),
-          errorBorder: borderDefault(defaultFormColor),
-          focusedErrorBorder: borderDefault(focusedDefaultFormColor),
+          enabledBorder: borderDefault(borderColor),
+          focusedBorder: borderDefault(borderFocusedColor),
+          errorBorder: borderDefault(borderColor),
+          focusedErrorBorder: borderDefault(borderFocusedColor),
           suffixIcon: suffixIcon,
         ),
         keyboardType: keyboardType,

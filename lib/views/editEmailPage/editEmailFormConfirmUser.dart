@@ -4,9 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/componentsEditEmailPage/componentsEditEmail.dart';
 import 'package:varied_rent/models/models.dart';
-import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/editEmailPage/editEmailPage.dart';
 
 class EditEmailFormConfirmUser extends StatefulWidget {
   final double heightFormConfirmUser;
@@ -19,8 +17,6 @@ class EditEmailFormConfirmUser extends StatefulWidget {
       EditEmailFormConfirmUserState(heightFormConfirmUser);
 }
 
-//TODO: nivel 4 - definir colors, texts e routes
-//FIXME: vivel 2 - textField quando seleciona, perde o foco
 class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
   double heightFormConfirmUser;
   final _emailController = TextEditingController();
@@ -36,29 +32,8 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
     heightOfTextFieldsAccordingToContainerSize = EdgeInsets.symmetric(
         vertical: (heightFormConfirmUser * 0.14) * 0.20,
         horizontal: (screenWidth * 0.94) * 0.04);
-    return BlocListener<EditEmailBloc, EditEmailState>(
-      listener: (context, state) {
-        if (state is EditEmailFailure) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-                content: Text('${state.error}'),
-                backgroundColor: Colors.red,
-                duration: Duration(seconds: 5)),
-          );
-        } else if (state is EditEmailConfirmedUser) {
-          final UserRepository userRepository = UserRepository(
-            userApiClient: UserApiClient(),
-          );
-          AppRoutes.push(
-              context,
-              EditEmailPage(
-                userRepository: userRepository,
-                editEmailForm: 2,
-              ));
-        }
-      },
-      child:
-          BlocBuilder<EditEmailBloc, EditEmailState>(builder: (context, state) {
+    return BlocBuilder<EditEmailBloc, EditEmailState>(
+      builder: (context, state) {
         return Form(
           key: _keyFormEditEmail,
           autovalidate: true,
@@ -84,17 +59,17 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
             ],
           ),
         );
-      }),
+      },
     );
   }
 
   Widget returnsAnHelperText() {
     return Text(
-      "Confirm your email and password to update your email",
+      AppTexts().confirmUserHelperText,
       textAlign: TextAlign.center,
       overflow: TextOverflow.clip,
       style: TextStyle(
-        color: Colors.black87,
+        color: AppColors.editEmailColorMainHelperText,
         fontSize: AppFontSize.s15,
       ),
     );
@@ -104,10 +79,10 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
     return EditEmailTextsFields(
       contentPadding: contentPadding,
       inputController: _emailController,
-      labelText: AppTexts().emailTextFieldLabelText,
-      hintText: AppTexts().hintTextFromEmailTextField,
+      labelText: AppTexts().confirmUserEmailLabelTextField,
+      hintText: AppTexts().confirmUserEmailHintTextField,
       prefixIcon: Icons.alternate_email,
-      helperText: AppTexts().emailTextFieldHelpText,
+      helperText: AppTexts().confirmUserEmailHelperTextField,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().emailFormFieldValidator,
@@ -118,10 +93,10 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
     return EditEmailTextsFields(
       contentPadding: contentPadding,
       inputController: _passwordController,
-      labelText: AppTexts().passwordTextFieldLabelText,
-      hintText: AppTexts().hintTextFromPasswordTextField,
+      labelText: AppTexts().confirmUserPasswordLabelTextField,
+      hintText: AppTexts().confirmUserPasswordHintTextField,
       prefixIcon: Icons.lock,
-      helperText: AppTexts().passwordTextFieldHelpText,
+      helperText: AppTexts().confirmUserPasswordHelperTextField,
       suffixIcon: returnsSuffixIconPasswordInput(),
       obscureText: _obscurePassword,
       validator: FieldValidators().passwordFormFieldValidator,
@@ -147,7 +122,7 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
     return EditEmailButtons(
       heightButton: heightButton,
       minWidthButton: widthButton,
-      textButton: "Confirmed user",
+      textButton: AppTexts().confirmUserTextButton,
       onPressed: () => functionVerifyAndConfirmUser(),
     );
   }

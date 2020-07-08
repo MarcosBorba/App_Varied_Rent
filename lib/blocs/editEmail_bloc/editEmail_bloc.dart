@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:varied_rent/blocs/blocs.dart';
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:varied_rent/models/models.dart';

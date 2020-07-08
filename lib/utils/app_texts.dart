@@ -175,4 +175,25 @@ class AppTexts {
   String navigationOptionSubTextToEditEmail = "Click to change user Email.";
   String navigationOptionSubTextToEditPassword =
       "Click to change user Password.";
+
+  //Edit Email Page texts
+  String editEmailPageTitle = "Edit Email Account";
+  String confirmUserHelperText =
+      "Confirm your email and password to update your email";
+  String confirmUserTextButton = "Confirm User";
+  String confirmUserEmailLabelTextField = "Email";
+  String confirmUserEmailHintTextField = "type your email";
+  String confirmUserEmailHelperTextField = "Ex: xxxx@email.com";
+  String confirmUserPasswordLabelTextField = "Password";
+  String confirmUserPasswordHintTextField = "type your password";
+  String confirmUserPasswordHelperTextField =
+      "Must have at least 8 characters (uppercase, lowercase and numbers)";
+  String confirmEditEmailHelperText = "Enter your new email and confirm";
+  String confirmEditEmailTextButton = "Confirm New Email";
+  String confirmEditNewEmailLabelTextField = "New Email";
+  String confirmEditNewEmailHintTextField = "Type your new email";
+  String confirmEditNewEmailHelperTextField = "Ex: xxxx@email.com";
+  String confirmEditConfirmNewEmailHintTextField = "Confirm Email";
+  String confirmEditConfirmNewEmailMessageErrorEmailsEquals =
+      "Error: Emails must be the same.";
 }
