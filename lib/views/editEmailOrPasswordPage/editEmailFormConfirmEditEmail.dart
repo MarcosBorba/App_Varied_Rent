@@ -2,37 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:varied_rent/blocs/blocs.dart';
-import 'package:varied_rent/components/componentsEditEmailPage/componentsEditEmail.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 class EditEmailFormConfirmEditEmail extends StatefulWidget {
   final double heightFormConfirmEditEmail;
+  final String editEmailHelperText;
 
   const EditEmailFormConfirmEditEmail(
-      {Key key, this.heightFormConfirmEditEmail})
-      : super(key: key);
+      {Key key,
+      @required this.heightFormConfirmEditEmail,
+      @required this.editEmailHelperText})
+      : assert(heightFormConfirmEditEmail != null),
+        assert(editEmailHelperText != null),
+        super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      EditEmailFormConfirmEditEmailState(heightFormConfirmEditEmail);
+  State<StatefulWidget> createState() => EditEmailFormConfirmEditEmailState(
+      heightFormConfirmEditEmail, editEmailHelperText);
 }
 
 class EditEmailFormConfirmEditEmailState
     extends State<EditEmailFormConfirmEditEmail> {
   double heightFormConfirmEditEmail;
+  String editEmailHelperText;
   final _newEmailController = TextEditingController();
   final _newEmailConfirmController = TextEditingController();
   final GlobalKey<FormState> _keyFormEditEmail = new GlobalKey();
   EdgeInsetsGeometry heightOfTextFieldsAccordingToContainerSize;
 
-  EditEmailFormConfirmEditEmailState(this.heightFormConfirmEditEmail);
+  EditEmailFormConfirmEditEmailState(
+      this.heightFormConfirmEditEmail, this.editEmailHelperText);
 
   @override
   Widget build(BuildContext context) {
     heightOfTextFieldsAccordingToContainerSize = EdgeInsets.symmetric(
         vertical: (heightFormConfirmEditEmail * 0.14) * 0.20,
         horizontal: (screenWidth * 0.94) * 0.04);
-    return BlocBuilder<EditEmailBloc, EditEmailState>(
+    return BlocBuilder<EditEmailAndPasswordBloc, EditEmailAndPasswordState>(
       builder: (context, state) {
         return Form(
           key: _keyFormEditEmail,
@@ -42,7 +49,7 @@ class EditEmailFormConfirmEditEmailState
               SizedBox(
                 height: heightFormConfirmEditEmail * 0.10,
                 width: screenWidth * 0.80,
-                child: returnsAnEditEmailHelperText(),
+                child: returnsAnEditEmailHelperText(editEmailHelperText),
               ),
               Container(
                 height: heightFormConfirmEditEmail * 0.20,
@@ -63,9 +70,9 @@ class EditEmailFormConfirmEditEmailState
     );
   }
 
-  Widget returnsAnEditEmailHelperText() {
+  Widget returnsAnEditEmailHelperText(String emailHelperText) {
     return Text(
-      AppTexts().confirmEditEmailHelperText,
+      emailHelperText,
       textAlign: TextAlign.center,
       overflow: TextOverflow.clip,
       style: TextStyle(
@@ -93,7 +100,7 @@ class EditEmailFormConfirmEditEmailState
     return EditEmailTextsFields(
       contentPadding: contentPadding,
       inputController: _newEmailConfirmController,
-      labelText: AppTexts().confirmEditConfirmNewEmailHintTextField,
+      labelText: AppTexts().confirmEditConfirmNewEmailLabelTextField,
       hintText: AppTexts().confirmEditNewEmailHintTextField,
       prefixIcon: Icons.alternate_email,
       helperText: AppTexts().confirmEditNewEmailHelperTextField,
@@ -119,8 +126,8 @@ class EditEmailFormConfirmEditEmailState
 
   functionVerifyAndConfirmEditEmail() {
     _keyFormEditEmail.currentState.validate()
-        ? BlocProvider.of<EditEmailBloc>(context).add(
-            EditEmailButtonConfirmEditEmailPressed(
+        ? BlocProvider.of<EditEmailAndPasswordBloc>(context).add(
+            ConfirmEmailEditButtonPressed(
               newEmail: _newEmailController.text,
               newEmailConfirmed: _newEmailConfirmController.text,
             ),

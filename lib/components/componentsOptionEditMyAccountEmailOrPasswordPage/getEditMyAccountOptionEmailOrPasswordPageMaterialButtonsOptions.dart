@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 
-class EditEmailOrPasswordPageMaterialButtonsOptions extends StatelessWidget {
+class EditOptionEmailOrPasswordPageMaterialButtonsOptions
+    extends StatelessWidget {
   final Color buttonColor;
   final Color borderColor;
   final double elevation;
@@ -16,7 +17,7 @@ class EditEmailOrPasswordPageMaterialButtonsOptions extends StatelessWidget {
   final double heightButton;
   final double widthButton;
 
-  const EditEmailOrPasswordPageMaterialButtonsOptions({
+  const EditOptionEmailOrPasswordPageMaterialButtonsOptions({
     Key key,
     this.buttonColor =
         AppColors.editEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor,

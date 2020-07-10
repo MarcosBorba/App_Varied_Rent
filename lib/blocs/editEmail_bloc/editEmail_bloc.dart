@@ -8,21 +8,23 @@ import 'package:varied_rent/repositories/repositories.dart';
 part 'editEmail_event.dart';
 part 'editEmail_state.dart';
 
-class EditEmailBloc extends Bloc<EditEmailEvent, EditEmailState> {
+class EditEmailAndPasswordBloc
+    extends Bloc<EditEmailAndPasswordEvents, EditEmailAndPasswordState> {
   final UserRepository userRepository;
 
-  EditEmailBloc({@required this.userRepository})
+  EditEmailAndPasswordBloc({@required this.userRepository})
       : assert(userRepository != null);
 
   SharedPref sharedPref = SharedPref();
 
   @override
-  get initialState => EditEmailInitial();
+  get initialState => EditInitialData();
 
   @override
-  Stream<EditEmailState> mapEventToState(EditEmailEvent event) async* {
-    if (event is EditEmailButtonConfirmUserPressed) {
-      yield EditEmailLoading();
+  Stream<EditEmailAndPasswordState> mapEventToState(
+      EditEmailAndPasswordEvents event) async* {
+    if (event is EmailButtonConfirmUserPressed) {
+      yield LoadingDataEditing();
       try {
         String token = await sharedPref.read('token');
         await checkConfirmEmailIsEqualEmailLoggin(event.user.email);
@@ -30,24 +32,53 @@ class EditEmailBloc extends Bloc<EditEmailEvent, EditEmailState> {
         yield EditEmailConfirmedUser();
       } catch (error) {
         if (error is DioError) {
-          yield EditEmailFailure(error: error.message);
+          yield FailureDataEditing(error: error.message);
         } else {
-          yield EditEmailFailure(error: "500 - Internal Server Error");
+          yield FailureDataEditing(error: "500 - Internal Server Error");
         }
       }
-    } else if (event is EditEmailButtonConfirmEditEmailPressed) {
-      yield EditEmailLoading();
+    } else if (event is PasswordButtonConfirmUserPressed) {
+      yield LoadingDataEditing();
+      try {
+        String token = await sharedPref.read('token');
+        await checkConfirmEmailIsEqualEmailLoggin(event.user.email);
+        await userRepository.userCheckUserRepository(event.user, token);
+        yield EditPasswordConfirmedUser();
+      } catch (error) {
+        if (error is DioError) {
+          yield FailureDataEditing(error: error.message);
+        } else {
+          yield FailureDataEditing(error: "500 - Internal Server Error");
+        }
+      }
+    } else if (event is ConfirmEmailEditButtonPressed) {
+      yield LoadingDataEditing();
       try {
         String token = await sharedPref.read('token');
         String oldEmail = await sharedPref.read('email');
         await userRepository.userUpdateEmailRepository(
             oldEmail, event.newEmail, event.newEmailConfirmed, token);
-        yield EditEmailSuccessfullyConcluded();
+        yield DataSuccessfullyEdited();
       } catch (error) {
         if (error is DioError) {
-          yield EditEmailFailure(error: error.message);
+          yield FailureDataEditing(error: error.message);
         } else {
-          yield EditEmailFailure(error: "500 - Internal Server Error");
+          yield FailureDataEditing(error: "500 - Internal Server Error");
+        }
+      }
+    } else if (event is ConfirmPasswordEditButtonPressed) {
+      yield LoadingDataEditing();
+      try {
+        String token = await sharedPref.read('token');
+        String oldEmail = await sharedPref.read('email');
+        await userRepository.userUpdatePasswordRepository(
+            oldEmail, event.newPassword, event.newPasswordConfirmed, token);
+        yield DataSuccessfullyEdited();
+      } catch (error) {
+        if (error is DioError) {
+          yield FailureDataEditing(error: error.message);
+        } else {
+          yield FailureDataEditing(error: "500 - Internal Server Error");
         }
       }
     }

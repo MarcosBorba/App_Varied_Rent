@@ -1,26 +1,26 @@
 part of 'editEmail_bloc.dart';
 
-abstract class EditEmailState extends Equatable {
-  const EditEmailState();
+abstract class EditEmailAndPasswordState extends Equatable {
+  const EditEmailAndPasswordState();
 
   @override
   List<Object> get props => [];
 }
 
 //EditEmailInitial é o estado inicial do EditEmailForm.
-class EditEmailInitial extends EditEmailState {}
+class EditInitialData extends EditEmailAndPasswordState {}
 
-class EditEmailSuccessfullyConcluded extends EditEmailState {
-  const EditEmailSuccessfullyConcluded();
+class DataSuccessfullyEdited extends EditEmailAndPasswordState {
+  const DataSuccessfullyEdited();
 
   @override
   List<Object> get props => [];
 
   @override
-  String toString() => 'EditEmailSuccessfullyConcluded';
+  String toString() => 'DataSuccessfullyEdited';
 }
 
-class EditEmailConfirmedUser extends EditEmailState {
+class EditEmailConfirmedUser extends EditEmailAndPasswordState {
   const EditEmailConfirmedUser();
 
   @override
@@ -30,18 +30,28 @@ class EditEmailConfirmedUser extends EditEmailState {
   String toString() => 'EditEmailConfirmedUser';
 }
 
+class EditPasswordConfirmedUser extends EditEmailAndPasswordState {
+  const EditPasswordConfirmedUser();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'EditPasswordConfirmedUser';
+}
+
 //EditEmailLoading é o estado do EditEmailForm quando validamos credenciais
-class EditEmailLoading extends EditEmailState {}
+class LoadingDataEditing extends EditEmailAndPasswordState {}
 
 //EditEmailFailure é o estado do EditEmailForm quando uma tentativa de editar o email falha falha.
-class EditEmailFailure extends EditEmailState {
+class FailureDataEditing extends EditEmailAndPasswordState {
   final String error;
 
-  const EditEmailFailure({@required this.error});
+  const FailureDataEditing({@required this.error});
 
   @override
   List<Object> get props => [error];
 
   @override
-  String toString() => 'EditEmailFailure { error: $error }';
+  String toString() => 'FailureDataEditing { error: $error }';
 }

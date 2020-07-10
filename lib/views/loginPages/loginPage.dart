@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:varied_rent/components/componentsLogin/getFlatButtonToLogInAsAVisitor.dart';
-import 'package:varied_rent/components/componentsLogin/getInitialImage.dart';
-import 'package:varied_rent/repositories/repositories.dart';
 
-import 'package:varied_rent/blocs/authentication_bloc/authentication.dart';
+import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/blocs/blocs.dart';
-import 'package:varied_rent/utils/app_colors.dart';
-import 'package:varied_rent/utils/app_routes.dart';
-import 'package:varied_rent/utils/app_sizes.dart';
-import 'package:varied_rent/utils/app_texts.dart';
+import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
 import 'package:varied_rent/views/loginPages/loginForm.dart';
 

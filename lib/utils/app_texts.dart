@@ -179,7 +179,7 @@ class AppTexts {
   //Edit Email Page texts
   String editEmailPageTitle = "Edit Email Account";
   String confirmUserHelperText =
-      "Confirm your email and password to update your email";
+      "Confirm your email and password to update your die";
   String confirmUserTextButton = "Confirm User";
   String confirmUserEmailLabelTextField = "Email";
   String confirmUserEmailHintTextField = "type your email";
@@ -193,7 +193,16 @@ class AppTexts {
   String confirmEditNewEmailLabelTextField = "New Email";
   String confirmEditNewEmailHintTextField = "Type your new email";
   String confirmEditNewEmailHelperTextField = "Ex: xxxx@email.com";
-  String confirmEditConfirmNewEmailHintTextField = "Confirm Email";
+  String confirmEditConfirmNewEmailLabelTextField = "Confirm Email";
   String confirmEditConfirmNewEmailMessageErrorEmailsEquals =
       "Error: Emails must be the same.";
+  String confirmEditPasswordHelperText = "Enter your new password and confirm";
+  String confirmEditPasswordTextButton = "Confirm New Password";
+  String confirmEditNewPasswordLabelTextField = "New Password";
+  String confirmEditNewPasswordHintTextField = "Type your new password";
+  String confirmEditConfirmNewPasswordLabelTextField = "Confirm Password";
+  String confirmEditNewPasswordHelperTextField =
+      "Must have at least 8 characters (uppercase, lowercase and numbers)";
+  String confirmEditConfirmNewPasswordMessageErrorEmailsEquals =
+      "Error: Passwords must be the same.";
 }

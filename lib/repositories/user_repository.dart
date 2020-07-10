@@ -15,16 +15,22 @@ class UserRepository {
   }
 
   Future userSignupRepository(User dataToCreateUser) async {
-    return await userApiClient.signup(dataToCreateUser);
+    await userApiClient.signup(dataToCreateUser);
   }
 
   Future userCheckUserRepository(User user, String token) async {
-    return await userApiClient.checkUser(user, token);
+    await userApiClient.checkUser(user, token);
   }
 
   Future userUpdateEmailRepository(String oldEmail, String newEmail,
       String newEmailConfirmed, String token) async {
-    return await userApiClient.updateEmailUser(
+    await userApiClient.updateEmailUser(
         oldEmail, newEmail, newEmailConfirmed, token);
+  }
+
+  Future userUpdatePasswordRepository(String oldEmail, String newPassword,
+      String newPasswordConfirmed, String token) async {
+    await userApiClient.updatePasswordUser(
+        oldEmail, newPassword, newPasswordConfirmed, token);
   }
 }

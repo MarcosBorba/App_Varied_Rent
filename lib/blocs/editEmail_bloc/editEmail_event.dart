@@ -1,24 +1,35 @@
 part of 'editEmail_bloc.dart';
 
-abstract class EditEmailEvent extends Equatable {
-  const EditEmailEvent();
+abstract class EditEmailAndPasswordEvents extends Equatable {
+  const EditEmailAndPasswordEvents();
 }
 
-class EditEmailButtonConfirmUserPressed extends EditEmailEvent {
+class EmailButtonConfirmUserPressed extends EditEmailAndPasswordEvents {
   final User user;
-  const EditEmailButtonConfirmUserPressed({@required this.user});
+  const EmailButtonConfirmUserPressed({@required this.user});
 
   @override
   List<Object> get props => [user];
 
   @override
-  String toString() => 'EditEmailButtonConfirmUserPressed { user: $user}';
+  String toString() => 'EmailButtonConfirmUserPressed { user: $user}';
 }
 
-class EditEmailButtonConfirmEditEmailPressed extends EditEmailEvent {
+class PasswordButtonConfirmUserPressed extends EditEmailAndPasswordEvents {
+  final User user;
+  const PasswordButtonConfirmUserPressed({@required this.user});
+
+  @override
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'PasswordButtonConfirmUserPressed { user: $user}';
+}
+
+class ConfirmEmailEditButtonPressed extends EditEmailAndPasswordEvents {
   final String newEmail;
   final String newEmailConfirmed;
-  const EditEmailButtonConfirmEditEmailPressed(
+  const ConfirmEmailEditButtonPressed(
       {@required this.newEmail, @required this.newEmailConfirmed});
 
   @override
@@ -26,5 +37,19 @@ class EditEmailButtonConfirmEditEmailPressed extends EditEmailEvent {
 
   @override
   String toString() =>
-      'EditEmailButtonConfirmEditEmailPressed - newEmail: { $newEmail } newEmailConfirmed: { $newEmailConfirmed }';
+      'ConfirmEmailEditButtonPressed - newEmail: { $newEmail } newEmailConfirmed: { $newEmailConfirmed }';
+}
+
+class ConfirmPasswordEditButtonPressed extends EditEmailAndPasswordEvents {
+  final String newPassword;
+  final String newPasswordConfirmed;
+  const ConfirmPasswordEditButtonPressed(
+      {@required this.newPassword, @required this.newPasswordConfirmed});
+
+  @override
+  List<Object> get props => [newPassword, newPasswordConfirmed];
+
+  @override
+  String toString() =>
+      'ConfirmPasswordEditButtonPressed - newPassword: { $newPassword } newPasswordConfirmed: { $newPasswordConfirmed }';
 }

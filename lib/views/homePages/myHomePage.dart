@@ -12,17 +12,11 @@ import 'package:fluttericon/linecons_icons.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 
 import 'package:varied_rent/blocs/authentication_bloc/authentication.dart';
-import 'package:varied_rent/components/componentsHomePage/getHomePageFFNavigationBar.dart';
-import 'package:varied_rent/components/componentsHomePage/getHomePageMaterialButtonsCategories.dart';
-import 'package:varied_rent/components/componentsHomePage/getHomePageMenuListTiles.dart';
-import 'package:varied_rent/components/componentsHomePage/getHomePageSearchTextField.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:varied_rent/main.dart';
 import 'package:varied_rent/repositories/repositories.dart';
-import 'package:varied_rent/utils/app_colors.dart';
-import 'package:varied_rent/utils/app_routes.dart';
-import 'package:varied_rent/utils/app_sizes.dart';
-import 'package:varied_rent/utils/app_texts.dart';
+import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAccountPage/myAccountPage.dart';
 
 //TODO: nivel - 4 depois de criar outras telas, adicionar a navegacao de cada uma

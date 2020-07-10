@@ -5,25 +5,16 @@ import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/modern_pictograms_icons.dart';
 
 import 'package:varied_rent/blocs/blocs.dart';
-import 'package:varied_rent/components/componentsSipnup/getSignupDropDownButtonSelectors.dart';
-import 'package:varied_rent/components/componentsSipnup/getSignupMainButtons.dart';
-import 'package:varied_rent/components/componentsSipnup/getSignupTextFields.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
-import 'package:varied_rent/models/phones.dart';
 import 'package:varied_rent/repositories/repositories.dart';
-import 'package:varied_rent/utils/app_colors.dart';
-import 'package:varied_rent/utils/app_routes.dart';
-import 'package:varied_rent/utils/app_sizes.dart';
-import 'package:varied_rent/utils/app_text_sizes.dart';
-import 'package:varied_rent/utils/app_texts.dart';
-import 'package:varied_rent/utils/textInputFormatterShifterPluginMofify.dart';
-import 'package:varied_rent/utils/validators.dart';
+import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/SignupPages/signupPage.dart';
 
 class SignupForm2 extends StatefulWidget {
   final User user;
 
-  const SignupForm2({Key key,@required this.user}) : super(key: key);
+  const SignupForm2({Key key, @required this.user}) : super(key: key);
 
   @override
   State<SignupForm2> createState() => _SignupForm2State(userTransition: user);

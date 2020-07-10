@@ -1,22 +1,20 @@
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:varied_rent/components/componentsEditMyAccountEmailOrPasswordPage/getEditMyAccountEmailOrPasswordPageFFBottomNavigationBar.dart';
-import 'package:varied_rent/components/componentsEditMyAccountEmailOrPasswordPage/getEditMyAccountEmailOrPasswordPageMaterialButtonsOptions.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/repositories/repositories.dart';
-import 'package:varied_rent/utils/app_routes.dart';
-import 'package:varied_rent/utils/app_sizes.dart';
-import 'package:varied_rent/utils/app_texts.dart';
-import 'package:varied_rent/views/editEmailPage/editEmailPage.dart';
+import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/editEmailOrPasswordPage/moldEditEmailOrPasswordPage.dart';
 
-class EditEmailOrPasswordPage extends StatefulWidget {
+class OptionEditEmailOrPasswordPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => EditEmailOrPasswordPageState();
+  State<StatefulWidget> createState() => OptionEditEmailOrPasswordPageState();
 }
 
-//TODO: nivel 4 - definir rotas widgets
+//TODO: nivel 4 - definir textos e rotas dos widgets
 //email
 //password
-class EditEmailOrPasswordPageState extends State<EditEmailOrPasswordPage> {
+class OptionEditEmailOrPasswordPageState
+    extends State<OptionEditEmailOrPasswordPage> {
   int navigationBarBottomIndex = 0;
   double heightBodyScaffold = screenHeight - AppSizes.size60 - statusBarHeight;
 
@@ -30,31 +28,38 @@ class EditEmailOrPasswordPageState extends State<EditEmailOrPasswordPage> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                EditEmailOrPasswordPageMaterialButtonsOptions(
+                EditOptionEmailOrPasswordPageMaterialButtonsOptions(
                   heightButton: heightBodyScaffold * 0.25,
                   widthButton: screenWidth,
                   icon: Icons.email,
                   title: AppTexts().navigationOptionTextToEditEmail,
                   subTitle: AppTexts().navigationOptionSubTextToEditEmail,
-                  onPressed: () => navigatesToTheEditEmailScreen(),
+                  onPressed: () => navigatesToTheEditEmailOrPasswordScreen(
+                      "Edit Email Account", "Email"),
                 ),
-                EditEmailOrPasswordPageMaterialButtonsOptions(
+                EditOptionEmailOrPasswordPageMaterialButtonsOptions(
                   heightButton: heightBodyScaffold * 0.25,
                   widthButton: screenWidth,
                   icon: Icons.lock,
                   title: AppTexts().navigationOptionTextToEditPassword,
                   subTitle: AppTexts().navigationOptionSubTextToEditPassword,
-                  onPressed: () => navigatesToTheEditPasswordScreen(),
+                  onPressed: () => navigatesToTheEditEmailOrPasswordScreen(
+                      "Edit Password Account", "Password"),
                 )
               ])),
-      bottomNavigationBar: EditMyAccountEmailOrPasswordPageFFNavigationBar(
+      bottomNavigationBar:
+          EditMyAccountOptionEmailOrPasswordPageFFNavigationBar(
         selectedIndex: navigationBarBottomIndex,
         onSelectTab: (index) {
           setState(() {
             navigationBarBottomIndex = index;
             index == 0
-                ? navigatesToTheEditEmailScreen()
-                : index == 1 ? navigatesToTheEditPasswordScreen() : false;
+                ? navigatesToTheEditEmailOrPasswordScreen(
+                    "Edit Email Account", "Email")
+                : index == 1
+                    ? navigatesToTheEditEmailOrPasswordScreen(
+                        "Edit Password Account", "Password")
+                    : false;
           });
         },
         bottomNavyBarItems: listBottomFFNavigationBarItems(),
@@ -76,19 +81,18 @@ class EditEmailOrPasswordPageState extends State<EditEmailOrPasswordPage> {
     return fFNavigationBarItem;
   }
 
-  navigatesToTheEditEmailScreen() {
+  navigatesToTheEditEmailOrPasswordScreen(
+      String titlePage, String dataThatWillEdit) {
     UserRepository userRepository = UserRepository(
       userApiClient: UserApiClient(),
     );
     AppRoutes.push(
         context,
-        EditEmailPage(
+        MoldEditEmailOrPassword(
           userRepository: userRepository,
-          editEmailForm: 1,
+          editEmailForm: "ConfirmUser",
+          titlePage: titlePage,
+          dataThatWillEdit: dataThatWillEdit,
         ));
-  }
-
-  navigatesToTheEditPasswordScreen() {
-    print("navega para tela de editar senha");
   }
 }

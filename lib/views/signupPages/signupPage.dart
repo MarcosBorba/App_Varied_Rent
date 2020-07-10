@@ -4,9 +4,7 @@ import 'package:varied_rent/models/models.dart';
 
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/blocs/blocs.dart';
-import 'package:varied_rent/utils/app_colors.dart';
-import 'package:varied_rent/utils/app_sizes.dart';
-import 'package:varied_rent/utils/app_text_sizes.dart';
+import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/SignupPages/signupForm1.dart';
 import 'package:varied_rent/views/SignupPages/signupForm2.dart';
 import 'package:varied_rent/views/SignupPages/signupForm3Submit.dart';

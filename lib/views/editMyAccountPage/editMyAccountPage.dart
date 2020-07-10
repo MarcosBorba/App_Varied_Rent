@@ -2,12 +2,9 @@ import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:varied_rent/components/componentsEditMyAccountPage/getEditMyAccountPageFFBottomNavigationBar.dart';
-import 'package:varied_rent/components/componentsEditMyAccountPage/getEditMyAccountPageMaterialButtonsOptions.dart';
-import 'package:varied_rent/utils/app_routes.dart';
-import 'package:varied_rent/utils/app_sizes.dart';
-import 'package:varied_rent/utils/app_texts.dart';
-import 'package:varied_rent/views/editEmailOrPasswordPage/editEmailOrPasswordPage.dart';
+import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/optionEditEmailOrPasswordPage/optionEditEmailOrPasswordPage.dart';
 
 class EditMyAccountPage extends StatefulWidget {
   @override
@@ -107,7 +104,7 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
 
   navigatesToTheEditAccountDataScreen() {
     print("navega para tela de editar email e senha");
-    AppRoutes.push(context, EditEmailOrPasswordPage());
+    AppRoutes.push(context, OptionEditEmailOrPasswordPage());
   }
 
   navigatesToTheEditProfileDataScreen() {

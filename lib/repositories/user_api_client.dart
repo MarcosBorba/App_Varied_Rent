@@ -67,11 +67,8 @@ class UserApiClient {
     final userCheckUserUrl = '$baseUrl/check_user';
     final data = dataToCreateUser.userLogintoJson();
     try {
-      dio.options.headers['x-access-token'] = token;
-      await dio.post(
-        userCheckUserUrl,
-        data: data,
-      );
+      await dio.post(userCheckUserUrl,
+          data: data, options: Options(headers: {'x-access-token': token}));
     } catch (e) {
       if (e is DioError) {
         if (e.response == null) {
@@ -95,10 +92,38 @@ class UserApiClient {
       "newEmailConfirmed": newEmailConfirmed
     };
     try {
-      dio.options.headers['x-access-token'] = token;
       await dio.put(
         userCheckUserUrl,
         data: data,
+        options: Options(headers: {'x-access-token': token}),
+      );
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: e.response.statusCode.toString() +
+                  " - " +
+                  e.response.data['message']);
+        }
+      }
+    }
+  }
+
+  Future updatePasswordUser(String oldEmail, String newPassword,
+      String newPasswordConfirmed, String token) async {
+    final userCheckUserUrl = '$baseUrl/update_password';
+    final Map<String, String> data = {
+      "oldEmail": oldEmail,
+      "newPassword": newPassword,
+      "newPasswordConfirmed": newPasswordConfirmed
+    };
+    try {
+      await dio.put(
+        userCheckUserUrl,
+        data: data,
+        options: Options(headers: {'x-access-token': token}),
       );
     } catch (e) {
       if (e is DioError) {

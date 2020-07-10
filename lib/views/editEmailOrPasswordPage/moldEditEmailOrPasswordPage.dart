@@ -5,29 +5,40 @@ import 'package:varied_rent/main.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/editEmailPage/editEmailFormConfirmEditEmail.dart';
-import 'package:varied_rent/views/editEmailPage/editEmailFormConfirmUser.dart';
+import 'package:varied_rent/views/editEmailOrPasswordPage/editEmailFormConfirmEditEmail.dart';
+import 'package:varied_rent/views/editEmailOrPasswordPage/editFormConfirmUser.dart';
+import 'package:varied_rent/views/editEmailOrPasswordPage/editPasswordFormConfirmEditPassword.dart';
 
-class EditEmailPage extends StatelessWidget {
+//TODO: nivel 4 - definir textos
+class MoldEditEmailOrPassword extends StatelessWidget {
   final UserRepository userRepository;
-  final int editEmailForm;
+  final String editEmailForm;
+  final String titlePage;
+  final String dataThatWillEdit;
   final double containerBorderWidth = (screenWidth * 0.94) * 0.01;
   final double heightFormConfirmUser = screenHeight * 0.92;
 
-  EditEmailPage({Key key, this.userRepository, @required this.editEmailForm})
-      : assert(userRepository != null),
+  MoldEditEmailOrPassword({
+    Key key,
+    @required this.userRepository,
+    @required this.editEmailForm,
+    @required this.titlePage,
+    this.dataThatWillEdit,
+  })  : assert(userRepository != null),
         assert(editEmailForm != null),
+        assert(titlePage != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BlocProvider(
           create: (context) {
-            return EditEmailBloc(userRepository: userRepository);
+            return EditEmailAndPasswordBloc(userRepository: userRepository);
           },
-          child: BlocListener<EditEmailBloc, EditEmailState>(
+          child:
+              BlocListener<EditEmailAndPasswordBloc, EditEmailAndPasswordState>(
             listener: (context, state) {
-              if (state is EditEmailFailure) {
+              if (state is FailureDataEditing) {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
                     content: Text('${state.error}'),
@@ -41,12 +52,25 @@ class EditEmailPage extends StatelessWidget {
                 );
                 AppRoutes.push(
                   context,
-                  EditEmailPage(
+                  MoldEditEmailOrPassword(
                     userRepository: userRepository,
-                    editEmailForm: 2,
+                    editEmailForm: "ConfirmEditEmail",
+                    titlePage: titlePage,
                   ),
                 );
-              } else if (state is EditEmailSuccessfullyConcluded) {
+              } else if (state is EditPasswordConfirmedUser) {
+                final UserRepository userRepository = UserRepository(
+                  userApiClient: UserApiClient(),
+                );
+                AppRoutes.push(
+                  context,
+                  MoldEditEmailOrPassword(
+                    userRepository: userRepository,
+                    editEmailForm: "ConfirmEditPassword",
+                    titlePage: titlePage,
+                  ),
+                );
+              } else if (state is DataSuccessfullyEdited) {
                 BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
                 final UserRepository userRepository = UserRepository(
                   userApiClient: UserApiClient(),
@@ -55,7 +79,8 @@ class EditEmailPage extends StatelessWidget {
                     context, App(userRepository: userRepository));
               }
             },
-            child: BlocBuilder<EditEmailBloc, EditEmailState>(
+            child: BlocBuilder<EditEmailAndPasswordBloc,
+                EditEmailAndPasswordState>(
               builder: (context, state) {
                 return Container(
                   height: screenHeight,
@@ -101,7 +126,7 @@ class EditEmailPage extends StatelessWidget {
     );
   }
 
-  returnsFormConfirmUserTextsFields(EditEmailState state) {
+  returnsFormConfirmUserTextsFields(EditEmailAndPasswordState state) {
     return Column(
       children: <Widget>[
         SizedBox(
@@ -119,13 +144,25 @@ class EditEmailPage extends StatelessWidget {
         SizedBox(
           height: heightFormConfirmUser * 0.10,
         ),
-        editEmailForm == 1
+        editEmailForm == "ConfirmUser"
             ? EditEmailFormConfirmUser(
-                heightFormConfirmUser: heightFormConfirmUser)
-            : editEmailForm == 2
+                heightFormConfirmUser: heightFormConfirmUser,
+                titlePasswordHelperText: AppTexts().confirmUserHelperText,
+                dataThatWillEdit: dataThatWillEdit,
+                state: state,
+              )
+            : editEmailForm == "ConfirmEditEmail"
                 ? EditEmailFormConfirmEditEmail(
-                    heightFormConfirmEditEmail: heightFormConfirmUser)
-                : false
+                    heightFormConfirmEditEmail: heightFormConfirmUser,
+                    editEmailHelperText: AppTexts().confirmEditEmailHelperText,
+                  )
+                : editEmailForm == "ConfirmEditPassword"
+                    ? EditPasswordFormConfirmEditPassword(
+                        heightFormConfirmEditPassword: heightFormConfirmUser,
+                        editPasswordHelperText:
+                            AppTexts().confirmEditPasswordHelperText,
+                      )
+                    : false
       ],
     );
   }
@@ -146,10 +183,12 @@ class EditEmailPage extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Text(
-            AppTexts().editEmailPageTitle,
+            titlePage,
+            textAlign: TextAlign.center,
             style: TextStyle(
-                color: AppColors.editEmailColorTitle,
-                fontSize: AppFontSize.s20),
+              color: AppColors.editEmailColorTitle,
+              fontSize: AppFontSize.s20,
+            ),
           ),
         ),
       ],

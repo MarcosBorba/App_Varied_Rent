@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 
-class EditMyAccountEmailOrPasswordPageFFNavigationBar extends StatelessWidget {
+class EditMyAccountOptionEmailOrPasswordPageFFNavigationBar
+    extends StatelessWidget {
   final Color barBackgroundColor;
   final Color selectedItemBorderColor;
   final Color selectedItemBackgroundColor;
@@ -18,7 +19,7 @@ class EditMyAccountEmailOrPasswordPageFFNavigationBar extends StatelessWidget {
   final Function onSelectTab;
   final int selectedIndex;
 
-  const EditMyAccountEmailOrPasswordPageFFNavigationBar({
+  const EditMyAccountOptionEmailOrPasswordPageFFNavigationBar({
     Key key,
     this.bottomNavyBarItems,
     this.onSelectTab,
