@@ -19,6 +19,8 @@ class LoginTextsFields extends StatelessWidget {
   final Color defaultFormColor;
   final Color focusedDefaultFormColor;
   final TextInputType keyboardType;
+  final TextInputAction textInputAction;
+  final Function onFieldSubmitted;
 
   const LoginTextsFields(
       {Key key,
@@ -36,17 +38,22 @@ class LoginTextsFields extends StatelessWidget {
       this.prefixIconColor = AppColors.tertiaryColor,
       this.labelTextColor = AppColors.tertiaryColor,
       this.defaultFormColor = AppColors.secondaryColor,
-      this.focusedDefaultFormColor = AppColors.tertiaryColor, 
-      this.keyboardType})
+      this.focusedDefaultFormColor = AppColors.tertiaryColor,
+      this.keyboardType,
+      this.textInputAction,
+      this.onFieldSubmitted})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    verifyPrefixIcon(){
-        var turnBack;
-        prefixIcon == null ? turnBack = null: turnBack = Icon(prefixIcon, color: prefixIconColor);
-        return turnBack;
-      }
+    verifyPrefixIcon() {
+      var turnBack;
+      prefixIcon == null
+          ? turnBack = null
+          : turnBack = Icon(prefixIcon, color: prefixIconColor);
+      return turnBack;
+    }
+
     borderDefault(Color color) {
       return OutlineInputBorder(
           borderSide: BorderSide(color: color, width: AppSizes.size4),
@@ -74,6 +81,8 @@ class LoginTextsFields extends StatelessWidget {
         suffixIcon: suffixIcon,
       ),
       keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText,
       cursorColor: cursorColor,
       controller: inputController,

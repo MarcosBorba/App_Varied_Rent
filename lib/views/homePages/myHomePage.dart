@@ -25,7 +25,6 @@ import 'package:varied_rent/views/myAccountPage/myAccountPage.dart';
 //todas categorias
 //chat
 //buscas - colocar controller para pesquisa
-//minha conta
 //meus anuncios
 //favoritos
 

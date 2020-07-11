@@ -5,7 +5,6 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: definir cores, textos, rotas, validadores..., colocar progress no botao
 class EditEmailFormConfirmEditEmail extends StatefulWidget {
   final double heightFormConfirmEditEmail;
   final String editEmailHelperText;
@@ -31,6 +30,9 @@ class EditEmailFormConfirmEditEmailState
   final _newEmailConfirmController = TextEditingController();
   final GlobalKey<FormState> _keyFormEditEmail = new GlobalKey();
   EdgeInsetsGeometry heightOfTextFieldsAccordingToContainerSize;
+  final double heightLinearProgressLoading =
+      ((screenHeight * 0.65) * 0.11) * 0.15;
+  final double widthLinearProgressLoading = (screenWidth * 0.94) * 0.94;
 
   EditEmailFormConfirmEditEmailState(
       this.heightFormConfirmEditEmail, this.editEmailHelperText);
@@ -62,8 +64,16 @@ class EditEmailFormConfirmEditEmailState
                 child: returnsAnConfirmEmailInput(
                     heightOfTextFieldsAccordingToContainerSize),
               ),
-              returnsButtonConfirmEditEmail(
-                  heightFormConfirmEditEmail * 0.08, screenWidth),
+              state is LoadingDataEditing
+                  ? EditEmailOrPasswordLinearProgressIndicator(
+                      heightDisponibleProgressIndicator:
+                          heightFormConfirmEditEmail * 0.08,
+                      widthDisponibleProgressIndicator: screenWidth,
+                      heightLinearProgressLoading: heightLinearProgressLoading,
+                      widthLinearProgressLoading: widthLinearProgressLoading,
+                    )
+                  : returnsButtonConfirmEditEmail(
+                      heightFormConfirmEditEmail * 0.08, screenWidth)
             ],
           ),
         );

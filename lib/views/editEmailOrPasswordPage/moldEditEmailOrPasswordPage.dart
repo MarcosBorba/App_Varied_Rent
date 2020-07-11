@@ -102,7 +102,7 @@ class MoldEditEmailOrPassword extends StatelessWidget {
                             left: screenWidth * 0.01,
                             right: screenWidth * 0.02,
                           ),
-                          child: returnsFormConfirmUserTextsFields(state),
+                          child: returnsFormConfirmUserTextsFields(),
                         ),
                       ),
                     ],
@@ -125,7 +125,7 @@ class MoldEditEmailOrPassword extends StatelessWidget {
     );
   }
 
-  returnsFormConfirmUserTextsFields(EditEmailAndPasswordState state) {
+  returnsFormConfirmUserTextsFields() {
     return Column(
       children: <Widget>[
         SizedBox(
@@ -146,9 +146,8 @@ class MoldEditEmailOrPassword extends StatelessWidget {
         editEmailForm == "ConfirmUser"
             ? EditEmailFormConfirmUser(
                 heightFormConfirmUser: heightFormConfirmUser,
-                titlePasswordHelperText: AppTexts().confirmUserHelperText,
+                titleConfirmUserHelperText: AppTexts().confirmUserHelperText,
                 dataThatWillEdit: dataThatWillEdit,
-                state: state,
               )
             : editEmailForm == "ConfirmEditEmail"
                 ? EditEmailFormConfirmEditEmail(

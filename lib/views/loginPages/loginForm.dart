@@ -51,6 +51,7 @@ class _LoginFormState extends State<LoginForm> {
                   top: (screenHeight * 0.65) * 0.03,
                   bottom: (screenHeight * 0.65) * 0.03),
               child: Form(
+                autovalidate: true,
                 key: _key,
                 child: Column(
                   children: <Widget>[
@@ -111,6 +112,8 @@ class _LoginFormState extends State<LoginForm> {
       hintText: AppTexts().hintTextFromEmailTextField,
       prefixIcon: Icons.email,
       helperText: AppTexts().emailTextFieldHelpText,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().emailFormFieldValidator,
     );
   }

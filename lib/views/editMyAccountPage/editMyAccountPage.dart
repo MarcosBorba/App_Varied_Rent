@@ -11,7 +11,6 @@ class EditMyAccountPage extends StatefulWidget {
   State<StatefulWidget> createState() => EditMyAccountPageState();
 }
 //TODO: nivel 4 - depois de criar outras telas, adicionar a navegacao de cada uma
-//account
 //profile
 //address
 
@@ -103,7 +102,6 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
   }
 
   navigatesToTheEditAccountDataScreen() {
-    print("navega para tela de editar email e senha");
     AppRoutes.push(context, OptionEditEmailOrPasswordPage());
   }
 

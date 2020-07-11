@@ -25,6 +25,17 @@ class AppRoutes {
     Navigator.of(context).pop();
   }
 
+  static void duoPop(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
+  static void trioPop(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
   static void dismissAlert(context) {
     Navigator.of(context).pop();
   }

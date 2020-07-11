@@ -248,7 +248,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   void navigationFunctionForTheHomePage() {
-    AppRoutes.makeFirst(context, HomePage());
+    AppRoutes.trioPop(context);
   }
 
   navigationFunctionForMyAdsScreen() {
@@ -272,7 +272,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   Future<bool> funcaoVoltarHomePage() async {
-    navigationFunctionForTheHomePage();
+    AppRoutes.duoPop(context);
     return true;
   }
 }

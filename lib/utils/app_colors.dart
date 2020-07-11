@@ -101,4 +101,8 @@ class AppColors {
   static const Color editEmailOrPasswordColorBorderTextField = secondaryColor;
   static const Color editEmailOrPasswordColorBorderFocusedTextField =
       tertiaryColor;
+  static const Color editEmailOrPasswordColorProgressIndicatorBackground =
+      secondaryColor;
+  static const Color editEmailOrPasswordColorProgressIndicatorSecondary =
+      tertiaryColor;
 }

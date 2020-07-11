@@ -23,7 +23,6 @@ class EditPasswordFormConfirmEditPassword extends StatefulWidget {
           heightFormConfirmEditPassword, editPasswordHelperText);
 }
 
-//TODO: colocar progress no botao
 class EditPasswordFormConfirmEditPasswordState
     extends State<EditPasswordFormConfirmEditPassword> {
   double heightFormConfirmEditPassword;
@@ -32,6 +31,9 @@ class EditPasswordFormConfirmEditPasswordState
   final _newPasswordConfirmController = TextEditingController();
   final GlobalKey<FormState> _keyFormEditPassword = new GlobalKey();
   EdgeInsetsGeometry heightOfTextFieldsAccordingToContainerSize;
+  final double heightLinearProgressLoading =
+      ((screenHeight * 0.65) * 0.11) * 0.15;
+  final double widthLinearProgressLoading = (screenWidth * 0.94) * 0.94;
 
   EditPasswordFormConfirmEditPasswordState(
       this.heightFormConfirmEditPassword, this.editPasswordHelperText);
@@ -63,8 +65,16 @@ class EditPasswordFormConfirmEditPasswordState
                 child: returnsAnConfirmPasswordInput(
                     heightOfTextFieldsAccordingToContainerSize),
               ),
-              returnsButtonConfirmEditPassword(
-                  heightFormConfirmEditPassword * 0.08, screenWidth),
+              state is LoadingDataEditing
+                  ? EditEmailOrPasswordLinearProgressIndicator(
+                      heightDisponibleProgressIndicator:
+                          heightFormConfirmEditPassword * 0.08,
+                      widthDisponibleProgressIndicator: screenWidth,
+                      heightLinearProgressLoading: heightLinearProgressLoading,
+                      widthLinearProgressLoading: widthLinearProgressLoading,
+                    )
+                  : returnsButtonConfirmEditPassword(
+                      heightFormConfirmEditPassword * 0.08, screenWidth),
             ],
           ),
         );

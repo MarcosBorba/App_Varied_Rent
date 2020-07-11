@@ -6,35 +6,30 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: definir cores, textos, rotas, validadores...
 class EditEmailFormConfirmUser extends StatefulWidget {
   final double heightFormConfirmUser;
-  final String titlePasswordHelperText;
+  final String titleConfirmUserHelperText;
   final String dataThatWillEdit;
-  final EditEmailAndPasswordState state;
 
-  const EditEmailFormConfirmUser(
-      {Key key,
-      this.heightFormConfirmUser,
-      this.titlePasswordHelperText,
-      this.dataThatWillEdit,
-      this.state})
-      : super(key: key);
+  const EditEmailFormConfirmUser({
+    Key key,
+    this.heightFormConfirmUser,
+    this.titleConfirmUserHelperText,
+    this.dataThatWillEdit,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => EditEmailFormConfirmUserState(
         heightFormConfirmUser,
-        titlePasswordHelperText,
+        titleConfirmUserHelperText,
         dataThatWillEdit,
-        state,
       );
 }
 
 class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
   double heightFormConfirmUser;
-  String titlePasswordHelperText;
+  String titleConfirmUserHelperText;
   String dataThatWillEdit;
-  EditEmailAndPasswordState state;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final GlobalKey<FormState> _keyFormEditEmail = new GlobalKey();
@@ -45,7 +40,7 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
   final double widthLinearProgressLoading = (screenWidth * 0.94) * 0.94;
 
   EditEmailFormConfirmUserState(this.heightFormConfirmUser,
-      this.titlePasswordHelperText, this.dataThatWillEdit, this.state);
+      this.titleConfirmUserHelperText, this.dataThatWillEdit);
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +57,8 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
               SizedBox(
                 height: heightFormConfirmUser * 0.10,
                 width: screenWidth * 0.80,
-                child:
-                    returnsAnTitlePasswordHelperText(titlePasswordHelperText),
+                child: returnsAnTitlePasswordHelperText(
+                    titleConfirmUserHelperText),
               ),
               Container(
                 height: heightFormConfirmUser * 0.20,
@@ -76,16 +71,13 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
                     heightOfTextFieldsAccordingToContainerSize),
               ),
               state is LoadingDataEditing
-                  ? Container(
-                      height: heightFormConfirmUser * 0.08,
-                      width: screenWidth,
-                      child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            returnsARoundedLinearProgressLoading(
-                                heightLinearProgressLoading,
-                                widthLinearProgressLoading),
-                          ]))
+                  ? EditEmailOrPasswordLinearProgressIndicator(
+                      heightDisponibleProgressIndicator:
+                          heightFormConfirmUser * 0.08,
+                      widthDisponibleProgressIndicator: screenWidth,
+                      heightLinearProgressLoading: heightLinearProgressLoading,
+                      widthLinearProgressLoading: widthLinearProgressLoading,
+                    )
                   : returnsButtonConfirmedUser(
                       heightFormConfirmUser * 0.08, screenWidth),
             ],
@@ -95,9 +87,9 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
     );
   }
 
-  Widget returnsAnTitlePasswordHelperText(String titlePasswordHelperText) {
+  Widget returnsAnTitlePasswordHelperText(String titleConfirmUserHelperText) {
     return Text(
-      titlePasswordHelperText,
+      titleConfirmUserHelperText,
       textAlign: TextAlign.center,
       overflow: TextOverflow.clip,
       style: TextStyle(
@@ -156,24 +148,6 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
       minWidthButton: widthButton,
       textButton: AppTexts().confirmUserTextButton,
       onPressed: () => functionVerifyAndConfirmUser(),
-    );
-  }
-
-  Widget returnsARoundedLinearProgressLoading(
-      double linearHeight, double linearWidth) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: SizedBox(
-          height: linearHeight,
-          width: linearWidth,
-          child: returnsLinearProgressLoading(),
-        ));
-  }
-
-  Widget returnsLinearProgressLoading() {
-    return LinearProgressIndicator(
-      backgroundColor: AppColors.secondaryColor,
-      valueColor: AlwaysStoppedAnimation<Color>(AppColors.tertiaryColor),
     );
   }
 
