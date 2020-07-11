@@ -5,6 +5,7 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
+//TODO: definir cores, textos, rotas, validadores..., colocar progress no botao
 class EditEmailFormConfirmEditEmail extends StatefulWidget {
   final double heightFormConfirmEditEmail;
   final String editEmailHelperText;
@@ -76,14 +77,14 @@ class EditEmailFormConfirmEditEmailState
       textAlign: TextAlign.center,
       overflow: TextOverflow.clip,
       style: TextStyle(
-        color: AppColors.editEmailColorMainHelperText,
+        color: AppColors.editEmailOrPasswordColorMainHelperText,
         fontSize: AppFontSize.s15,
       ),
     );
   }
 
   Widget returnsAnEmailInput(EdgeInsetsGeometry contentPadding) {
-    return EditEmailTextsFields(
+    return EditEmailOrPasswordTextsFields(
       contentPadding: contentPadding,
       inputController: _newEmailController,
       labelText: AppTexts().confirmEditNewEmailLabelTextField,
@@ -97,7 +98,7 @@ class EditEmailFormConfirmEditEmailState
   }
 
   Widget returnsAnConfirmEmailInput(EdgeInsetsGeometry contentPadding) {
-    return EditEmailTextsFields(
+    return EditEmailOrPasswordTextsFields(
       contentPadding: contentPadding,
       inputController: _newEmailConfirmController,
       labelText: AppTexts().confirmEditConfirmNewEmailLabelTextField,
@@ -110,7 +111,7 @@ class EditEmailFormConfirmEditEmailState
 
   Widget returnsButtonConfirmEditEmail(
       double heightButton, double widthButton) {
-    return EditEmailButtons(
+    return EditEmailOrPasswordButtons(
       heightButton: heightButton,
       minWidthButton: widthButton,
       textButton: AppTexts().confirmEditEmailTextButton,

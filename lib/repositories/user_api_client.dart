@@ -111,11 +111,11 @@ class UserApiClient {
     }
   }
 
-  Future updatePasswordUser(String oldEmail, String newPassword,
+  Future updatePasswordUser(String userEmail, String newPassword,
       String newPasswordConfirmed, String token) async {
     final userCheckUserUrl = '$baseUrl/update_password';
     final Map<String, String> data = {
-      "oldEmail": oldEmail,
+      "userEmail": userEmail,
       "newPassword": newPassword,
       "newPasswordConfirmed": newPasswordConfirmed
     };

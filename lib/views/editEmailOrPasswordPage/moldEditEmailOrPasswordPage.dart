@@ -9,7 +9,6 @@ import 'package:varied_rent/views/editEmailOrPasswordPage/editEmailFormConfirmEd
 import 'package:varied_rent/views/editEmailOrPasswordPage/editFormConfirmUser.dart';
 import 'package:varied_rent/views/editEmailOrPasswordPage/editPasswordFormConfirmEditPassword.dart';
 
-//TODO: nivel 4 - definir textos
 class MoldEditEmailOrPassword extends StatelessWidget {
   final UserRepository userRepository;
   final String editEmailForm;
@@ -85,7 +84,7 @@ class MoldEditEmailOrPassword extends StatelessWidget {
                 return Container(
                   height: screenHeight,
                   width: screenWidth,
-                  color: AppColors.editEmailColorPageBackground,
+                  color: AppColors.editEmailOrPasswordPageColorBackground,
                   child: ListView(
                     shrinkWrap: true,
                     children: <Widget>[
@@ -118,9 +117,9 @@ class MoldEditEmailOrPassword extends StatelessWidget {
   returnsBoxDecorationForm() {
     return BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(AppSizes.size40)),
-      color: AppColors.editEmailColorMainPageBackground,
+      color: AppColors.editEmailOrPasswordPageColorMainBackground,
       border: Border.all(
-        color: AppColors.editEmailColorMainPageBorder,
+        color: AppColors.editEmailOrPasswordPageColorMainBorder,
         width: AppSizes.size2,
       ),
     );
@@ -177,7 +176,7 @@ class MoldEditEmailOrPassword extends StatelessWidget {
           child: Icon(
             Icons.mode_edit,
             size: AppSizes.size40,
-            color: AppColors.editEmailColorIconTitle,
+            color: AppColors.editEmailOrPasswordColorIconTitle,
           ),
         ),
         Expanded(
@@ -186,7 +185,7 @@ class MoldEditEmailOrPassword extends StatelessWidget {
             titlePage,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: AppColors.editEmailColorTitle,
+              color: AppColors.editEmailOrPasswordColorTitle,
               fontSize: AppFontSize.s20,
             ),
           ),

@@ -1,4 +1,4 @@
-export 'componentsEditEmailPage/componentsEditEmail.dart';
+export 'componentsEditEmailOrPasswordPage/componentsEditEmailOrPassword.dart';
 export 'componentsEditMyAccountPage/componentsEditMyAccountPage.dart';
 export 'componentsHomePage/componentsHomePage.dart';
 export 'componentsLogin/componentsLogin.dart';

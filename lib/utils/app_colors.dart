@@ -82,20 +82,23 @@ class AppColors {
   static const Color editEmailOrPasswordPageMaterialButtonsOptionsBorderColor =
       AppColors.tertiaryColor;
 
-  //Colors Edit Email Page
-  static const Color editEmailColorPageBackground = tertiaryColor;
-  static const Color editEmailColorMainPageBackground = Colors.white;
-  static const Color editEmailColorMainPageBorder = primaryColor;
-  static const Color editEmailColorIconTitle = tertiaryColor;
-  static const Color editEmailColorTextButtons = Colors.white;
-  static const Color editEmailColorButtons = tertiaryColor;
-  static const Color editEmailColorTitle = tertiaryColor;
-  static const Color editEmailColorMainHelperText = Colors.black87;
-  static const Color editEmailColorSufixIconPassword = tertiaryColor;
-  static const Color editEmailColorCursorTextField = secondaryColor;
-  static const Color editEmailColorHintTextField = secondaryColor;
-  static const Color editEmailColorPrefixIconTextField = tertiaryColor;
-  static const Color editEmailColorLabelTextField = tertiaryColor;
-  static const Color editEmailColorBorderTextField = secondaryColor;
-  static const Color editEmailColorBorderFocusedTextField = tertiaryColor;
+  //Colors Mold Edit Email Or Password Page
+  static const Color editEmailOrPasswordPageColorBackground = tertiaryColor;
+  static const Color editEmailOrPasswordPageColorMainBackground = Colors.white;
+  static const Color editEmailOrPasswordPageColorMainBorder = primaryColor;
+  static const Color editEmailOrPasswordColorIconTitle = tertiaryColor;
+  static const Color editEmailOrPasswordColorTitle = tertiaryColor;
+
+  static const Color editEmailOrPasswordColorTextButtons = Colors.white;
+  static const Color editEmailOrPasswordColorButtons = tertiaryColor;
+  static const Color editEmailOrPasswordColorMainHelperText = Colors.black87;
+  static const Color editEmailOrPasswordColorSufixIconPassword = tertiaryColor;
+  static const Color editEmailOrPasswordColorCursorTextField = secondaryColor;
+  static const Color editEmailOrPasswordColorHintTextField = secondaryColor;
+  static const Color editEmailOrPasswordColorPrefixIconTextField =
+      tertiaryColor;
+  static const Color editEmailOrPasswordColorLabelTextField = tertiaryColor;
+  static const Color editEmailOrPasswordColorBorderTextField = secondaryColor;
+  static const Color editEmailOrPasswordColorBorderFocusedTextField =
+      tertiaryColor;
 }

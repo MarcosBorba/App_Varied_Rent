@@ -3,7 +3,7 @@ import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 import 'package:varied_rent/utils/app_text_sizes.dart';
 
-class EditEmailButtons extends StatelessWidget {
+class EditEmailOrPasswordButtons extends StatelessWidget {
   final Color splashColor;
   final Color disabledColor;
   final Color color;
@@ -13,16 +13,16 @@ class EditEmailButtons extends StatelessWidget {
   final double minWidthButton;
   final double heightButton;
 
-  const EditEmailButtons(
+  const EditEmailOrPasswordButtons(
       {Key key,
       this.splashColor,
       this.disabledColor,
       this.onPressed,
-      this.color = AppColors.editEmailColorButtons,
+      this.color = AppColors.editEmailOrPasswordColorButtons,
       this.textButton,
       this.minWidthButton,
       this.heightButton,
-      this.colorText = AppColors.editEmailColorTextButtons})
+      this.colorText = AppColors.editEmailOrPasswordColorTextButtons})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

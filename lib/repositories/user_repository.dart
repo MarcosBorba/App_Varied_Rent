@@ -28,9 +28,9 @@ class UserRepository {
         oldEmail, newEmail, newEmailConfirmed, token);
   }
 
-  Future userUpdatePasswordRepository(String oldEmail, String newPassword,
+  Future userUpdatePasswordRepository(String userEmail, String newPassword,
       String newPasswordConfirmed, String token) async {
     await userApiClient.updatePasswordUser(
-        oldEmail, newPassword, newPasswordConfirmed, token);
+        userEmail, newPassword, newPasswordConfirmed, token);
   }
 }

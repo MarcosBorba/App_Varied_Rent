@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 
-class EditEmailTextsFields extends StatelessWidget {
+class EditEmailOrPasswordTextsFields extends StatelessWidget {
   final TextEditingController inputController;
   final String labelText;
   final FormFieldValidator<String> validator;
@@ -24,7 +24,7 @@ class EditEmailTextsFields extends StatelessWidget {
   final TextInputAction textInputAction;
   final Function onFieldSubmitted;
 
-  const EditEmailTextsFields({
+  const EditEmailOrPasswordTextsFields({
     Key key,
     this.inputController,
     this.labelText,
@@ -35,12 +35,14 @@ class EditEmailTextsFields extends StatelessWidget {
     this.helperText,
     this.suffixIcon,
     this.contentPadding,
-    this.cursorColor = AppColors.editEmailColorCursorTextField,
-    this.hintTextColor = AppColors.editEmailColorHintTextField,
-    this.prefixIconColor = AppColors.editEmailColorPrefixIconTextField,
-    this.labelTextColor = AppColors.editEmailColorLabelTextField,
-    this.borderColor = AppColors.editEmailColorBorderTextField,
-    this.borderFocusedColor = AppColors.editEmailColorBorderFocusedTextField,
+    this.cursorColor = AppColors.editEmailOrPasswordColorCursorTextField,
+    this.hintTextColor = AppColors.editEmailOrPasswordColorHintTextField,
+    this.prefixIconColor =
+        AppColors.editEmailOrPasswordColorPrefixIconTextField,
+    this.labelTextColor = AppColors.editEmailOrPasswordColorLabelTextField,
+    this.borderColor = AppColors.editEmailOrPasswordColorBorderTextField,
+    this.borderFocusedColor =
+        AppColors.editEmailOrPasswordColorBorderFocusedTextField,
     this.keyboardType,
     this.inputFormatters,
     this.textInputAction,

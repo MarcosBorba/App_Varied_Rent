@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/repositories.dart';
-part 'editEmail_event.dart';
-part 'editEmail_state.dart';
+part 'editAccountData_event.dart';
+part 'editAccountData_state.dart';
 
 class EditEmailAndPasswordBloc
     extends Bloc<EditEmailAndPasswordEvents, EditEmailAndPasswordState> {
@@ -70,9 +70,9 @@ class EditEmailAndPasswordBloc
       yield LoadingDataEditing();
       try {
         String token = await sharedPref.read('token');
-        String oldEmail = await sharedPref.read('email');
+        String userEmail = await sharedPref.read('email');
         await userRepository.userUpdatePasswordRepository(
-            oldEmail, event.newPassword, event.newPasswordConfirmed, token);
+            userEmail, event.newPassword, event.newPasswordConfirmed, token);
         yield DataSuccessfullyEdited();
       } catch (error) {
         if (error is DioError) {

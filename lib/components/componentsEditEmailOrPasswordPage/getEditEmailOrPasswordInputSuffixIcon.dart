@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/app_colors.dart';
 
-class SuffixIconEditEmailPasswordInput extends StatelessWidget {
+class EditEmailOrPasswordInputSuffixIconPassword extends StatelessWidget {
   final bool obscurePassword;
   final Function onPressed;
   final Color color;
 
-  const SuffixIconEditEmailPasswordInput(
+  const EditEmailOrPasswordInputSuffixIconPassword(
       {Key key,
       this.onPressed,
       this.obscurePassword,
-      this.color = AppColors.editEmailColorSufixIconPassword})
+      this.color = AppColors.editEmailOrPasswordColorSufixIconPassword})
       : super(key: key);
   @override
   IconButton build(BuildContext context) {

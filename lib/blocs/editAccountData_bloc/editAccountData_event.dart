@@ -1,4 +1,4 @@
-part of 'editEmail_bloc.dart';
+part of 'editAccountData_bloc.dart';
 
 abstract class EditEmailAndPasswordEvents extends Equatable {
   const EditEmailAndPasswordEvents();

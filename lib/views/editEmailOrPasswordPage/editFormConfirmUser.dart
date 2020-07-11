@@ -6,6 +6,7 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 
+//TODO: definir cores, textos, rotas, validadores...
 class EditEmailFormConfirmUser extends StatefulWidget {
   final double heightFormConfirmUser;
   final String titlePasswordHelperText;
@@ -100,14 +101,14 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
       textAlign: TextAlign.center,
       overflow: TextOverflow.clip,
       style: TextStyle(
-        color: AppColors.editEmailColorMainHelperText,
+        color: AppColors.editEmailOrPasswordColorMainHelperText,
         fontSize: AppFontSize.s15,
       ),
     );
   }
 
   Widget returnsAnEmailInput(EdgeInsetsGeometry contentPadding) {
-    return EditEmailTextsFields(
+    return EditEmailOrPasswordTextsFields(
       contentPadding: contentPadding,
       inputController: _emailController,
       labelText: AppTexts().confirmUserEmailLabelTextField,
@@ -121,7 +122,7 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
   }
 
   Widget returnsAnPasswordInput(EdgeInsetsGeometry contentPadding) {
-    return EditEmailTextsFields(
+    return EditEmailOrPasswordTextsFields(
       contentPadding: contentPadding,
       inputController: _passwordController,
       labelText: AppTexts().confirmUserPasswordLabelTextField,
@@ -135,7 +136,7 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
   }
 
   Widget returnsSuffixIconPasswordInput() {
-    return SuffixIconEditEmailPasswordInput(
+    return EditEmailOrPasswordInputSuffixIconPassword(
       obscurePassword: _obscurePassword,
       onPressed: () {
         _onEditEmailIconPasswordPressed();
@@ -150,7 +151,7 @@ class EditEmailFormConfirmUserState extends State<EditEmailFormConfirmUser> {
   }
 
   Widget returnsButtonConfirmedUser(double heightButton, double widthButton) {
-    return EditEmailButtons(
+    return EditEmailOrPasswordButtons(
       heightButton: heightButton,
       minWidthButton: widthButton,
       textButton: AppTexts().confirmUserTextButton,

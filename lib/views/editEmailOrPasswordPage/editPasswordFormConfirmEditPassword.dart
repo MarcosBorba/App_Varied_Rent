@@ -23,7 +23,7 @@ class EditPasswordFormConfirmEditPassword extends StatefulWidget {
           heightFormConfirmEditPassword, editPasswordHelperText);
 }
 
-//TODO: olhar bloc e mudar aqui, mudar texts, renomear components e cores
+//TODO: colocar progress no botao
 class EditPasswordFormConfirmEditPasswordState
     extends State<EditPasswordFormConfirmEditPassword> {
   double heightFormConfirmEditPassword;
@@ -78,14 +78,14 @@ class EditPasswordFormConfirmEditPasswordState
       textAlign: TextAlign.center,
       overflow: TextOverflow.clip,
       style: TextStyle(
-        color: AppColors.editEmailColorMainHelperText,
+        color: AppColors.editEmailOrPasswordColorMainHelperText,
         fontSize: AppFontSize.s15,
       ),
     );
   }
 
   Widget returnsAnPasswordInput(EdgeInsetsGeometry contentPadding) {
-    return EditEmailTextsFields(
+    return EditEmailOrPasswordTextsFields(
       contentPadding: contentPadding,
       inputController: _newPasswordController,
       labelText: AppTexts().confirmEditNewPasswordLabelTextField,
@@ -99,7 +99,7 @@ class EditPasswordFormConfirmEditPasswordState
   }
 
   Widget returnsAnConfirmPasswordInput(EdgeInsetsGeometry contentPadding) {
-    return EditEmailTextsFields(
+    return EditEmailOrPasswordTextsFields(
       contentPadding: contentPadding,
       inputController: _newPasswordConfirmController,
       labelText: AppTexts().confirmEditConfirmNewPasswordLabelTextField,
@@ -112,7 +112,7 @@ class EditPasswordFormConfirmEditPasswordState
 
   Widget returnsButtonConfirmEditPassword(
       double heightButton, double widthButton) {
-    return EditEmailButtons(
+    return EditEmailOrPasswordButtons(
       heightButton: heightButton,
       minWidthButton: widthButton,
       textButton: AppTexts().confirmEditPasswordTextButton,
