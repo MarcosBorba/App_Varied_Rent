@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//TODO: nivel 3 - olhar rotas e melhorar ciclo de vida de cada tela
 class AppRoutes {
   static void push(BuildContext context, Widget page) {
     Navigator.of(context).push(

@@ -169,14 +169,22 @@ class AppTexts {
   String editMyAccountNavigationOptionHelperTextToEditAddressData =
       "Country, State, City, Zip Code, Neighborhood, Street, Number.";
 
-  //Edit Email or Password Page texts
+  //Option Edit Email or Password Page texts
   String navigationOptionTextToEditEmail = "Email";
   String navigationOptionTextToEditPassword = "Password";
   String navigationOptionSubTextToEditEmail = "Click to change user Email.";
   String navigationOptionSubTextToEditPassword =
       "Click to change user Password.";
+  static const String optionEditEmailOrPasswordPageTitlePageEmail =
+      "Edit Email Account";
+  static const String optionEditEmailOrPasswordPageDataThatWillEditEmail =
+      "Email";
+  static const String optionEditEmailOrPasswordPageTitlePagePassword =
+      "Edit Password Account";
+  static const String optionEditEmailOrPasswordPageDataThatWillEditPassword =
+      "Password";
 
-  //Edit Email Page texts
+  //Edit Email Or Password Page texts
   String editEmailPageTitle = "Edit Email Account";
   String confirmUserHelperText =
       "Confirm your email and password to update your die";

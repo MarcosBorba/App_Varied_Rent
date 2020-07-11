@@ -20,12 +20,12 @@ class EditOptionEmailOrPasswordPageMaterialButtonsOptions
   const EditOptionEmailOrPasswordPageMaterialButtonsOptions({
     Key key,
     this.buttonColor =
-        AppColors.editEmailOrPasswordPageMaterialButtonsOptionsBackgroundColor,
+        AppColors.optionEditEmailOrPasswordPageButtonsOptionsBackgroundColor,
     this.elevation,
     this.onPressed,
     this.borderRadius,
     this.borderColor =
-        AppColors.editEmailOrPasswordPageMaterialButtonsOptionsBorderColor,
+        AppColors.optionEditEmailOrPasswordPageButtonsOptionsBorderColor,
     this.borderWidth,
     this.icon,
     this.iconSize,

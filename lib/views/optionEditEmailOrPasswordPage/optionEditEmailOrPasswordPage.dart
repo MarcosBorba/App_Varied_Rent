@@ -10,9 +10,6 @@ class OptionEditEmailOrPasswordPage extends StatefulWidget {
   State<StatefulWidget> createState() => OptionEditEmailOrPasswordPageState();
 }
 
-//TODO: nivel 4 - definir textos e rotas dos widgets
-//email
-//password
 class OptionEditEmailOrPasswordPageState
     extends State<OptionEditEmailOrPasswordPage> {
   int navigationBarBottomIndex = 0;
@@ -24,7 +21,7 @@ class OptionEditEmailOrPasswordPageState
       body: Container(
           height: screenHeight,
           width: screenWidth,
-          color: Colors.white,
+          color: AppColors.optionEditEmailOrPasswordPageColorBackground,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -35,7 +32,9 @@ class OptionEditEmailOrPasswordPageState
                   title: AppTexts().navigationOptionTextToEditEmail,
                   subTitle: AppTexts().navigationOptionSubTextToEditEmail,
                   onPressed: () => navigatesToTheEditEmailOrPasswordScreen(
-                      "Edit Email Account", "Email"),
+                      AppTexts.optionEditEmailOrPasswordPageTitlePageEmail,
+                      AppTexts
+                          .optionEditEmailOrPasswordPageDataThatWillEditEmail),
                 ),
                 EditOptionEmailOrPasswordPageMaterialButtonsOptions(
                   heightButton: heightBodyScaffold * 0.25,
@@ -44,7 +43,9 @@ class OptionEditEmailOrPasswordPageState
                   title: AppTexts().navigationOptionTextToEditPassword,
                   subTitle: AppTexts().navigationOptionSubTextToEditPassword,
                   onPressed: () => navigatesToTheEditEmailOrPasswordScreen(
-                      "Edit Password Account", "Password"),
+                      AppTexts.optionEditEmailOrPasswordPageTitlePagePassword,
+                      AppTexts
+                          .optionEditEmailOrPasswordPageDataThatWillEditPassword),
                 )
               ])),
       bottomNavigationBar:
@@ -55,10 +56,13 @@ class OptionEditEmailOrPasswordPageState
             navigationBarBottomIndex = index;
             index == 0
                 ? navigatesToTheEditEmailOrPasswordScreen(
-                    "Edit Email Account", "Email")
+                    AppTexts.optionEditEmailOrPasswordPageTitlePageEmail,
+                    AppTexts.optionEditEmailOrPasswordPageDataThatWillEditEmail)
                 : index == 1
                     ? navigatesToTheEditEmailOrPasswordScreen(
-                        "Edit Password Account", "Password")
+                        AppTexts.optionEditEmailOrPasswordPageTitlePagePassword,
+                        AppTexts
+                            .optionEditEmailOrPasswordPageDataThatWillEditPassword)
                     : false;
           });
         },
