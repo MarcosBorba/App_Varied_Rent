@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/editEmailOrPasswordPage/moldEditEmailOrPasswordPage.dart';
+import 'package:varied_rent/views/editMyAccountPages/editEmailOrPasswordPage/moldEditEmailOrPasswordPage.dart';
 
 class OptionEditEmailOrPasswordPage extends StatefulWidget {
   @override

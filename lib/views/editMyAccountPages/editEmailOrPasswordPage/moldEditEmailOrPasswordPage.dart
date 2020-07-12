@@ -5,9 +5,9 @@ import 'package:varied_rent/main.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/editEmailOrPasswordPage/editEmailFormConfirmEditEmail.dart';
-import 'package:varied_rent/views/editEmailOrPasswordPage/editFormConfirmUser.dart';
-import 'package:varied_rent/views/editEmailOrPasswordPage/editPasswordFormConfirmEditPassword.dart';
+import 'package:varied_rent/views/editMyAccountPages/editEmailOrPasswordPage/editEmailFormConfirmEditEmail.dart';
+import 'package:varied_rent/views/editMyAccountPages/editEmailOrPasswordPage/editFormConfirmUser.dart';
+import 'package:varied_rent/views/editMyAccountPages/editEmailOrPasswordPage/editPasswordFormConfirmEditPassword.dart';
 
 class MoldEditEmailOrPassword extends StatelessWidget {
   final UserRepository userRepository;

@@ -10,8 +10,8 @@ class UserRepository {
       : assert(userApiClient != null);
 
   Future<User> userLoginRepository(String email, password) async {
-    final token = await userApiClient.login(email, password);
-    return token;
+    final userLogin = await userApiClient.login(email, password);
+    return userLogin;
   }
 
   Future userSignupRepository(User dataToCreateUser) async {

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:varied_rent/models/models.dart';
 
 class UserApiClient {
-  static const baseUrl = 'http://192.168.2.107:3000/userRoute';
+  static const baseUrl = 'http://192.168.2.105:3000/userRoute';
   Dio dio = new Dio();
 
   UserApiClient();
@@ -123,7 +123,9 @@ class UserApiClient {
       await dio.put(
         userCheckUserUrl,
         data: data,
-        options: Options(headers: {'x-access-token': token}),
+        options: Options(
+          headers: {'x-access-token': token},
+        ),
       );
     } catch (e) {
       if (e is DioError) {

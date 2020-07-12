@@ -8,7 +8,7 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/main.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/editMyAccountPage/editMyAccountPage.dart';
+import 'package:varied_rent/views/editMyAccountPages/editMyAccountPage.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
 
 class MyAccountPage extends StatefulWidget {
