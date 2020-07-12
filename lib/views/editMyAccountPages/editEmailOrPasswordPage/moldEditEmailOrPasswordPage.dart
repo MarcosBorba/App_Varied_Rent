@@ -95,8 +95,9 @@ class MoldEditEmailOrPassword extends StatelessWidget {
                         decoration: returnsBoxDecorationForm(),
                         height: heightFormConfirmUser,
                         margin: EdgeInsets.only(
-                            left: screenWidth * 0.03,
-                            right: screenWidth * 0.03),
+                          left: screenWidth * 0.03,
+                          right: screenWidth * 0.03,
+                        ),
                         child: Padding(
                           padding: EdgeInsets.only(
                             left: screenWidth * 0.01,
