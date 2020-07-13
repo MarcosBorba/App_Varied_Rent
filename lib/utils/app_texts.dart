@@ -213,4 +213,31 @@ class AppTexts {
       "Must have at least 8 characters (uppercase, lowercase and numbers)";
   String confirmEditConfirmNewPasswordMessageErrorEmailsEquals =
       "Error: Passwords must be the same.";
+
+  //Edit My Profile Texts
+  String editMyProfileNameTextFieldLabelText = 'Name';
+  String editMyProfileNameTextFieldHintText = 'type your full name';
+  String editMyProfileNameTextFieldHelpText = 'Ex: Marcos Flavio Ferreira';
+  String editMyProfileNameTextFieldErrorTextEmptyField = '* Name required';
+  String editMyProfileNameTextFieldErrorTextInvalidName =
+      '* Invalid Name. Ex: John Wilson';
+
+  List<String> editMyProfileLandlordSelectorTypesList = [
+    'Company',
+    'Particular',
+    'Other'
+  ];
+  String editMyProfileLandlordSelectorHintText = "Select a type of landlord";
+  String editMyProfileLandlordSelectordHelpText = "Ex: Particular";
+  String editMyProfileLandlordSelectorErrorTextEmptyField =
+      '* Landlord Types required';
+
+  List<String> editMyProfileGenderSelectorTypesList = [
+    'Female',
+    'Male',
+    'Other'
+  ];
+  String editMyProfileGenderSelectorHintText = "select a type of gender";
+  String editMyProfileGenderSelectordHelpText = "Ex: Female";
+  String editMyProfileGenderSelectorErrorTextEmptyField = '* Gender required';
 }

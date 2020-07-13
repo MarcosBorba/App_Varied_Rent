@@ -5,3 +5,5 @@ export 'componentsLogin/componentsLogin.dart';
 export 'componentsMyAccountPage/componentsMyAccountPage.dart';
 export 'componentsOptionEditMyAccountEmailOrPasswordPage/componentsOptionsEditMyAccountEmailOrPassword.dart';
 export 'componentsSipnup/componentsSignupPage.dart';
+export 'componentsEditMyProfilePage/componentsEditMyProfile.dart';
+export 'componentsDefaultAplication/componentsDefaultAplication.dart';

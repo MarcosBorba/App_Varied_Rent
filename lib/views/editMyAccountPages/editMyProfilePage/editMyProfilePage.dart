@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 class EditMyProfilePage extends StatefulWidget {
@@ -6,7 +8,16 @@ class EditMyProfilePage extends StatefulWidget {
   State<StatefulWidget> createState() => EditMyProfilePageState();
 }
 
+//TODO: nivel 4 - definir texts, colors, routes, validators
 class EditMyProfilePageState extends State<EditMyProfilePage> {
+  var select;
+  final EdgeInsetsGeometry heightOfFieldsAccordingToContainerSize =
+      EdgeInsets.symmetric(
+          vertical: (screenHeight * 0.15) * 0.15,
+          horizontal: (screenWidth * 0.90) * 0.02);
+  final EdgeInsetsGeometry height =
+      EdgeInsets.symmetric(vertical: (screenHeight * 0.15) * 0.15);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,34 +32,41 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
               height: screenHeight * 0.02,
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
+              padding: EdgeInsets.only(
+                left: screenWidth * 0.03,
+                right: screenWidth * 0.03,
               ),
               child: Container(
                 decoration: boxDecoration(),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: screenHeight * 0.10,
-                    ),
-                    returnsALineWithAnIconAndATextForTheTitle(),
-                    SizedBox(
-                      height: screenHeight * 0.10,
-                    ),
-                    Divider(
-                      endIndent: AppSizes.size10,
-                      indent: AppSizes.size10,
-                      thickness: AppSizes.size2,
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.10,
-                    ),
-                    Form(
-                      autovalidate: true,
-                      child: Column(),
-                    )
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.02,
+                    right: screenWidth * 0.02,
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      returnsHeaderForm(),
+                      Form(
+                        autovalidate: true,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              height: screenHeight * 0.15,
+                              child: returnsNameTextfield(),
+                            ),
+                            Container(
+                              height: screenHeight * 0.15,
+                              child: returnsGenderButtonSelector(),
+                            ),
+                            Container(
+                              height: screenHeight * 0.15,
+                              child: returnsLandLordTypeButtonSelector(),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -62,12 +80,34 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
     return BoxDecoration(
       color: Colors.white,
       border: Border.all(
-        width: 2,
+        width: screenWidth * 0.00500,
         color: AppColors.primaryColor,
       ),
       borderRadius: BorderRadius.all(
         Radius.circular(AppSizes.size40),
       ),
+    );
+  }
+
+  Widget returnsHeaderForm() {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: screenHeight * 0.10,
+        ),
+        returnsALineWithAnIconAndATextForTheTitle(),
+        SizedBox(
+          height: screenHeight * 0.10,
+        ),
+        Divider(
+          endIndent: AppSizes.size10,
+          indent: AppSizes.size10,
+          thickness: AppSizes.size2,
+        ),
+        SizedBox(
+          height: screenHeight * 0.08,
+        ),
+      ],
     );
   }
 
@@ -90,6 +130,45 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget returnsNameTextfield() {
+    return TextFieldDefaultAplication(
+      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
+      hintText: AppTexts().editMyProfileNameTextFieldHintText,
+      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
+      prefixIcon: Icons.tag_faces,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+    );
+  }
+
+  Widget returnsGenderButtonSelector() {
+    return DropDownButtonSelectorDefault(
+      prefixIcon: FontAwesome.venus_mars,
+      suffixIcon: Icons.arrow_drop_down,
+      hint: AppTexts().editMyProfileGenderSelectorHintText,
+      helperText: AppTexts().editMyProfileGenderSelectordHelpText,
+      items: AppTexts().editMyProfileGenderSelectorTypesList,
+      value: select,
+      onChanged: (value) {
+        print(value);
+      },
+    );
+  }
+
+  Widget returnsLandLordTypeButtonSelector() {
+    return DropDownButtonSelectorDefault(
+      prefixIcon: Icons.work,
+      suffixIcon: Icons.arrow_drop_down,
+      hint: AppTexts().editMyProfileLandlordSelectorHintText,
+      helperText: AppTexts().editMyProfileLandlordSelectordHelpText,
+      items: AppTexts().editMyProfileLandlordSelectorTypesList,
+      value: select,
+      onChanged: (value) {
+        print(value);
+      },
     );
   }
 }
