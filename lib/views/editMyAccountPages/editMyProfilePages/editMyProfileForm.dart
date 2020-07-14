@@ -10,7 +10,7 @@ class EditMyProfilePage extends StatefulWidget {
   State<StatefulWidget> createState() => EditMyProfilePageState();
 }
 
-//TODO: nivel 4 - definir texts, colors, routes, validators
+//TODO: nivel 4 - definir texts, colors, routes, aplicar as mascaras
 class EditMyProfilePageState extends State<EditMyProfilePage> {
   var selectedItemOfGenderType;
   var selectedItemOfLandlordType;
@@ -49,38 +49,7 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
                   child: Column(
                     children: <Widget>[
                       returnsHeaderForm(),
-                      Form(
-                        autovalidate: true,
-                        key: _keyFormEditMyProfile,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              height: screenHeight * 0.15,
-                              child: returnsNameTextfield(),
-                            ),
-                            Container(
-                              height: screenHeight * 0.15,
-                              child: returnsGenderButtonSelector(),
-                            ),
-                            Container(
-                              height: screenHeight * 0.15,
-                              child: returnsLandLordTypeButtonSelector(),
-                            ),
-                            Container(
-                              height: screenHeight * 0.15,
-                              child: returnsCpfCnpjTextfield(),
-                            ),
-                            Container(
-                              height: screenHeight * 0.15,
-                              child: returnsTelephoneMandatoryTextfield(),
-                            ),
-                            Container(
-                              height: screenHeight * 0.15,
-                              child: returnsTelephoneOptionalTextfield(),
-                            ),
-                          ],
-                        ),
-                      ),
+                      returnMainFormEditProfile(),
                       Container(
                         height: screenHeight * 0.08,
                         width: screenWidth,
@@ -157,9 +126,42 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
     );
   }
 
+  Widget returnMainFormEditProfile() {
+    return Form(
+      autovalidate: true,
+      key: _keyFormEditMyProfile,
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: screenHeight * 0.15,
+            child: returnsNameTextfield(),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            child: returnsGenderButtonSelector(),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            child: returnsLandLordTypeButtonSelector(),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            child: returnsCpfCnpjTextfield(),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            child: returnsTelephoneMandatoryTextfield(),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            child: returnsTelephoneOptionalTextfield(),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget returnsNameTextfield() {
-    //DropdownButtonFormField state = keyGender.currentState;
-    //state.callTap();
     return TextFieldDefaultAplication(
       labelText: AppTexts().editMyProfileNameTextFieldLabelText,
       hintText: AppTexts().editMyProfileNameTextFieldHintText,
@@ -182,12 +184,6 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       items: AppTexts().editMyProfileGenderSelectorTypesList,
       value: selectedItemOfGenderType,
       validator: FieldValidators().genderFormFieldValidator,
-      onChanged: (value) {
-        setState(() {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        });
-        print(value);
-      },
     );
   }
 
@@ -200,9 +196,6 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       items: AppTexts().editMyProfileLandlordSelectorTypesList,
       value: selectedItemOfLandlordType,
       validator: FieldValidators().landlordTypeFormFieldValidator,
-      onChanged: (value) {
-        print(value);
-      },
     );
   }
 
@@ -217,6 +210,10 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputController: _cpfCnpjController,
       validator: FieldValidators().cpfCnpjFormFieldValidator,
+      inputFormatters: [
+        MaskedTextInputFormatterShifter(
+            maskONE: "XXX.XXX.XXX-XX", maskTWO: "XX.XXX.XXX/XXXX-XX"),
+      ],
     );
   }
 
@@ -231,6 +228,10 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputController: _telephoneMandatoryController,
       validator: FieldValidators().telephoneMandatoryFormFieldValidator,
+      inputFormatters: [
+        MaskedTextInputFormatterShifter(
+            maskONE: "XX XXXX-XXXX", maskTWO: "XX XXXXX-XXXX"),
+      ],
     );
   }
 
@@ -244,6 +245,10 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       textInputAction: TextInputAction.done,
       inputController: _telephoneOptionalController,
       validator: FieldValidators().telephoneOptionalFormFieldValidator,
+      inputFormatters: [
+        MaskedTextInputFormatterShifter(
+            maskONE: "XX XXXX-XXXX", maskTWO: "XX XXXXX-XXXX"),
+      ],
     );
   }
 

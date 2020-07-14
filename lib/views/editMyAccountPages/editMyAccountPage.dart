@@ -4,7 +4,7 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/editMyAccountPages/editMyProfilePage/editMyProfilePage.dart';
+import 'package:varied_rent/views/editMyAccountPages/editMyProfilePages/editMyProfileForm.dart';
 import 'package:varied_rent/views/editMyAccountPages/optionEditEmailOrPasswordPage/optionEditEmailOrPasswordPage.dart';
 
 class EditMyAccountPage extends StatefulWidget {
