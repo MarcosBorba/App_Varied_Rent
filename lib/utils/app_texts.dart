@@ -215,8 +215,11 @@ class AppTexts {
       "Error: Passwords must be the same.";
 
   //Edit My Profile Texts
+  String editMyProfileTitlePage = "   Edit Profile Data";
+  String editMyProfileConfirmSaveProfileData = "Save Profile Data";
+
   String editMyProfileNameTextFieldLabelText = 'Name';
-  String editMyProfileNameTextFieldHintText = 'type your full name';
+  String editMyProfileNameTextFieldHintText = 'Type your full name';
   String editMyProfileNameTextFieldHelpText = 'Ex: Marcos Flavio Ferreira';
   String editMyProfileNameTextFieldErrorTextEmptyField = '* Name required';
   String editMyProfileNameTextFieldErrorTextInvalidName =
@@ -237,7 +240,33 @@ class AppTexts {
     'Male',
     'Other'
   ];
-  String editMyProfileGenderSelectorHintText = "select a type of gender";
+  String editMyProfileGenderSelectorHintText = "Select a type of gender";
   String editMyProfileGenderSelectordHelpText = "Ex: Female";
   String editMyProfileGenderSelectorErrorTextEmptyField = '* Gender required';
+
+  String editMyProfileCpfCnpjTextFieldLabelText = 'Cpf / Cnpj';
+  String editMyProfileCpfCnpjTextFieldHintText = 'Type your Cpf or Cnpj';
+  String editMyProfileCpfCnpjTextFieldHelpText = 'Ex: 000.000.000-00';
+  String editMyProfileCpfCnpjTextFieldErrorTextEmptyField =
+      '* Cpf or Cnpj required';
+  String editMyProfileCpfCnpjTextFieldErrorTextInvalidCpfCnpj =
+      '* Invalid Cpf or Cnpj. Ex: 000.000.000-00';
+
+  String editMyProfileTelephoneMandatoryTextFieldLabelText = 'Telephone Number';
+  String editMyProfileTelephoneMandatoryTextFieldHintText =
+      'Type your telephone number';
+  String editMyProfileTelephoneMandatoryTextFieldHelpText = 'Ex: 00 00000 0000';
+  String editMyProfileTelephoneMandatoryTextFieldErrorTextEmptyField =
+      '* Telephone required';
+  String editMyProfileTelephoneMandatoryTextFieldErrorTextInvalidTelephone =
+      '* Invalid Telephone Number. Ex: 00 00000 0000';
+
+  String editMyProfileTelephoneOptionalTextFieldLabelText =
+      'Telephone Number - 2';
+  String editMyProfileTelephoneOptionalTextFieldHintText =
+      'Type your telephone number';
+  String editMyProfileTelephoneOptionalTextFieldHelpText =
+      'Optional - Ex: 00 00000 0000';
+  String editMyProfileTelephoneOptionalTextFieldErrorTextInvalidTelephone =
+      '* Invalid Telephone Number. Ex: 00 00000 0000';
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:fluttericon/modern_pictograms_icons.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
@@ -10,13 +12,14 @@ class EditMyProfilePage extends StatefulWidget {
 
 //TODO: nivel 4 - definir texts, colors, routes, validators
 class EditMyProfilePageState extends State<EditMyProfilePage> {
-  var select;
-  final EdgeInsetsGeometry heightOfFieldsAccordingToContainerSize =
-      EdgeInsets.symmetric(
-          vertical: (screenHeight * 0.15) * 0.15,
-          horizontal: (screenWidth * 0.90) * 0.02);
-  final EdgeInsetsGeometry height =
-      EdgeInsets.symmetric(vertical: (screenHeight * 0.15) * 0.15);
+  var selectedItemOfGenderType;
+  var selectedItemOfLandlordType;
+  TextEditingController _nameController;
+  TextEditingController _cpfCnpjController;
+  TextEditingController _telephoneMandatoryController;
+  TextEditingController _telephoneOptionalController;
+  final GlobalKey<FormState> _keyFormEditMyProfile = new GlobalKey();
+  GlobalKey keyGender = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +43,15 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
                 decoration: boxDecoration(),
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: screenWidth * 0.02,
-                    right: screenWidth * 0.02,
-                  ),
+                      left: screenWidth * 0.02,
+                      right: screenWidth * 0.02,
+                      bottom: screenWidth * 0.04),
                   child: Column(
                     children: <Widget>[
                       returnsHeaderForm(),
                       Form(
                         autovalidate: true,
+                        key: _keyFormEditMyProfile,
                         child: Column(
                           children: <Widget>[
                             Container(
@@ -62,14 +66,34 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
                               height: screenHeight * 0.15,
                               child: returnsLandLordTypeButtonSelector(),
                             ),
+                            Container(
+                              height: screenHeight * 0.15,
+                              child: returnsCpfCnpjTextfield(),
+                            ),
+                            Container(
+                              height: screenHeight * 0.15,
+                              child: returnsTelephoneMandatoryTextfield(),
+                            ),
+                            Container(
+                              height: screenHeight * 0.15,
+                              child: returnsTelephoneOptionalTextfield(),
+                            ),
                           ],
                         ),
+                      ),
+                      Container(
+                        height: screenHeight * 0.08,
+                        width: screenWidth,
+                        child: returnButtonSubmitForm(),
                       )
                     ],
                   ),
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
           ],
         ),
       ),
@@ -122,7 +146,7 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
           color: AppColors.editEmailOrPasswordColorIconTitle,
         ),
         Text(
-          "   Edit Profile Data",
+          AppTexts().editMyProfileTitlePage,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: AppColors.editEmailOrPasswordColorTitle,
@@ -134,6 +158,8 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
   }
 
   Widget returnsNameTextfield() {
+    //DropdownButtonFormField state = keyGender.currentState;
+    //state.callTap();
     return TextFieldDefaultAplication(
       labelText: AppTexts().editMyProfileNameTextFieldLabelText,
       hintText: AppTexts().editMyProfileNameTextFieldHintText,
@@ -141,18 +167,25 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       prefixIcon: Icons.tag_faces,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
+      inputController: _nameController,
+      validator: FieldValidators().nameFormFieldValidator,
     );
   }
 
   Widget returnsGenderButtonSelector() {
     return DropDownButtonSelectorDefault(
+      key: keyGender,
       prefixIcon: FontAwesome.venus_mars,
       suffixIcon: Icons.arrow_drop_down,
       hint: AppTexts().editMyProfileGenderSelectorHintText,
       helperText: AppTexts().editMyProfileGenderSelectordHelpText,
       items: AppTexts().editMyProfileGenderSelectorTypesList,
-      value: select,
+      value: selectedItemOfGenderType,
+      validator: FieldValidators().genderFormFieldValidator,
       onChanged: (value) {
+        setState(() {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        });
         print(value);
       },
     );
@@ -165,10 +198,60 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
       hint: AppTexts().editMyProfileLandlordSelectorHintText,
       helperText: AppTexts().editMyProfileLandlordSelectordHelpText,
       items: AppTexts().editMyProfileLandlordSelectorTypesList,
-      value: select,
+      value: selectedItemOfLandlordType,
+      validator: FieldValidators().landlordTypeFormFieldValidator,
       onChanged: (value) {
         print(value);
       },
+    );
+  }
+
+  Widget returnsCpfCnpjTextfield() {
+    return TextFieldDefaultAplication(
+      labelText: AppTexts().editMyProfileCpfCnpjTextFieldLabelText,
+      hintText: AppTexts().editMyProfileCpfCnpjTextFieldHintText,
+      helperText: AppTexts().editMyProfileCpfCnpjTextFieldHelpText,
+      prefixIcon: FontAwesome5.id_badge,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      inputController: _cpfCnpjController,
+      validator: FieldValidators().cpfCnpjFormFieldValidator,
+    );
+  }
+
+  Widget returnsTelephoneMandatoryTextfield() {
+    return TextFieldDefaultAplication(
+      labelText: AppTexts().editMyProfileTelephoneMandatoryTextFieldLabelText,
+      hintText: AppTexts().editMyProfileTelephoneMandatoryTextFieldHintText,
+      helperText: AppTexts().editMyProfileTelephoneMandatoryTextFieldHelpText,
+      prefixIcon: Icons.phone_android,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      inputController: _telephoneMandatoryController,
+      validator: FieldValidators().telephoneMandatoryFormFieldValidator,
+    );
+  }
+
+  Widget returnsTelephoneOptionalTextfield() {
+    return TextFieldDefaultAplication(
+      labelText: AppTexts().editMyProfileTelephoneOptionalTextFieldLabelText,
+      hintText: AppTexts().editMyProfileTelephoneOptionalTextFieldHintText,
+      helperText: AppTexts().editMyProfileTelephoneOptionalTextFieldHelpText,
+      prefixIcon: ModernPictograms.mobile,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.done,
+      inputController: _telephoneOptionalController,
+      validator: FieldValidators().telephoneOptionalFormFieldValidator,
+    );
+  }
+
+  Widget returnButtonSubmitForm() {
+    return ButtonFormDefault(
+      color: AppColors.tertiaryColor,
+      textButton: AppTexts().editMyProfileConfirmSaveProfileData,
+      onPressed: () {},
     );
   }
 }

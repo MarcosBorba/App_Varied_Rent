@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:varied_rent/utils/utils.dart';
 
+//TODO: nivel 2 - criar components padrao para toda a aplicacao
 class TextFieldDefaultAplication extends StatelessWidget {
   final TextEditingController inputController;
   final String labelText;
