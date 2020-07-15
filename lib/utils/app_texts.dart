@@ -228,7 +228,8 @@ class AppTexts {
   List<String> editMyProfileLandlordSelectorTypesList = [
     'Company',
     'Particular',
-    'Other'
+    'Other',
+    'comercial'
   ];
   String editMyProfileLandlordSelectorHintText = "Select a type of landlord";
   String editMyProfileLandlordSelectordHelpText = "Ex: Particular";
@@ -238,7 +239,8 @@ class AppTexts {
   List<String> editMyProfileGenderSelectorTypesList = [
     'Female',
     'Male',
-    'Other'
+    'Other',
+    'masculino'
   ];
   String editMyProfileGenderSelectorHintText = "Select a type of gender";
   String editMyProfileGenderSelectordHelpText = "Ex: Female";

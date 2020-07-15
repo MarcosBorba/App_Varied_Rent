@@ -14,3 +14,13 @@ class SaveProfileDataButtonPressed extends EditMyProfileEvent {
   @override
   String toString() => 'SaveProfileDataButtonPressed { user: $user}';
 }
+
+class PageEditMyProfileStarted extends EditMyProfileEvent {
+  const PageEditMyProfileStarted();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'PageEditMyProfileStarted';
+}

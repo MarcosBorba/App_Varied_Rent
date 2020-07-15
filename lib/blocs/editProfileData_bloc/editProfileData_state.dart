@@ -39,8 +39,8 @@ abstract class GetDatasDefault extends EditMyProfileState {
       phones.toString();
 }
 
-class EditInitialData extends GetDatasDefault {
-  EditInitialData(name, genre, landlordType, cpfCnpj, phones, token)
+class EditProfileInitialData extends GetDatasDefault {
+  EditProfileInitialData(name, genre, landlordType, cpfCnpj, phones, token)
       : super(
             name: name,
             genre: genre,
@@ -56,8 +56,9 @@ class EditInitialData extends GetDatasDefault {
   String toString() => super.toString();
 }
 
-class DataSuccessfullyEdited extends GetDatasDefault {
-  DataSuccessfullyEdited(name, genre, landlordType, cpfCnpj, phones, token)
+class DataProfileSuccessfullyEdited extends GetDatasDefault {
+  DataProfileSuccessfullyEdited(
+      name, genre, landlordType, cpfCnpj, phones, token)
       : super(
             name: name,
             genre: genre,
@@ -83,12 +84,12 @@ class EditProfileUserConfirmed extends EditMyProfileState {
   String toString() => 'EditProfileUserConfirmed';
 }
 
-class LoadingDataEditing extends EditMyProfileState {}
+class LoadingProfileDataEditing extends EditMyProfileState {}
 
-class FailureDataEditing extends EditMyProfileState {
+class FailureProfileDataEditing extends EditMyProfileState {
   final String error;
 
-  const FailureDataEditing({@required this.error});
+  const FailureProfileDataEditing({@required this.error});
 
   @override
   List<Object> get props => [error];

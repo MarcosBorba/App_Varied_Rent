@@ -1,83 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/modern_pictograms_icons.dart';
+import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-class EditMyProfilePage extends StatefulWidget {
+class EditMyProfilePageForm extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => EditMyProfilePageState();
+  State<StatefulWidget> createState() => EditMyProfilePageFormState();
 }
 
 //TODO: nivel 4 - definir texts, colors, routes, aplicar as mascaras
-class EditMyProfilePageState extends State<EditMyProfilePage> {
-  var selectedItemOfGenderType;
-  var selectedItemOfLandlordType;
-  TextEditingController _nameController;
-  TextEditingController _cpfCnpjController;
-  TextEditingController _telephoneMandatoryController;
-  TextEditingController _telephoneOptionalController;
+class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
+  String selectedItemOfGenderType;
+  String selectedItemOfLandlordType;
+  TextEditingController _nameController = new TextEditingController();
+  TextEditingController _cpfCnpjController = new TextEditingController();
+  TextEditingController _telephoneMandatoryController =
+      new TextEditingController();
+  TextEditingController _telephoneOptionalController =
+      new TextEditingController();
   final GlobalKey<FormState> _keyFormEditMyProfile = new GlobalKey();
-  GlobalKey keyGender = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: screenHeight,
-        width: screenWidth,
-        color: AppColors.tertiaryColor,
-        child: ListView(
-          shrinkWrap: true,
+      body: BlocListener<EditMyProfileBloc, EditMyProfileState>(
+        listener: (context, state) {
+          if (state is EditProfileInitialData) {
+            _nameController.text = state.name;
+            _cpfCnpjController.text = state.cpfCnpj;
+            _telephoneMandatoryController.text = state.phones.telephone1;
+            _telephoneOptionalController.text = state.phones.telephone2;
+            //selectedItemOfGenderType = state.genre;
+            //selectedItemOfLandlordType = state.landlordType;
+            print("print datas => " + state.toString());
+          }
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: screenWidth * 0.03,
-                right: screenWidth * 0.03,
-              ),
-              child: Container(
-                decoration: boxDecoration(),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: screenWidth * 0.02,
-                      right: screenWidth * 0.02,
-                      bottom: screenWidth * 0.04),
-                  child: Column(
-                    children: <Widget>[
-                      returnsHeaderForm(),
-                      returnMainFormEditProfile(),
-                      Container(
-                        height: screenHeight * 0.08,
-                        width: screenWidth,
-                        child: returnButtonSubmitForm(),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
+            returnsHeaderForm(),
+            returnMainFormEditProfile(),
+            Container(
+              height: screenHeight * 0.08,
+              width: screenWidth,
+              child: returnButtonSubmitForm(),
+            )
           ],
         ),
-      ),
-    );
-  }
-
-  boxDecoration() {
-    return BoxDecoration(
-      color: Colors.white,
-      border: Border.all(
-        width: screenWidth * 0.00500,
-        color: AppColors.primaryColor,
-      ),
-      borderRadius: BorderRadius.all(
-        Radius.circular(AppSizes.size40),
       ),
     );
   }
@@ -176,7 +149,6 @@ class EditMyProfilePageState extends State<EditMyProfilePage> {
 
   Widget returnsGenderButtonSelector() {
     return DropDownButtonSelectorDefault(
-      key: keyGender,
       prefixIcon: FontAwesome.venus_mars,
       suffixIcon: Icons.arrow_drop_down,
       hint: AppTexts().editMyProfileGenderSelectorHintText,

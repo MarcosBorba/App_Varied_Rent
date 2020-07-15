@@ -17,45 +17,52 @@ class EditMyProfileBloc extends Bloc<EditMyProfileEvent, EditMyProfileState> {
   SharedPref sharedPref = SharedPref();
 
   @override
-  get initialState => returnInitialStateWithData();
+  get initialState => LoadingProfileDataEditing();
 
   returnInitialStateWithData() async {
-    Map mapDataInitialData = await returnDataForStateEditInitialData();
-
-    var newState = new EditInitialData(
-      mapDataInitialData['name'],
-      mapDataInitialData['gender'],
-      mapDataInitialData['landlordType'],
-      mapDataInitialData['cpfCnpj'],
-      mapDataInitialData['phones'],
-      mapDataInitialData['token'],
-    );
+    var newState;
+    await returnDataForStateEditInitialData()
+        .then((value) => newState = new EditProfileInitialData(
+              value['name'],
+              value['gender'],
+              value['landlordType'],
+              value['cpfCnpj'],
+              value['phones'],
+              value['token'],
+            ));
     return newState;
   }
 
-  returnDataForStateEditInitialData() async {
+  Future<Map<dynamic, dynamic>> returnDataForStateEditInitialData() async {
     String name = await sharedPref.read('name');
     String gender = await sharedPref.read('genre');
-    String landlordType = await sharedPref.read('landlord_type');
-    String cpfCnpj = await sharedPref.read('cpf_cnpj');
-    Phones phones = await sharedPref.read('phones');
+    String landlordType = await sharedPref.read('landlordType');
+    String cpfCnpj = await sharedPref.read('cpfCnpj');
+    Map<dynamic, dynamic> phones = await sharedPref.read('phones');
     String token = await sharedPref.read('token');
+    Phones newPhones = new Phones(
+      telephone1: phones['telephone1'],
+      telephone2: phones['telephone2'],
+    );
 
     Map mapDataInitialData = {
       'name': name,
       'gender': gender,
       'landlordType': landlordType,
       'cpfCnpj': cpfCnpj,
-      'phones': phones,
+      'phones': newPhones,
       'token': token,
     };
     return mapDataInitialData;
   }
 
   @override
-  Stream<EditMyProfileState> mapEventToState(EditMyProfileEvent event) {
-    if (event is SaveProfileDataButtonPressed) {
-      var lala = event.user.name;
+  Stream<EditMyProfileState> mapEventToState(EditMyProfileEvent event) async* {
+    print("passa no map");
+    if (event is PageEditMyProfileStarted) {
+      print("lala");
+      var moss = await returnInitialStateWithData();
+      yield moss;
     }
   }
 }
