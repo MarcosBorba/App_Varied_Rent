@@ -58,9 +58,7 @@ class EditMyProfileBloc extends Bloc<EditMyProfileEvent, EditMyProfileState> {
 
   @override
   Stream<EditMyProfileState> mapEventToState(EditMyProfileEvent event) async* {
-    print("passa no map");
     if (event is PageEditMyProfileStarted) {
-      print("lala");
       var moss = await returnInitialStateWithData();
       yield moss;
     }

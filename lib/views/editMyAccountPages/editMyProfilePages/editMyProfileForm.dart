@@ -13,6 +13,8 @@ class EditMyProfilePageForm extends StatefulWidget {
 }
 
 //TODO: nivel 4 - definir texts, colors, routes, aplicar as mascaras
+//consegui trazer os dados para os campos, otimizar o bloc e as pages
+//olhar validacao dos dropdownbuttons, funcionam corretamente, mas nao 100%
 class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
   String selectedItemOfGenderType;
   String selectedItemOfLandlordType;
@@ -26,80 +28,22 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<EditMyProfileBloc, EditMyProfileState>(
-        listener: (context, state) {
-          if (state is EditProfileInitialData) {
-            _nameController.text = state.name;
-            _cpfCnpjController.text = state.cpfCnpj;
-            _telephoneMandatoryController.text = state.phones.telephone1;
-            _telephoneOptionalController.text = state.phones.telephone2;
-            //selectedItemOfGenderType = state.genre;
-            //selectedItemOfLandlordType = state.landlordType;
-            print("print datas => " + state.toString());
-          }
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            returnsHeaderForm(),
-            returnMainFormEditProfile(),
-            Container(
-              height: screenHeight * 0.08,
-              width: screenWidth,
-              child: returnButtonSubmitForm(),
-            )
-          ],
-        ),
-      ),
+    return BlocListener<EditMyProfileBloc, EditMyProfileState>(
+      listener: (context, state) {
+        if (state is EditProfileInitialData) {
+          _nameController.text = state.name;
+          _cpfCnpjController.text = state.cpfCnpj;
+          _telephoneMandatoryController.text = state.phones.telephone1;
+          _telephoneOptionalController.text = state.phones.telephone2;
+          selectedItemOfGenderType = state.genre;
+          selectedItemOfLandlordType = state.landlordType;
+        }
+      },
+      child: returnMainFormEditProfile(),
     );
   }
 
-  Widget returnsHeaderForm() {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: screenHeight * 0.10,
-        ),
-        returnsALineWithAnIconAndATextForTheTitle(),
-        SizedBox(
-          height: screenHeight * 0.10,
-        ),
-        Divider(
-          endIndent: AppSizes.size10,
-          indent: AppSizes.size10,
-          thickness: AppSizes.size2,
-        ),
-        SizedBox(
-          height: screenHeight * 0.08,
-        ),
-      ],
-    );
-  }
-
-  Widget returnsALineWithAnIconAndATextForTheTitle() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Icon(
-          Icons.mode_edit,
-          size: AppSizes.size40,
-          color: AppColors.editEmailOrPasswordColorIconTitle,
-        ),
-        Text(
-          AppTexts().editMyProfileTitlePage,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: AppColors.editEmailOrPasswordColorTitle,
-            fontSize: AppFontSize.s20,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget returnMainFormEditProfile() {
+  Form returnMainFormEditProfile() {
     return Form(
       autovalidate: true,
       key: _keyFormEditMyProfile,
@@ -129,6 +73,11 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
             height: screenHeight * 0.15,
             child: returnsTelephoneOptionalTextfield(),
           ),
+          Container(
+            height: screenHeight * 0.08,
+            width: screenWidth,
+            child: returnButtonSubmitForm(),
+          )
         ],
       ),
     );
@@ -156,7 +105,16 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       items: AppTexts().editMyProfileGenderSelectorTypesList,
       value: selectedItemOfGenderType,
       validator: FieldValidators().genderFormFieldValidator,
+      onChanged: (String novoItemSelecionado) {
+        _dropDownItemSelected(novoItemSelecionado);
+      },
     );
+  }
+
+  void _dropDownItemSelected(String novoItem) {
+    setState(() {
+      this.selectedItemOfGenderType = novoItem;
+    });
   }
 
   Widget returnsLandLordTypeButtonSelector() {
@@ -168,7 +126,16 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       items: AppTexts().editMyProfileLandlordSelectorTypesList,
       value: selectedItemOfLandlordType,
       validator: FieldValidators().landlordTypeFormFieldValidator,
+      onChanged: (String novoItemSelecionado) {
+        _dropDownItemSelectedLand(novoItemSelecionado);
+      },
     );
+  }
+
+  void _dropDownItemSelectedLand(String novoItem) {
+    setState(() {
+      this.selectedItemOfLandlordType = novoItem;
+    });
   }
 
   Widget returnsCpfCnpjTextfield() {
@@ -228,7 +195,9 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
     return ButtonFormDefault(
       color: AppColors.tertiaryColor,
       textButton: AppTexts().editMyProfileConfirmSaveProfileData,
-      onPressed: () {},
+      onPressed: () {
+        _keyFormEditMyProfile.currentState.validate();
+      },
     );
   }
 }

@@ -37,15 +37,15 @@ class FieldValidators {
     return null;
   }
 
-  String genderFormFieldValidator(value) {
-    if (value == null) {
+  String genderFormFieldValidator(String value) {
+    if (value?.isEmpty ?? true) {
       return AppTexts().errorTextEmptyFieldOfGenderTextField;
     }
     return null;
   }
 
-  String landlordTypeFormFieldValidator(value) {
-    if (value == null) {
+  String landlordTypeFormFieldValidator(String value) {
+    if (value?.isEmpty ?? true) {
       return AppTexts().errorTextEmptyFieldOfLandlordTypesTextField;
     }
     return null;
@@ -81,7 +81,7 @@ class FieldValidators {
     RegExp regExp = new RegExp(patttern);
     if (value.toString().length == 0) {
       return null;
-    }else if (!regExp.hasMatch(value.toString())) {
+    } else if (!regExp.hasMatch(value.toString())) {
       return AppTexts().errorTextInvalidTelephoneOfTelephoneMandatoryTextField;
     }
     return null;
