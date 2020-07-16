@@ -325,7 +325,7 @@ class _SignupForm2State extends State<SignupForm2> {
     userTransition.genre = selectedItemOfGenderType.toString();
     userTransition.landlord_type = selectedItemOfLandlordType.toString();
     userTransition.cpf_cnpj = _cpfCnpjController.text;
-    userTransition.phones = Phones(
+    userTransition.phones = new Phones(
         telephone1: _telephone1Controller.text,
         telephone2: _telephone2Controller.text);
 

@@ -33,4 +33,9 @@ class UserRepository {
     await userApiClient.updatePasswordUser(
         userEmail, newPassword, newPasswordConfirmed, token);
   }
+
+  Future userUpdateProfileRepository(
+      User user, String token, String oldCpfCnpj) async {
+    await userApiClient.updateUserProfile(user, token, oldCpfCnpj);
+  }
 }

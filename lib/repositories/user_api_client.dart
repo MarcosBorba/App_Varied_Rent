@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:varied_rent/models/models.dart';
 
 class UserApiClient {
-  static const baseUrl = 'http://192.168.2.103:3000/userRoute';
+  static const baseUrl = 'http://192.168.2.107:3000/userRoute';
   Dio dio = new Dio();
 
   UserApiClient();
@@ -142,6 +142,42 @@ class UserApiClient {
               error: e.response.statusCode.toString() +
                   " - " +
                   e.response.data['message']);
+        }
+      }
+    }
+  }
+
+  Future updateUserProfile(User user, String token, String oldCpfCnpj) async {
+    final userCheckUserUrl = '$baseUrl/update_profile';
+    final Map<String, dynamic> jsonUserProfile = {
+      "old_cpf_cnpj": oldCpfCnpj,
+      "name": user.name,
+      "genre": user.genre,
+      "landlord_type": user.landlord_type,
+      "cpf_cnpj": user.cpf_cnpj,
+      "phones": {
+        "telephone1": user.phones.telephone1,
+        "telephone2": user.phones.telephone2,
+      },
+    };
+    try {
+      await dio.put(
+        userCheckUserUrl,
+        data: jsonUserProfile,
+        options: Options(
+          headers: {'x-access-token': token},
+        ),
+      );
+    } catch (error) {
+      print("error message: " + error.message);
+      if (error is DioError) {
+        if (error.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: error.response.statusCode.toString() +
+                  " - " +
+                  error.response.data['message']);
         }
       }
     }

@@ -5,7 +5,7 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyProfilePages/editMyProfileForm.dart';
 
-//TODO: nivel 4 - colors, texts, routes e otimzar blocs
+//TODO: nivel 4 - colors, routes e otimzar blocs
 class EditMyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

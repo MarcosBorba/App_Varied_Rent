@@ -5,6 +5,7 @@ import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/modern_pictograms_icons.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 class EditMyProfilePageForm extends StatefulWidget {
@@ -12,9 +13,9 @@ class EditMyProfilePageForm extends StatefulWidget {
   State<StatefulWidget> createState() => EditMyProfilePageFormState();
 }
 
-//TODO: nivel 4 - definir texts, colors, routes, aplicar as mascaras
+//TODO: nivel 4 - definir colors, routes
 //consegui trazer os dados para os campos, otimizar o bloc e as pages
-//olhar validacao dos dropdownbuttons, funcionam corretamente, mas nao 100%
+//nivel 2 - olhar validacao dos dropdownbuttons, funcionam corretamente, mas nao 100%
 class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
   String selectedItemOfGenderType;
   String selectedItemOfLandlordType;
@@ -39,46 +40,49 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
           selectedItemOfLandlordType = state.landlordType;
         }
       },
-      child: returnMainFormEditProfile(),
-    );
-  }
-
-  Form returnMainFormEditProfile() {
-    return Form(
-      autovalidate: true,
-      key: _keyFormEditMyProfile,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: screenHeight * 0.15,
-            child: returnsNameTextfield(),
-          ),
-          Container(
-            height: screenHeight * 0.15,
-            child: returnsGenderButtonSelector(),
-          ),
-          Container(
-            height: screenHeight * 0.15,
-            child: returnsLandLordTypeButtonSelector(),
-          ),
-          Container(
-            height: screenHeight * 0.15,
-            child: returnsCpfCnpjTextfield(),
-          ),
-          Container(
-            height: screenHeight * 0.15,
-            child: returnsTelephoneMandatoryTextfield(),
-          ),
-          Container(
-            height: screenHeight * 0.15,
-            child: returnsTelephoneOptionalTextfield(),
-          ),
-          Container(
-            height: screenHeight * 0.08,
-            width: screenWidth,
-            child: returnButtonSubmitForm(),
-          )
-        ],
+      child: BlocBuilder<EditMyProfileBloc, EditMyProfileState>(
+        builder: (context, state) {
+          return Form(
+            autovalidate: true,
+            key: _keyFormEditMyProfile,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: screenHeight * 0.15,
+                  child: returnsNameTextfield(),
+                ),
+                Container(
+                  height: screenHeight * 0.15,
+                  child: returnsGenderButtonSelector(),
+                ),
+                Container(
+                  height: screenHeight * 0.15,
+                  child: returnsLandLordTypeButtonSelector(),
+                ),
+                Container(
+                  height: screenHeight * 0.15,
+                  child: returnsCpfCnpjTextfield(),
+                ),
+                Container(
+                  height: screenHeight * 0.15,
+                  child: returnsTelephoneMandatoryTextfield(),
+                ),
+                Container(
+                  height: screenHeight * 0.15,
+                  child: returnsTelephoneOptionalTextfield(),
+                ),
+                Container(
+                  height: screenHeight * 0.08,
+                  width: screenWidth,
+                  child: state is LoadingProfileDataEditing
+                      ? returnLinearProgressLoading(
+                          screenHeight * 0.01, screenWidth)
+                      : returnButtonSubmitForm(),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -105,15 +109,15 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       items: AppTexts().editMyProfileGenderSelectorTypesList,
       value: selectedItemOfGenderType,
       validator: FieldValidators().genderFormFieldValidator,
-      onChanged: (String novoItemSelecionado) {
-        _dropDownItemSelected(novoItemSelecionado);
+      onChanged: (String newItemSelected) {
+        _dropDownItemGenderSelected(newItemSelected);
       },
     );
   }
 
-  void _dropDownItemSelected(String novoItem) {
+  void _dropDownItemGenderSelected(String newItem) {
     setState(() {
-      this.selectedItemOfGenderType = novoItem;
+      this.selectedItemOfGenderType = newItem;
     });
   }
 
@@ -126,15 +130,15 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       items: AppTexts().editMyProfileLandlordSelectorTypesList,
       value: selectedItemOfLandlordType,
       validator: FieldValidators().landlordTypeFormFieldValidator,
-      onChanged: (String novoItemSelecionado) {
-        _dropDownItemSelectedLand(novoItemSelecionado);
+      onChanged: (String newItemSelected) {
+        _dropDownItemLandlordTypeSelected(newItemSelected);
       },
     );
   }
 
-  void _dropDownItemSelectedLand(String novoItem) {
+  void _dropDownItemLandlordTypeSelected(String newItem) {
     setState(() {
-      this.selectedItemOfLandlordType = novoItem;
+      this.selectedItemOfLandlordType = newItem;
     });
   }
 
@@ -195,9 +199,53 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
     return ButtonFormDefault(
       color: AppColors.tertiaryColor,
       textButton: AppTexts().editMyProfileConfirmSaveProfileData,
-      onPressed: () {
-        _keyFormEditMyProfile.currentState.validate();
-      },
+      onPressed: onButtonSubmitFormPressed,
+    );
+  }
+
+  onButtonSubmitFormPressed() {
+    _keyFormEditMyProfile.currentState.validate()
+        ? submitFormEditMyProfile()
+        : false;
+  }
+
+  submitFormEditMyProfile() {
+    BlocProvider.of<EditMyProfileBloc>(context).add(
+      SaveProfileDataButtonPressed(
+        user: new User(
+          name: _nameController.text,
+          genre: selectedItemOfGenderType.toString(),
+          landlord_type: selectedItemOfLandlordType.toString(),
+          cpf_cnpj: _cpfCnpjController.text,
+          phones: new Phones(
+            telephone1: _telephoneMandatoryController.text,
+            telephone2: _telephoneOptionalController.text,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget returnLinearProgressLoading(double height, double width) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            height: height,
+            width: width,
+            child: returnsLinearProgressLoading(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget returnsLinearProgressLoading() {
+    return LinearProgressIndicator(
+      backgroundColor: AppColors.secondaryColor,
+      valueColor: AlwaysStoppedAnimation<Color>(AppColors.tertiaryColor),
     );
   }
 }

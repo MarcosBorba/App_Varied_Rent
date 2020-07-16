@@ -22,30 +22,33 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          height: heightBodyScaffold,
-          width: screenWidth,
-          child:
-              returnListButtonsOptions(heightBodyScaffold * 0.25, screenWidth),
+    return WillPopScope(
+      onWillPop: () {},
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            height: heightBodyScaffold,
+            width: screenWidth,
+            child: returnListButtonsOptions(
+                heightBodyScaffold * 0.25, screenWidth),
+          ),
         ),
-      ),
-      bottomNavigationBar: EditMyAccountPageFFNavigationBar(
-        selectedIndex: navigationBarBottomIndex,
-        onSelectTab: (index) {
-          setState(() {
-            navigationBarBottomIndex = index;
-            index == 0
-                ? navigatesToTheEditAccountDataScreen()
-                : index == 1
-                    ? navigatesToTheEditProfileDataScreen()
-                    : index == 2
-                        ? navigatesToTheEditAddressDataScreen()
-                        : false;
-          });
-        },
-        bottomNavyBarItems: listBottomFFNavigationBarItems(),
+        bottomNavigationBar: EditMyAccountPageFFNavigationBar(
+          selectedIndex: navigationBarBottomIndex,
+          onSelectTab: (index) {
+            setState(() {
+              navigationBarBottomIndex = index;
+              index == 0
+                  ? navigatesToTheEditAccountDataScreen()
+                  : index == 1
+                      ? navigatesToTheEditProfileDataScreen()
+                      : index == 2
+                          ? navigatesToTheEditAddressDataScreen()
+                          : false;
+            });
+          },
+          bottomNavyBarItems: listBottomFFNavigationBarItems(),
+        ),
       ),
     );
   }

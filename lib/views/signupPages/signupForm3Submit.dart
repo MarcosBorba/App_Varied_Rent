@@ -18,6 +18,7 @@ class SignupForm3Submit extends StatefulWidget {
 }
 
 //TODO: nivel 1 - estudar e implementar busca de enderecos no backend para trazer opcoes pro usuario
+//TODO: nivel 3 - melhorar perfomance para ver se email e cpf sao unicos, nos seus proprios formularios, para evitar troca de formularios e o usuario precisar voltar
 class _SignupForm3SubmitState extends State<SignupForm3Submit> {
   final User userTransition;
   _SignupForm3SubmitState({this.userTransition});
