@@ -211,7 +211,11 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   navigationFunctionForUserDataEditingScreen() {
-    AppRoutes.push(context, EditMyAccountPage());
+    Navigator.of(context)
+        .push(new MaterialPageRoute(builder: (context) => EditMyAccountPage()))
+        .then((value) {
+      setState(() {});
+    });
   }
 
   Widget openBottomDrawerMyAccountPage() {

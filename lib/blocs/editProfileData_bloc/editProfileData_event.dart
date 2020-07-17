@@ -13,21 +13,6 @@ class SaveProfileDataButtonPressed extends EditMyProfileEvent {
 
   @override
   String toString() => 'SaveProfileDataButtonPressed { user: $user } ';
-  /* 'SaveProfileDataButtonPressed { name: ' +
-      user.name +
-      ', genre: ' +
-      user.genre +
-      ', landLordType: ' +
-      user.landlord_type +
-      ', cpfCnpj: ' +
-      user.cpf_cnpj +
-      ', phones: telephone1 - ' +
-      user.phones.telephone1 +
-      ', telephone2 - ' +
-      user.phones.telephone2 +
-      ', token: ' +
-      user.token +
-      ' }'; */
 }
 
 class PageEditMyProfileStarted extends EditMyProfileEvent {

@@ -24,12 +24,12 @@ class EditMyProfileBloc extends Bloc<EditMyProfileEvent, EditMyProfileState> {
     var newState;
     await returnDataForStateEditInitialData()
         .then((value) => newState = new EditProfileInitialData(
-              value['name'],
-              value['gender'],
-              value['landlordType'],
-              value['cpfCnpj'],
-              value['phones'],
-              value['token'],
+              name: value['name'],
+              genre: value['gender'],
+              landlordType: value['landlordType'],
+              cpfCnpj: value['cpfCnpj'],
+              phones: value['phones'],
+              token: value['token'],
             ));
     return newState;
   }
@@ -57,7 +57,6 @@ class EditMyProfileBloc extends Bloc<EditMyProfileEvent, EditMyProfileState> {
     return mapDataInitialData;
   }
 
-//TODO: nivel 4 - fazer bloc bem feito
   @override
   Stream<EditMyProfileState> mapEventToState(EditMyProfileEvent event) async* {
     if (event is PageEditMyProfileStarted) {
@@ -79,13 +78,14 @@ class EditMyProfileBloc extends Bloc<EditMyProfileEvent, EditMyProfileState> {
         await replaceDataFromSharedPreferences(
           event.user,
         );
+
         yield DataProfileSuccessfullyEdited(
-          event.user.name,
-          event.user.genre,
-          event.user.landlord_type,
-          event.user.cpf_cnpj,
-          event.user.phones,
-          event.user.token,
+          name: event.user.name,
+          genre: event.user.genre,
+          landlordType: event.user.landlord_type,
+          cpfCnpj: event.user.cpf_cnpj,
+          phones: event.user.phones,
+          token: event.user.token,
         );
       } catch (error) {
         if (error is DioError) {

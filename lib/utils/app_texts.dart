@@ -217,6 +217,8 @@ class AppTexts {
   //Edit My Profile Texts
   String editMyProfileTitlePage = "   Edit Profile Data";
   String editMyProfileConfirmSaveProfileData = "Save Profile Data";
+  static const String editMyProfileUpdateSuccessfully =
+      "' The data has been updated successfully'";
 
   String editMyProfileNameTextFieldLabelText = 'Name';
   String editMyProfileNameTextFieldHintText = 'Type your full name';
@@ -228,8 +230,7 @@ class AppTexts {
   List<String> editMyProfileLandlordSelectorTypesList = [
     'Company',
     'Particular',
-    'Other',
-    'comercial'
+    'Other'
   ];
   String editMyProfileLandlordSelectorHintText = "Select a type of landlord";
   String editMyProfileLandlordSelectordHelpText = "Ex: Particular";
@@ -239,8 +240,7 @@ class AppTexts {
   List<String> editMyProfileGenderSelectorTypesList = [
     'Female',
     'Male',
-    'Other',
-    'masculino'
+    'Other'
   ];
   String editMyProfileGenderSelectorHintText = "Select a type of gender";
   String editMyProfileGenderSelectordHelpText = "Ex: Female";

@@ -5,7 +5,6 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyProfilePages/editMyProfileForm.dart';
 
-//TODO: nivel 4 - colors, routes e otimzar blocs
 class EditMyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class EditMyProfilePage extends StatelessWidget {
               return Container(
                 height: screenHeight,
                 width: screenWidth,
-                color: AppColors.tertiaryColor,
+                color: AppColors.editMyProfileBackground,
                 child: ListView(
                   shrinkWrap: true,
                   children: <Widget>[
@@ -73,10 +72,10 @@ class EditMyProfilePage extends StatelessWidget {
 
   boxDecoration() {
     return BoxDecoration(
-      color: Colors.white,
+      color: AppColors.editMyProfileBackgroundForm,
       border: Border.all(
         width: screenWidth * 0.00500,
-        color: AppColors.primaryColor,
+        color: AppColors.editMyProfileBorderForm,
       ),
       borderRadius: BorderRadius.all(
         Radius.circular(AppSizes.size40),
@@ -114,13 +113,13 @@ class EditMyProfilePage extends StatelessWidget {
         Icon(
           Icons.mode_edit,
           size: AppSizes.size40,
-          color: AppColors.editEmailOrPasswordColorIconTitle,
+          color: AppColors.editMyProfileIconTitle,
         ),
         Text(
           AppTexts().editMyProfileTitlePage,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: AppColors.editEmailOrPasswordColorTitle,
+            color: AppColors.editMyProfileTitle,
             fontSize: AppFontSize.s20,
           ),
         ),

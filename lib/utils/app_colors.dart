@@ -19,6 +19,14 @@ class AppColors {
   Color get defaultSubtitleColor => const Color(0x8A000000);
   //Border colors
 
+  //Colors Components Default
+  static const Color cursorTextFieldDefault = secondaryColor;
+  static const Color hintTextTextFieldDefault = secondaryColor;
+  static const Color prefixIconTextFieldDefault = tertiaryColor;
+  static const Color labelTextTextFieldDefault = tertiaryColor;
+  static const Color defaultFormBorderTextFieldDefault = secondaryColor;
+  static const Color focusedDefaultFormBorderTextFieldDefault = tertiaryColor;
+
   //Colors HomePage
   static const Color cursorColorSearchTextField = secondaryColor;
   static const Color hintTextColorSearchTextField = secondaryColor;
@@ -106,4 +114,15 @@ class AppColors {
       secondaryColor;
   static const Color editEmailOrPasswordColorProgressIndicatorSecondary =
       tertiaryColor;
+
+  //Colors Edit My Profile Page
+  static const Color editMyProfileBackground = tertiaryColor;
+  static const Color editMyProfileBackgroundForm = Colors.white;
+  static const Color editMyProfileBorderForm = primaryColor;
+  static const Color editMyProfileIconTitle = tertiaryColor;
+  static const Color editMyProfileTitle = tertiaryColor;
+
+  static const Color editMyProfileButtonSubmit = tertiaryColor;
+  static const Color editMyProfileLinearProgressBackground = secondaryColor;
+  static const Color editMyProfileLinearProgressSecondary = tertiaryColor;
 }

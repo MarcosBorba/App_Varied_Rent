@@ -11,6 +11,8 @@ class DropDownButtonSelectorDefault extends StatelessWidget {
   final IconData prefixIcon;
   final String helperText;
   final FormFieldValidator<String> validator;
+  final Color prefixIconColor;
+  final Color hintTextColor;
   final Color focusedDefaultFormColor;
   final Color defaultFormColor;
   final EdgeInsets contentPadding;
@@ -25,8 +27,11 @@ class DropDownButtonSelectorDefault extends StatelessWidget {
     this.prefixIcon,
     this.helperText,
     this.validator,
-    this.defaultFormColor = AppColors.secondaryColor,
-    this.focusedDefaultFormColor = AppColors.tertiaryColor,
+    this.prefixIconColor = AppColors.prefixIconTextFieldDefault,
+    this.hintTextColor = AppColors.hintTextTextFieldDefault,
+    this.defaultFormColor = AppColors.defaultFormBorderTextFieldDefault,
+    this.focusedDefaultFormColor =
+        AppColors.focusedDefaultFormBorderTextFieldDefault,
     this.contentPadding,
   }) : super(key: key);
 
@@ -54,19 +59,19 @@ class DropDownButtonSelectorDefault extends StatelessWidget {
       hint: Text(
         hint,
         style: TextStyle(
-          color: AppColors.tertiaryColor,
+          color: hintTextColor,
         ),
       ),
       icon: Icon(
         suffixIcon,
-        color: AppColors.tertiaryColor,
+        color: prefixIconColor,
       ),
       decoration: InputDecoration(
         helperText: helperText,
         contentPadding: contentPadding,
         prefixIcon: Icon(
           prefixIcon,
-          color: AppColors.tertiaryColor,
+          color: prefixIconColor,
         ),
         errorMaxLines: AppSizes.size2.toInt(),
         helperMaxLines: AppSizes.size2.toInt(),

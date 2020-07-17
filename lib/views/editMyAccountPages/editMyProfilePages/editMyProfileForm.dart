@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/modern_pictograms_icons.dart';
@@ -13,9 +14,7 @@ class EditMyProfilePageForm extends StatefulWidget {
   State<StatefulWidget> createState() => EditMyProfilePageFormState();
 }
 
-//TODO: nivel 4 - definir colors, routes
-//consegui trazer os dados para os campos, otimizar o bloc e as pages
-//nivel 2 - olhar validacao dos dropdownbuttons, funcionam corretamente, mas nao 100%
+//TODO: nivel 2 - olhar validacao dos dropdownbuttons, funcionam corretamente, mas nao 100%
 class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
   String selectedItemOfGenderType;
   String selectedItemOfLandlordType;
@@ -38,6 +37,22 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
           _telephoneOptionalController.text = state.phones.telephone2;
           selectedItemOfGenderType = state.genre;
           selectedItemOfLandlordType = state.landlordType;
+        } else if (state is DataProfileSuccessfullyEdited) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+                content: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Entypo.check),
+                    Text(
+                      AppTexts.editMyProfileUpdateSuccessfully,
+                    ),
+                  ],
+                ),
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 5)),
+          );
         }
       },
       child: BlocBuilder<EditMyProfileBloc, EditMyProfileState>(
@@ -197,7 +212,7 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
 
   Widget returnButtonSubmitForm() {
     return ButtonFormDefault(
-      color: AppColors.tertiaryColor,
+      color: AppColors.editMyProfileButtonSubmit,
       textButton: AppTexts().editMyProfileConfirmSaveProfileData,
       onPressed: onButtonSubmitFormPressed,
     );
@@ -244,8 +259,9 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
 
   Widget returnsLinearProgressLoading() {
     return LinearProgressIndicator(
-      backgroundColor: AppColors.secondaryColor,
-      valueColor: AlwaysStoppedAnimation<Color>(AppColors.tertiaryColor),
+      backgroundColor: AppColors.editMyProfileLinearProgressBackground,
+      valueColor: AlwaysStoppedAnimation<Color>(
+          AppColors.editMyProfileLinearProgressSecondary),
     );
   }
 }

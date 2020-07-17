@@ -7,7 +7,7 @@ abstract class EditMyProfileState extends Equatable {
   List<Object> get props => [];
 }
 
-abstract class GetDatasDefault extends EditMyProfileState {
+class EditProfileInitialData extends EditMyProfileState {
   final String token;
   final String name;
   final String genre;
@@ -15,7 +15,7 @@ abstract class GetDatasDefault extends EditMyProfileState {
   final String cpfCnpj;
   final Phones phones;
 
-  const GetDatasDefault(
+  EditProfileInitialData(
       {@required this.genre,
       @required this.landlordType,
       @required this.cpfCnpj,
@@ -23,7 +23,6 @@ abstract class GetDatasDefault extends EditMyProfileState {
       @required this.token,
       @required this.name});
 
-  @override
   List<Object> get props => [
         token,
         name,
@@ -33,55 +32,39 @@ abstract class GetDatasDefault extends EditMyProfileState {
         phones,
       ];
 
-  @override
   String toString() =>
-      'GetDatasDefault { token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj, phones: ' +
+      'EditProfileInitialData { token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj, phones: ' +
       phones.toString();
 }
 
-class EditProfileInitialData extends GetDatasDefault {
-  EditProfileInitialData(name, genre, landlordType, cpfCnpj, phones, token)
-      : super(
-            name: name,
-            genre: genre,
-            landlordType: landlordType,
-            cpfCnpj: cpfCnpj,
-            phones: phones,
-            token: token);
+class DataProfileSuccessfullyEdited extends EditMyProfileState {
+  final String token;
+  final String name;
+  final String genre;
+  final String landlordType;
+  final String cpfCnpj;
+  final Phones phones;
 
-  @override
-  List<Object> get props => super.props;
-
-  @override
-  String toString() => super.toString();
-}
-
-class DataProfileSuccessfullyEdited extends GetDatasDefault {
   DataProfileSuccessfullyEdited(
-      name, genre, landlordType, cpfCnpj, phones, token)
-      : super(
-            name: name,
-            genre: genre,
-            landlordType: landlordType,
-            cpfCnpj: cpfCnpj,
-            phones: phones,
-            token: token);
+      {@required this.genre,
+      @required this.landlordType,
+      @required this.cpfCnpj,
+      @required this.phones,
+      @required this.token,
+      @required this.name});
 
-  @override
-  List<Object> get props => super.props;
+  List<Object> get props => [
+        token,
+        name,
+        genre,
+        landlordType,
+        cpfCnpj,
+        phones,
+      ];
 
-  @override
-  String toString() => super.toString();
-}
-
-class EditProfileUserConfirmed extends EditMyProfileState {
-  const EditProfileUserConfirmed();
-
-  @override
-  List<Object> get props => [];
-
-  @override
-  String toString() => 'EditProfileUserConfirmed';
+  String toString() =>
+      'DataProfileSuccessfullyEdited { token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj, phones: ' +
+      phones.toString();
 }
 
 class LoadingProfileDataEditing extends EditMyProfileState {}
