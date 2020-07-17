@@ -5,7 +5,6 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyAddressPages/editMyAddressForm.dart';
 
-//TODO: nivel 4 - definir cores, texts, rotas
 class EditMyAddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,6 @@
 class AppTexts {
+  //Texts Components Default
+
   //login screen texts
   String loginButtonText = 'Login';
   String signupButtonText = 'Signup';
@@ -65,52 +67,54 @@ class AppTexts {
   String errorTextInvalidTelephoneOfTelephoneOptionalTextField =
       '* Invalid Telephone Number. Ex: 00 00000 0000';
 
-  String countryTextFieldLabelText = 'Country';
-  String hintTextFromCountryTextField = 'type your country';
-  String countryTextFieldHelpText = 'Ex: Brazil';
-  String errorTextEmptyFieldOfCountryTextField = '* Country required';
-  String errorTextInvalidCountryOfCountryTextField =
+  String addressCountryTextFieldLabelText = 'Country';
+  String addressCountryTextFieldHintText = 'type your country';
+  String addressCountryTextFieldHelpText = 'Ex: Brazil';
+  String addressCountryTextFieldErrorTextEmptyField = '* Country required';
+  String addressCountryTextFieldErrorTextInvalidCountry =
       '* Invalid Country. Ex: Brazil';
 
-  String stateTextFieldLabelText = 'State';
-  String hintTextFromStateTextField = 'type your state';
-  String stateTextFieldHelpText = 'Ex: Sao Paulo';
-  String errorTextEmptyFieldOfStateTextField = '* State required';
-  String errorTextInvalidStateOfStateTextField =
+  String addressStateTextFieldLabelText = 'State';
+  String addressStateTextFieldHintText = 'type your state';
+  String addressStateTextFieldHelpText = 'Ex: Sao Paulo';
+  String addressStateTextFieldErrorTextEmptyField = '* State required';
+  String addressStateTextFieldErrorTextInvalidState =
       '* Invalid State. Ex: Sao Paulo';
 
-  String cityTextFieldLabelText = 'City';
-  String hintTextFromCityTextField = 'type your city';
-  String cityTextFieldHelpText = 'Ex: Sao Paulo';
-  String errorTextEmptyFieldOfCityTextField = '* City required';
-  String errorTextInvalidCityOfCityTextField = '* Invalid City. Ex: Sao Paulo';
+  String addressCityTextFieldLabelText = 'City';
+  String addressCityTextFieldHintText = 'type your city';
+  String addressCityTextFieldHelpText = 'Ex: Sao Paulo';
+  String addressCityTextFieldErrorTextEmptyField = '* City required';
+  String addressCityTextFieldErrorTextInvalidCity =
+      '* Invalid City. Ex: Sao Paulo';
 
-  String zipCodeTextFieldLabelText = 'Zip Code';
-  String hintTextFromZipCodeTextField = 'type your zip code';
-  String zipCodeTextFieldHelpText = 'Ex: 00000-0000';
-  String errorTextEmptyFieldOfZipCodeTextField = '* Zip code required';
-  String errorTextInvalidZipCodeOfZipCodeTextField =
+  String addressZipCodeTextFieldLabelText = 'Zip Code';
+  String addressZipCodeTextFieldHintText = 'type your zip code';
+  String addressZipCodeTextFieldHelpText = 'Ex: 00000-0000';
+  String addressZipCodeTextFieldErrorTextEmptyField = '* Zip code required';
+  String addressZipCodeTextFieldErrorTextInvalidZipCode =
       '* Invalid Zip Code. Ex: 00000-0000';
 
-  String neighborhoodTextFieldLabelText = 'Neighborhood';
-  String hintTextFromNeighborhoodTextField = 'type your neighborhood';
-  String neighborhoodTextFieldHelpText = 'Ex: South Zone';
-  String errorTextEmptyFieldOfNeighborhoodTextField = '* Neighborhood required';
-  String errorTextInvalidNeighborhoodOfNeighborhoodTextField =
+  String addressNeighborhoodTextFieldLabelText = 'Neighborhood';
+  String addressNeighborhoodTextFieldHintText = 'type your neighborhood';
+  String addressNeighborhoodTextFieldHelpText = 'Ex: South Zone';
+  String addressNeighborhoodTextFieldErrorTextEmptyField =
+      '* Neighborhood required';
+  String addressNeighborhoodTextFieldErrorTextInvalidNeighborhood =
       '* Invalid Neighborhood. Ex: South Zone';
 
-  String streetTextFieldLabelText = 'Street';
-  String hintTextFromStreetTextField = 'type your street';
-  String streetTextFieldHelpText = 'Ex: Street 144';
-  String errorTextEmptyFieldOfStreetTextField = '* Street required';
-  String errorTextInvalidStreetOfStreetTextField =
+  String addressStreetTextFieldLabelText = 'Street';
+  String addressStreetTextFieldHintText = 'type your street';
+  String addressStreetTextFieldHelpText = 'Ex: Street 144';
+  String addressStreetTextFieldErrorTextEmptyField = '* Street required';
+  String addressStreetTextFieldErrorTextInvalidStreet =
       '* Invalid Street. Ex: Street 144';
 
-  String numberTextFieldLabelText = 'Number';
-  String hintTextFromNumberTextField = 'type your number';
-  String numberTextFieldHelpText = 'Ex: 1000';
-  String errorTextEmptyFieldOfNumberTextField = '* Number required';
-  String errorTextInvalidNumberOfNumberTextField = '* Invalid Number. Ex: 1000';
+  String addressNumberTextFieldLabelText = 'Number';
+  String addressNumberTextFieldHintText = 'type your number';
+  String addressNumberTextFieldHelpText = 'Ex: 1000';
+  String addressNumberTextFieldErrorTextEmptyField = '* Number required';
+  String addressNumberTextFieldErrorTextInvalid = '* Invalid Number. Ex: 1000';
 
   //home page screen texts
   String hintTextSearch = "Search";
@@ -274,4 +278,6 @@ class AppTexts {
 
   //Edit My Address Page Texts
   String editMyAddressTitlePage = "   Edit Address Data";
+  static const String editMyAddressUpdateSuccessfully =
+      " The data has been updated successfully";
 }

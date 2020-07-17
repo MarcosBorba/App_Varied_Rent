@@ -53,8 +53,29 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
           ),
         );
       } else if (state is SignupSuccessfullyConcluded) {
-        BlocProvider.of<AuthenticationBloc>(context)
-            .add(LoggedIn(token: state.token));
+        BlocProvider.of<AuthenticationBloc>(context).add(
+          LoggedIn(
+            name: userTransition.name,
+            genre: userTransition.genre,
+            landlordType: userTransition.landlord_type,
+            cpfCnpj: userTransition.cpf_cnpj,
+            email: userTransition.email,
+            phones: new Phones(
+              telephone1: userTransition.phones.telephone1,
+              telephone2: userTransition.phones.telephone2,
+            ),
+            address: new Address(
+              country: userTransition.address.country,
+              state: userTransition.address.state,
+              city: userTransition.address.city,
+              zip_code: userTransition.address.zip_code,
+              neighborhood: userTransition.address.neighborhood,
+              street: userTransition.address.street,
+              number: userTransition.address.number,
+            ),
+            token: state.token,
+          ),
+        );
         AppRoutes.makeFirst(context, HomePage());
       }
     }, child: BlocBuilder<SignupBloc, SignupState>(builder: (context, state) {
@@ -190,9 +211,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _countryController,
-      labelText: AppTexts().countryTextFieldLabelText,
-      hintText: AppTexts().hintTextFromCountryTextField,
-      helperText: AppTexts().countryTextFieldHelpText,
+      labelText: AppTexts().addressCountryTextFieldLabelText,
+      hintText: AppTexts().addressCountryTextFieldHintText,
+      helperText: AppTexts().addressCountryTextFieldHelpText,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().countryFormFieldValidator,
@@ -203,9 +224,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _stateController,
-      labelText: AppTexts().stateTextFieldLabelText,
-      hintText: AppTexts().hintTextFromStateTextField,
-      helperText: AppTexts().stateTextFieldHelpText,
+      labelText: AppTexts().addressStateTextFieldLabelText,
+      hintText: AppTexts().addressStateTextFieldHintText,
+      helperText: AppTexts().addressStateTextFieldHelpText,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().stateFormFieldValidator,
@@ -216,9 +237,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _cityController,
-      labelText: AppTexts().cityTextFieldLabelText,
-      hintText: AppTexts().hintTextFromCityTextField,
-      helperText: AppTexts().cityTextFieldHelpText,
+      labelText: AppTexts().addressCityTextFieldLabelText,
+      hintText: AppTexts().addressCityTextFieldHintText,
+      helperText: AppTexts().addressCityTextFieldHelpText,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().cityFormFieldValidator,
@@ -229,9 +250,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _zipCodeController,
-      labelText: AppTexts().zipCodeTextFieldLabelText,
-      hintText: AppTexts().hintTextFromZipCodeTextField,
-      helperText: AppTexts().zipCodeTextFieldHelpText,
+      labelText: AppTexts().addressZipCodeTextFieldLabelText,
+      hintText: AppTexts().addressZipCodeTextFieldHintText,
+      helperText: AppTexts().addressZipCodeTextFieldHelpText,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().zipCodeFormFieldValidator,
@@ -242,9 +263,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _neighborhoodController,
-      labelText: AppTexts().neighborhoodTextFieldLabelText,
-      hintText: AppTexts().hintTextFromNeighborhoodTextField,
-      helperText: AppTexts().neighborhoodTextFieldHelpText,
+      labelText: AppTexts().addressNeighborhoodTextFieldLabelText,
+      hintText: AppTexts().addressNeighborhoodTextFieldHintText,
+      helperText: AppTexts().addressNeighborhoodTextFieldHelpText,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().neighborhoodFormFieldValidator,
@@ -255,9 +276,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _streetController,
-      labelText: AppTexts().streetTextFieldLabelText,
-      hintText: AppTexts().hintTextFromStreetTextField,
-      helperText: AppTexts().streetTextFieldHelpText,
+      labelText: AppTexts().addressStreetTextFieldLabelText,
+      hintText: AppTexts().addressStreetTextFieldHintText,
+      helperText: AppTexts().addressStreetTextFieldHelpText,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       validator: FieldValidators().streetFormFieldValidator,
@@ -268,9 +289,9 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
     return SignupTextsFields(
       contentPadding: contentPadding,
       inputController: _numberController,
-      labelText: AppTexts().numberTextFieldLabelText,
-      hintText: AppTexts().hintTextFromNumberTextField,
-      helperText: AppTexts().numberTextFieldHelpText,
+      labelText: AppTexts().addressNumberTextFieldLabelText,
+      hintText: AppTexts().addressNumberTextFieldHintText,
+      helperText: AppTexts().addressNumberTextFieldHelpText,
       validator: FieldValidators().numberFormFieldValidator,
     );
   }

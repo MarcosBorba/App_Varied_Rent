@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/entypo_icons.dart';
+
 import 'package:varied_rent/blocs/editAddressData_bloc/editAddressData_bloc.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
@@ -42,7 +43,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
                   children: <Widget>[
                     Icon(Entypo.check),
                     Text(
-                      AppTexts.editMyProfileUpdateSuccessfully,
+                      AppTexts.editMyAddressUpdateSuccessfully,
                     ),
                   ],
                 ),
@@ -103,10 +104,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsCountryTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressCountryTextFieldLabelText,
+      hintText: AppTexts().addressCountryTextFieldHintText,
+      helperText: AppTexts().addressCountryTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -117,10 +117,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsStateTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressStateTextFieldLabelText,
+      hintText: AppTexts().addressStateTextFieldHintText,
+      helperText: AppTexts().addressStateTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -131,10 +130,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsCityTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressCityTextFieldLabelText,
+      hintText: AppTexts().addressCityTextFieldHintText,
+      helperText: AppTexts().addressCityTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -145,10 +143,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsZipCodeTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressZipCodeTextFieldLabelText,
+      hintText: AppTexts().addressZipCodeTextFieldHintText,
+      helperText: AppTexts().addressZipCodeTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -159,10 +156,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsNeighborhoodTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressNeighborhoodTextFieldLabelText,
+      hintText: AppTexts().addressNeighborhoodTextFieldHintText,
+      helperText: AppTexts().addressNeighborhoodTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -173,10 +169,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsStreetTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressStreetTextFieldLabelText,
+      hintText: AppTexts().addressStreetTextFieldHintText,
+      helperText: AppTexts().addressStreetTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -187,10 +182,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsNumberTextfield() {
     return TextFieldDefaultAplication(
-      labelText: AppTexts().editMyProfileNameTextFieldLabelText,
-      hintText: AppTexts().editMyProfileNameTextFieldHintText,
-      helperText: AppTexts().editMyProfileNameTextFieldHelpText,
-      prefixIcon: Icons.tag_faces,
+      labelText: AppTexts().addressNumberTextFieldLabelText,
+      hintText: AppTexts().addressNumberTextFieldHintText,
+      helperText: AppTexts().addressNumberTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       inputController: _numberController,
@@ -200,7 +194,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnButtonSubmitForm() {
     return ButtonFormDefault(
-      color: AppColors.editMyProfileButtonSubmit,
+      color: AppColors.editMyAddressButtonSubmit,
       textButton: "Save Address Data",
       onPressed: onButtonSubmitFormPressed,
     );
@@ -248,9 +242,9 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
 
   Widget returnsLinearProgressLoading() {
     return LinearProgressIndicator(
-      backgroundColor: AppColors.editMyProfileLinearProgressBackground,
+      backgroundColor: AppColors.editMyAddressLinearProgressBackground,
       valueColor: AlwaysStoppedAnimation<Color>(
-          AppColors.editMyProfileLinearProgressSecondary),
+          AppColors.editMyAddressLinearProgressSecondary),
     );
   }
 }

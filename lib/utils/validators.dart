@@ -89,49 +89,49 @@ class FieldValidators {
 
   String countryFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfCountryTextField;
+      return AppTexts().addressCountryTextFieldErrorTextEmptyField;
     }
     return null;
   }
 
   String stateFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfStateTextField;
+      return AppTexts().addressStateTextFieldErrorTextEmptyField;
     }
     return null;
   }
 
   String cityFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfCityTextField;
+      return AppTexts().addressCityTextFieldErrorTextEmptyField;
     }
     return null;
   }
 
   String zipCodeFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfZipCodeTextField;
+      return AppTexts().addressZipCodeTextFieldErrorTextEmptyField;
     }
     return null;
   }
 
   String neighborhoodFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfNeighborhoodTextField;
+      return AppTexts().addressNeighborhoodTextFieldErrorTextEmptyField;
     }
     return null;
   }
 
   String streetFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfStreetTextField;
+      return AppTexts().addressStreetTextFieldErrorTextEmptyField;
     }
     return null;
   }
 
   String numberFormFieldValidator(String value) {
     if (value.length == 0) {
-      return AppTexts().errorTextEmptyFieldOfNumberTextField;
+      return AppTexts().addressNumberTextFieldErrorTextEmptyField;
     }
     return null;
   }
