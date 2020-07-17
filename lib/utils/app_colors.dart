@@ -125,4 +125,15 @@ class AppColors {
   static const Color editMyProfileButtonSubmit = tertiaryColor;
   static const Color editMyProfileLinearProgressBackground = secondaryColor;
   static const Color editMyProfileLinearProgressSecondary = tertiaryColor;
+
+  //Colors Edit My Address Page
+  static const Color editMyAddressBackground = tertiaryColor;
+  static const Color editMyAddressBackgroundForm = Colors.white;
+  static const Color editMyAddressBorderForm = primaryColor;
+  static const Color editMyAddressIconTitle = tertiaryColor;
+  static const Color editMyAddressTitle = tertiaryColor;
+
+  static const Color editMyAddressButtonSubmit = tertiaryColor;
+  static const Color editMyAddressLinearProgressBackground = secondaryColor;
+  static const Color editMyAddressLinearProgressSecondary = tertiaryColor;
 }

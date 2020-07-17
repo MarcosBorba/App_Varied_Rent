@@ -4,6 +4,7 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/editMyAccountPages/editMyAddressPages/editMyAddressPage.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyProfilePages/editMyProfileForm.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyProfilePages/editMyProfilePage.dart';
 import 'package:varied_rent/views/editMyAccountPages/optionEditEmailOrPasswordPage/optionEditEmailOrPasswordPage.dart';
@@ -111,6 +112,6 @@ class EditMyAccountPageState extends State<EditMyAccountPage> {
   }
 
   navigatesToTheEditAddressDataScreen() {
-    print("navega para tela de editar dados do endereco");
+    AppRoutes.push(context, EditMyAddressPage());
   }
 }

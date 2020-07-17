@@ -218,7 +218,7 @@ class AppTexts {
   String editMyProfileTitlePage = "   Edit Profile Data";
   String editMyProfileConfirmSaveProfileData = "Save Profile Data";
   static const String editMyProfileUpdateSuccessfully =
-      "' The data has been updated successfully'";
+      " The data has been updated successfully";
 
   String editMyProfileNameTextFieldLabelText = 'Name';
   String editMyProfileNameTextFieldHintText = 'Type your full name';
@@ -271,4 +271,7 @@ class AppTexts {
       'Optional - Ex: 00 00000 0000';
   String editMyProfileTelephoneOptionalTextFieldErrorTextInvalidTelephone =
       '* Invalid Telephone Number. Ex: 00 00000 0000';
+
+  //Edit My Address Page Texts
+  String editMyAddressTitlePage = "   Edit Address Data";
 }
