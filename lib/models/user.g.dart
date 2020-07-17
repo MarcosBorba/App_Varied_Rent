@@ -20,10 +20,11 @@ User _$UserFromJson(Map<String, dynamic> json) {
         ? null
         : Address.fromJson(json['address'] as Map<String, dynamic>),
     password: json['password'] as String,
-  );
+  )..token = json['token'] as String;
 }
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'token': instance.token,
       'name': instance.name,
       'genre': instance.genre,
       'landlord_type': instance.landlord_type,

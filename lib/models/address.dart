@@ -11,8 +11,16 @@ class Address {
   String street;
   String number;
 
-  Address(this.country,this.state, this.city, this.zip_code, this.neighborhood, this.street, this.number);
+  Address(
+      {this.country,
+      this.state,
+      this.city,
+      this.zip_code,
+      this.neighborhood,
+      this.street,
+      this.number});
 
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
   Map<String, dynamic> toJson() => _$AddressToJson(this);
 }

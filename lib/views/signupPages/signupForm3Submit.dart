@@ -300,13 +300,14 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
 
   _onSignupButtonPressed() {
     userTransition.address = Address(
-        _countryController.text,
-        _stateController.text,
-        _cityController.text,
-        _zipCodeController.text,
-        _neighborhoodController.text,
-        _streetController.text,
-        _numberController.text);
+      country: _countryController.text,
+      state: _stateController.text,
+      city: _cityController.text,
+      zip_code: _zipCodeController.text,
+      neighborhood: _neighborhoodController.text,
+      street: _streetController.text,
+      number: _numberController.text,
+    );
 
     BlocProvider.of<SignupBloc>(context)
         .add(SignupButtonSubmitPressed(user: userTransition));

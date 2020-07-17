@@ -38,4 +38,9 @@ class UserRepository {
       User user, String token, String oldCpfCnpj) async {
     await userApiClient.updateUserProfile(user, token, oldCpfCnpj);
   }
+
+  Future userUpdateAddressRepository(
+      Address address, String token, String email) async {
+    await userApiClient.updateUserAddress(address, token, email);
+  }
 }

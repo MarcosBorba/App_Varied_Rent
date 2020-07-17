@@ -45,13 +45,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               telephone2: userLogin.phones.telephone2,
             ),
             address: Address(
-              userLogin.address.country,
-              userLogin.address.state,
-              userLogin.address.city,
-              userLogin.address.zip_code,
-              userLogin.address.neighborhood,
-              userLogin.address.street,
-              userLogin.address.number,
+              country: userLogin.address.country,
+              state: userLogin.address.state,
+              city: userLogin.address.city,
+              zip_code: userLogin.address.zip_code,
+              neighborhood: userLogin.address.neighborhood,
+              street: userLogin.address.street,
+              number: userLogin.address.number,
             )));
         yield LoginInitial();
       } catch (error) {
