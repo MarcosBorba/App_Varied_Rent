@@ -3,6 +3,8 @@
 
 A new Flutter project.
 
-- ![LoginPage](/screenShots/LoginPage.jpg){:height="30%" width="30%"}
 
-- ![HomePage](/screenShots/HomePage(LoggedInAsAVisitor).jpg){:height="50%" width="50%"}
+- <img src = "https://github.com/MarcosBorba/App_Varied_Rent/blob/master/screenShots/LoginPage.jpg" align="left" height="48" width="48" >
+
+
+- ![LoginPage](/screenShots/LoginPage.jpg)
