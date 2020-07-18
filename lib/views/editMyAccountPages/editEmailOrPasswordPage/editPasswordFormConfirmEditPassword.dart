@@ -5,6 +5,7 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
+//TODO: nivel 2 - colocar suffix icon nos inputs dos password para esconder as senhas
 class EditPasswordFormConfirmEditPassword extends StatefulWidget {
   final double heightFormConfirmEditPassword;
   final String editPasswordHelperText;
