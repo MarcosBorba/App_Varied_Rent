@@ -6,6 +6,8 @@
 
 ### You can see the screenshots of the screens already developed _below:_
 
+## OBS: Mouse over the screenshots to see the name of each screen.
+
 * * *
 
 <ul>
