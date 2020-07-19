@@ -1,4 +1,4 @@
-# <<<<<<<<<<<<<<<<< Varied Rent >>>>>>>>>>>>>>>>>
+# <<<<<<<<<< Varied Rent >>>>>>>>>>
 
 ### This project focuses on developing an app that brings together different types of rentals, so that the user has only one place to be able to rent various objects.
 
