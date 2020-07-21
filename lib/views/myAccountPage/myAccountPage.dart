@@ -10,6 +10,7 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyAccountPage.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
+import 'package:varied_rent/views/myAdsPage/myAdsProduct.dart';
 
 class MyAccountPage extends StatefulWidget {
   @override
@@ -34,98 +35,98 @@ class MyAccountPageState extends State<MyAccountPage> {
     return WillPopScope(
       onWillPop: funcaoVoltarHomePage,
       child: Scaffold(
-          body: SafeArea(
-            bottom: true,
-            child: Container(
-              color: AppColors.bodyColorBackground,
-              height: heightBodyScaffold,
-              width: screenWidth,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                      height: heightBodyScaffold * 0.28,
-                      width: screenWidth,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          //TODO: nivel 1 - buscar forma de colocar imagem do usuario aqui
-                          Expanded(
-                            child: Container(
-                                margin: EdgeInsets.all(AppSizes.size12),
-                                child: ImageLogoApp()),
-                          ),
-                          Expanded(
-                            child: Container(
+        body: SafeArea(
+          bottom: true,
+          child: Container(
+            color: AppColors.bodyColorBackground,
+            height: heightBodyScaffold,
+            width: screenWidth,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                    height: heightBodyScaffold * 0.28,
+                    width: screenWidth,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        //TODO: nivel 1 - buscar forma de colocar imagem do usuario aqui
+                        Expanded(
+                          child: Container(
                               margin: EdgeInsets.all(AppSizes.size12),
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: FutureBuilder(
-                                      future: getFutureDados(),
-                                      initialData: AppTexts
-                                          .myAccountTextToWaitForFutureBuilderDataToGetTheName,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Center(
-                                            child: Text(
-                                              AppTexts.myAccountFutureBuildersWelcomeTextToGetTheName +
-                                                  "\n" +
-                                                  snapshot.data,
-                                              style: TextStyle(
-                                                  fontSize: AppFontSize.s20),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          );
-                                        } else {
-                                          return Center(
-                                            child: Text(AppTexts
-                                                .myAccountTextToWaitForFutureBuilderDataToGetTheName),
-                                          );
-                                        }
-                                      })),
-                            ),
+                              child: ImageLogoApp()),
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.all(AppSizes.size12),
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: FutureBuilder(
+                                    future: getFutureDados(),
+                                    initialData: AppTexts
+                                        .myAccountTextToWaitForFutureBuilderDataToGetTheName,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Center(
+                                          child: Text(
+                                            AppTexts.myAccountFutureBuildersWelcomeTextToGetTheName +
+                                                "\n" +
+                                                snapshot.data,
+                                            style: TextStyle(
+                                                fontSize: AppFontSize.s20),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        );
+                                      } else {
+                                        return Center(
+                                          child: Text(AppTexts
+                                              .myAccountTextToWaitForFutureBuilderDataToGetTheName),
+                                        );
+                                      }
+                                    })),
                           ),
-                        ],
-                      )),
-                  Divider(
-                    color: AppColors.myAccountPageDividerColorBody,
-                    indent: AppSizes.size20,
-                    endIndent: AppSizes.size20,
-                    height: heightBodyScaffold * 0.10,
-                    thickness: heightBodyScaffold * 0.001,
-                  ),
-                  Container(
-                    height: heightBodyScaffold * 0.30,
-                    width: screenWidth,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                            child: returnsNavigationButtonForMyFavorites()),
-                        Expanded(child: returnsNavigationButtonForMyAds()),
+                        ),
                       ],
-                    ),
+                    )),
+                Divider(
+                  color: AppColors.myAccountPageDividerColorBody,
+                  indent: AppSizes.size20,
+                  endIndent: AppSizes.size20,
+                  height: heightBodyScaffold * 0.10,
+                  thickness: heightBodyScaffold * 0.001,
+                ),
+                Container(
+                  height: heightBodyScaffold * 0.30,
+                  width: screenWidth,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(child: returnsNavigationButtonForMyFavorites()),
+                      Expanded(child: returnsNavigationButtonForMyAds()),
+                    ],
                   ),
-                  Container(
-                    height: heightBodyScaffold * 0.30,
-                    width: screenWidth,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(child: returnsNavigationButtonToLogoutUser()),
-                        Expanded(
-                            child: returnsNavigationButtonForEditMyAccount()),
-                      ],
-                    ),
+                ),
+                Container(
+                  height: heightBodyScaffold * 0.30,
+                  width: screenWidth,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(child: returnsNavigationButtonToLogoutUser()),
+                      Expanded(
+                          child: returnsNavigationButtonForEditMyAccount()),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          bottomNavigationBar: MyAccountPageFFNavigationBar(
-            selectedIndex: navigationBarBottomIndex,
-            onSelectTab: (index) {
-              setState(() {
+        ),
+        bottomNavigationBar: MyAccountPageFFNavigationBar(
+          selectedIndex: navigationBarBottomIndex,
+          onSelectTab: (index) {
+            setState(
+              () {
                 navigationBarBottomIndex = index;
                 index == 0
                     ? showModalBottomSheet(
@@ -133,10 +134,12 @@ class MyAccountPageState extends State<MyAccountPage> {
                         builder: (BuildContext context) =>
                             openBottomDrawerMyAccountPage())
                     : index == 1 ? navigateToConversationScreen() : false;
-              });
-            },
-            bottomNavyBarItems: listBottomFFNavigationBarItems(),
-          )),
+              },
+            );
+          },
+          bottomNavyBarItems: listBottomFFNavigationBarItems(),
+        ),
+      ),
     );
   }
 
@@ -202,6 +205,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   searchAndNavigationFunctionForScreenWithUserCreatedAds() {
     print("pesquisa anuncios criados pelo usuario");
     print("navega para tela dos anuncios do usuario e exibe resultados");
+    AppRoutes.push(context, MyAdsPage());
   }
 
   logoutAndNavigationFunctionForTheLoginScreen() {

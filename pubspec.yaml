@@ -25,6 +25,8 @@ dependencies:
   ff_navigation_bar: ^0.1.5
   persistent_bottom_nav_bar: ^1.5.5
   circular_bottom_navigation: ^1.0.1
+  flutter_swiper: ^1.1.6
+  smooth_star_rating: ^1.1.1
 
 dev_dependencies:
   flutter_test:
