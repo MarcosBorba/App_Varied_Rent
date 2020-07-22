@@ -200,85 +200,11 @@ class MyAdsPageState extends State<MyAdsPage> {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          backgroundColor: Colors.red[100],
-                          child: Container(
-                            height: screenHeight * 0.35,
-                            width: screenWidth,
-                            child: Text("oláaááá"),
-                          ),
-                        );
-                      });
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: screenWidth * 0.05,
-                    right: screenWidth * 0.05,
-                  ),
-                  child: Container(
-                    height: screenHeight * 0.20,
-                    width: screenWidth,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey[300],
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(12))),
-                    padding: EdgeInsets.only(
-                      top: screenHeight * 0.02,
-                      left: screenWidth * 0.03,
-                      right: screenWidth * 0.03,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesome.left,
-                              size: AppSizes.size20,
-                            ),
-                            SizedBox(
-                              width: screenWidth * 0.03,
-                            ),
-                            Flexible(
-                              child: Text(
-                                "Qual o valor do aluguel para 14 dias? obs: uma familia de 16 pessoas, 10 adultos e 6 criancas e adolescentes, obrigada!!!!!!!!",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.02,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesome.right,
-                              size: AppSizes.size20,
-                            ),
-                            SizedBox(
-                              width: screenWidth * 0.03,
-                            ),
-                            Flexible(
-                              child: Text(
-                                "Olá, para 14 dias o valor continua o mesmo do anunciado!, obrigado",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              QuestionAndAnswerItem(
+                question:
+                    "Qual o valor do aluguel para 14 dias? obs: uma familia de 16 pessoas, 10 adultos e 6 criancas e adolescentes, obrigada!!!!!!!!",
+                answer:
+                    "Olá, para 14 dias o valor continua o mesmo do anunciado!, obrigado",
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: screenHeight * 0.05),

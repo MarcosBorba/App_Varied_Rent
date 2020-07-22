@@ -7,3 +7,4 @@ export 'componentsOptionEditMyAccountEmailOrPasswordPage/componentsOptionsEditMy
 export 'componentsSipnup/componentsSignupPage.dart';
 export 'componentsEditMyProfilePage/componentsEditMyProfile.dart';
 export 'componentsDefaultAplication/componentsDefaultAplication.dart';
+export 'componentsMyAdsProduct/componentsMyAdsProduct.dart';
