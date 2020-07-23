@@ -4,10 +4,12 @@ import 'package:varied_rent/utils/utils.dart';
 
 class AnswerRow extends StatelessWidget {
   final String answer;
+  final int maxLines;
 
   const AnswerRow({
     Key key,
     this.answer,
+    this.maxLines,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class AnswerRow extends StatelessWidget {
           child: Text(
             answer,
             overflow: TextOverflow.ellipsis,
-            maxLines: 3,
+            maxLines: maxLines,
           ),
         )
       ],

@@ -4,6 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/components/componentsMyAdsProduct/getEvaluationItem.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 class MyAdsPage extends StatefulWidget {
@@ -33,9 +34,60 @@ class MyAdsPageState extends State<MyAdsPage> {
     'https://cdn.pixabay.com/photo/2020/03/06/22/10/zakynthos-4908247_960_720.jpg',
   ];
 
-  List questions = [];
+  List questionsAnswers = [
+    [
+      'Marcos Flavio Ferreira Borba',
+      '23 Jul 20',
+      'Qual o valor por dia completo?',
+      null,
+      null,
+      null
+    ],
+    [
+      'Marcos Flavio Ferreira Borba',
+      '23 Jul 20',
+      'Qual o valor por dia completo?',
+      'Joao Gabriel Faria Borba da Silva',
+      '24 Jul 20',
+      "O valor por dia completo é 120."
+    ],
+    [
+      'Mariana Damaceno Campos',
+      '24 Jul 20',
+      'Qual é o limite de pessoas que podem ficar no imovel?',
+      'Joao Gabriel Faria Borba da Silva',
+      '25 Jul 20',
+      "Podem ficar 16 pessoas."
+    ],
+    [
+      'Adriano Barroso do Sul',
+      '25 Jul 20',
+      'A área em volta do imóvel é segura?',
+      'Joao Gabriel Faria Borba da Silva',
+      '25 Jul 20',
+      'A segurança do bairro é mediana, com rondas nas ruas em horários variados e uma quantidade de policias que atende bem os chamados normais.'
+    ],
+  ];
+
+  List evaluations = [
+    [
+      "Marcos Flavio Ferreira Borba",
+      "25 Jul 20",
+      5.0,
+      "Casa linda, espaçosa, limpa, curti!",
+      "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
+    ],
+    [
+      "Mariana Damaceno Campos",
+      "25 Jul 20",
+      4.0,
+      "Curti pra caramba, recomendo",
+      "Curti, curti e curti, recomendo recomendo",
+    ],
+  ];
   @override
   Widget build(BuildContext context) {
+    BuildContext context2 = context;
     return Scaffold(
       body: Container(
         height: screenHeight,
@@ -200,14 +252,29 @@ class MyAdsPageState extends State<MyAdsPage> {
                   ],
                 ),
               ),
-              QuestionAndAnswerItem(
-                question:
-                    "Qual o valor do aluguel para 14 dias? obs: uma familia de 16 pessoas, 10 adultos e 6 criancas e adolescentes, obrigada!!!!!!!!",
-                answer:
-                    "Olá, para 14 dias o valor continua o mesmo do anunciado!, obrigado",
+              Container(
+                height: screenHeight * 0.20,
+                width: screenWidth,
+                child: ListView.builder(
+                  itemCount: questionsAnswers.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context2, index) {
+                    return QuestionAndAnswerItem(
+                      userNameQuestion: questionsAnswers[index][0],
+                      dayTimeQuestion: questionsAnswers[index][1],
+                      question: questionsAnswers[index][2],
+                      userNameAnswer: questionsAnswers[index][3],
+                      dayTimeAnswer: questionsAnswers[index][4],
+                      answer: questionsAnswers[index][5],
+                    );
+                  },
+                ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: screenHeight * 0.05),
+                padding: EdgeInsets.only(
+                  bottom: screenHeight * 0.05,
+                  top: screenHeight * 0.05,
+                ),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -230,8 +297,28 @@ class MyAdsPageState extends State<MyAdsPage> {
                   ],
                 ),
               ),
+              Container(
+                height: screenHeight * 0.20,
+                width: screenWidth,
+                child: ListView.builder(
+                  itemCount: evaluations.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context2, index) {
+                    return EvaluationItem(
+                      userNameEvaluator: evaluations[index][0],
+                      dayTimeEvaluation: evaluations[index][1],
+                      amountStars: evaluations[index][2],
+                      objectiveOpition: evaluations[index][3],
+                      opinion: evaluations[index][4],
+                    );
+                  },
+                ),
+              ),
               Padding(
-                padding: EdgeInsets.only(bottom: screenHeight * 0.05),
+                padding: EdgeInsets.only(
+                  bottom: screenHeight * 0.05,
+                  top: screenHeight * 0.05,
+                ),
                 child: Row(
                   children: <Widget>[
                     Expanded(

@@ -4,10 +4,12 @@ import 'package:varied_rent/utils/utils.dart';
 
 class QuestionRow extends StatelessWidget {
   final String question;
+  final int maxLines;
 
   const QuestionRow({
     Key key,
     @required this.question,
+    this.maxLines,
   })  : assert(question != null),
         super(key: key);
   @override
@@ -25,7 +27,10 @@ class QuestionRow extends StatelessWidget {
           child: Text(
             question,
             overflow: TextOverflow.ellipsis,
-            maxLines: 3,
+            maxLines: maxLines,
+            style: TextStyle(
+              fontSize: AppFontSize.s14,
+            ),
           ),
         )
       ],
