@@ -28,6 +28,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   smooth_star_rating: ^1.1.1
   scrollable_positioned_list: ^0.1.6
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

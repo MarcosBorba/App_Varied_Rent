@@ -203,8 +203,6 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   searchAndNavigationFunctionForScreenWithUserCreatedAds() {
-    print("pesquisa anuncios criados pelo usuario");
-    print("navega para tela dos anuncios do usuario e exibe resultados");
     AppRoutes.push(context, MyAdsPage());
   }
 

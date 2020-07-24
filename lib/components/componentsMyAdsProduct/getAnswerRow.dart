@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 class AnswerRow extends StatelessWidget {
   final String answer;
   final int maxLines;
+  final String dataTimeAnswer;
 
   const AnswerRow({
     Key key,
     this.answer,
     this.maxLines,
+    this.dataTimeAnswer,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,7 +32,7 @@ class AnswerRow extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: maxLines,
           ),
-        )
+        ),
       ],
     );
   }

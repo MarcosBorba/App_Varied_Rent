@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getAnswerRow.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getBaseBoxQuestionsAndEvaluations.dart';
@@ -8,7 +9,7 @@ import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionRow.dar
 import 'package:varied_rent/components/componentsMyAdsProduct/getShowDialogQuestionAndAnswer.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: nivel - 3 - definir colors, texts, sizes
+//TODO: nivel - 3 - definir colors, texts, sizes, otimizar codigo e depois aplicar bloc
 class QuestionAndAnswerItem extends StatelessWidget {
   final String question;
   final String answer;
@@ -19,8 +20,13 @@ class QuestionAndAnswerItem extends StatelessWidget {
   final Color colorQuestionTitle;
   final Color colorAnswerTitle;
   final String textDefaultAnswerNull;
+  final TextEditingController textController;
+  final Function onSubmitted;
+  final int indexQuestion;
+  String formatDate = DateFormat('d MMM yy').format(DateTime.now());
+  final Function onEditIconButtonPressed;
 
-  const QuestionAndAnswerItem({
+  QuestionAndAnswerItem({
     Key key,
     @required this.question,
     this.answer,
@@ -31,6 +37,10 @@ class QuestionAndAnswerItem extends StatelessWidget {
     this.colorQuestionTitle = Colors.blue,
     this.colorAnswerTitle = Colors.green,
     this.textDefaultAnswerNull = "Nao há resposta ainda",
+    this.textController,
+    this.onSubmitted,
+    this.indexQuestion,
+    this.onEditIconButtonPressed,
   })  : assert(question != null),
         super(key: key);
   @override
@@ -78,6 +88,8 @@ class QuestionAndAnswerItem extends StatelessWidget {
       ),
       answer == null
           ? TextField(
+              controller: textController,
+              onSubmitted: onSubmitted,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(),
                 labelText: "Response user",
@@ -96,24 +108,40 @@ class QuestionAndAnswerItem extends StatelessWidget {
               dayTime: dayTimeAnswer,
               textColorsItems: colorAnswerTitle,
             ),
-      returna(showDialog, maxLinesAnswer),
+      Row(
+        children: <Widget>[
+          returna(showDialog, maxLinesAnswer),
+          dayTimeAnswer == formatDate
+              ? Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.black,
+                    ),
+                    onPressed: onEditIconButtonPressed,
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.all(
+                    0,
+                  ),
+                )
+        ],
+      ),
     ];
   }
 
   Widget returna(bool showDialog, int maxLinesAnswer) {
     if (answer != null) {
-      return showDialog
-          ? AnswerRow(
-              answer: answer == null ? textDefaultAnswerNull : answer,
-              maxLines: maxLinesAnswer,
-            )
-          : Flexible(
-              flex: 1,
-              child: AnswerRow(
-                answer: answer == null ? textDefaultAnswerNull : answer,
-                maxLines: maxLinesAnswer,
-              ),
-            );
+      return Flexible(
+        flex: 1,
+        child: AnswerRow(
+          answer: answer == null ? textDefaultAnswerNull : answer,
+          maxLines: maxLinesAnswer,
+          dataTimeAnswer: dayTimeAnswer,
+        ),
+      );
     } else {
       return Padding(
         padding: EdgeInsets.all(0),
