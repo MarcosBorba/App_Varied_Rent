@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getEvaluationItem.dart';
@@ -26,6 +27,7 @@ class MyAdsPage extends StatefulWidget {
         answer: { type: String, required: [true, 'Answer is required'] },
     } */
 class MyAdsPageState extends State<MyAdsPage> {
+  ItemScrollController _evaluation2ScrollController = ItemScrollController();
   int navigationBarBottomIndex = 0;
   final List<String> images = [
     'https://cdn.pixabay.com/photo/2020/05/15/11/49/pet-5173354_960_720.jpg',
@@ -85,7 +87,100 @@ class MyAdsPageState extends State<MyAdsPage> {
       "Curti pra caramba, recomendo",
       "Curti, curti e curti, recomendo recomendo",
     ],
+    [
+      "Marcos Flavio Ferreira Borba",
+      "25 Jul 20",
+      5.0,
+      "Casa linda, espaçosa, limpa, curti!",
+      "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
+    ],
+    [
+      "Mariana Damaceno Campos",
+      "25 Jul 20",
+      4.0,
+      "Curti pra caramba, recomendo",
+      "Curti, curti e curti, recomendo recomendo",
+    ],
+    [
+      "Marcos Flavio Ferreira Borba",
+      "25 Jul 20",
+      5.0,
+      "Casa linda, espaçosa, limpa, curti!",
+      "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
+    ],
+    [
+      "Mariana Damaceno Campos",
+      "25 Jul 20",
+      4.0,
+      "Curti pra caramba, recomendo",
+      "Curti, curti e curti, recomendo recomendo",
+    ],
   ];
+  List<Widget> stars = [
+    SmoothStarRating(
+      rating: 5.0,
+      isReadOnly: true,
+      size: AppSizes.size20,
+      filledIconData: Icons.star,
+      halfFilledIconData: Icons.star_half,
+      defaultIconData: Icons.star_border,
+      starCount: 5,
+      allowHalfRating: true,
+      color: Colors.yellow,
+      borderColor: Colors.yellow,
+    ),
+    SmoothStarRating(
+      rating: 4.0,
+      isReadOnly: true,
+      size: AppSizes.size20,
+      filledIconData: Icons.star,
+      halfFilledIconData: Icons.star_half,
+      defaultIconData: Icons.star_border,
+      starCount: 5,
+      allowHalfRating: true,
+      color: Colors.yellow,
+      borderColor: Colors.yellow,
+    ),
+    SmoothStarRating(
+      rating: 3.0,
+      isReadOnly: true,
+      size: AppSizes.size20,
+      filledIconData: Icons.star,
+      halfFilledIconData: Icons.star_half,
+      defaultIconData: Icons.star_border,
+      starCount: 5,
+      allowHalfRating: true,
+      color: Colors.yellow,
+      borderColor: Colors.yellow,
+    ),
+    SmoothStarRating(
+      rating: 2.0,
+      isReadOnly: true,
+      size: AppSizes.size20,
+      filledIconData: Icons.star,
+      halfFilledIconData: Icons.star_half,
+      defaultIconData: Icons.star_border,
+      starCount: 5,
+      allowHalfRating: true,
+      color: Colors.yellow,
+      borderColor: Colors.yellow,
+    ),
+    SmoothStarRating(
+      rating: 1.0,
+      isReadOnly: true,
+      size: AppSizes.size20,
+      filledIconData: Icons.star,
+      halfFilledIconData: Icons.star_half,
+      defaultIconData: Icons.star_border,
+      starCount: 5,
+      allowHalfRating: true,
+      color: Colors.yellow,
+      borderColor: Colors.yellow,
+    ),
+  ];
+
+  double selectStars;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -297,20 +392,51 @@ class MyAdsPageState extends State<MyAdsPage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: screenWidth * 0.05,
+                  right: screenWidth * 0.05,
+                ),
+                child: DropdownButtonFormField<SmoothStarRating>(
+                  items: stars.map((Widget dropDownStringItem) {
+                    return DropdownMenuItem<SmoothStarRating>(
+                      value: dropDownStringItem,
+                      child: dropDownStringItem,
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                    left: screenWidth * 0.05,
+                    right: screenWidth * 0.05,
+                  )),
+                  hint: Text("Select Evaluations Stars"),
+                  onChanged: (SmoothStarRating value) {
+                    setState(() {
+                      _evaluation2ScrollController.jumpTo(index: 0);
+                      selectStars = value.rating;
+                    });
+                  },
+                ),
+              ),
               Container(
                 height: screenHeight * 0.20,
                 width: screenWidth,
-                child: ListView.builder(
-                  itemCount: evaluations.length,
+                margin: EdgeInsets.only(top: screenHeight * 0.05),
+                child: ScrollablePositionedList.builder(
+                  itemScrollController: _evaluation2ScrollController,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context2, index) {
-                    return EvaluationItem(
-                      userNameEvaluator: evaluations[index][0],
-                      dayTimeEvaluation: evaluations[index][1],
-                      amountStars: evaluations[index][2],
-                      objectiveOpition: evaluations[index][3],
-                      opinion: evaluations[index][4],
-                    );
+                  itemCount: evaluations.length,
+                  itemBuilder: (context, index) {
+                    return evaluations[index][2] == selectStars ||
+                            selectStars == null
+                        ? EvaluationItem(
+                            userNameEvaluator: evaluations[index][0],
+                            dayTimeEvaluation: evaluations[index][1],
+                            amountStars: evaluations[index][2],
+                            objectiveOpition: evaluations[index][3],
+                            opinion: evaluations[index][4],
+                          )
+                        : Text("");
                   },
                 ),
               ),

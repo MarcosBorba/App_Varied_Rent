@@ -77,9 +77,19 @@ class QuestionAndAnswerItem extends StatelessWidget {
         height: screenHeight * 0.02,
       ),
       answer == null
-          ? TextFieldDefaultAplication(
-              labelText: "Response",
-              prefixIcon: FontAwesome.right,
+          ? TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(),
+                labelText: "Response user",
+                prefixIconConstraints: BoxConstraints(
+                  minWidth: 30,
+                ),
+                prefixIcon: Icon(
+                  FontAwesome.right,
+                  color: Colors.black,
+                  size: AppSizes.size20,
+                ),
+              ),
             )
           : QuestionAndAnswerTitle(
               userName: userNameAnswer,
@@ -91,17 +101,23 @@ class QuestionAndAnswerItem extends StatelessWidget {
   }
 
   Widget returna(bool showDialog, int maxLinesAnswer) {
-    return showDialog
-        ? AnswerRow(
-            answer: answer == null ? textDefaultAnswerNull : answer,
-            maxLines: maxLinesAnswer,
-          )
-        : Flexible(
-            flex: 1,
-            child: AnswerRow(
+    if (answer != null) {
+      return showDialog
+          ? AnswerRow(
               answer: answer == null ? textDefaultAnswerNull : answer,
               maxLines: maxLinesAnswer,
-            ),
-          );
+            )
+          : Flexible(
+              flex: 1,
+              child: AnswerRow(
+                answer: answer == null ? textDefaultAnswerNull : answer,
+                maxLines: maxLinesAnswer,
+              ),
+            );
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(0),
+      );
+    }
   }
 }
