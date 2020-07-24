@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getAnswerRow.dart';
+import 'package:varied_rent/components/componentsMyAdsProduct/getBaseBoxQuestionsAndEvaluations.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionAndAnswerTitle.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionRow.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getShowDialogQuestionAndAnswer.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: nivel - 3 - definir colors, texts, sizes
+//TODO: nivel - 3 - definir colors, texts, sizes, melhroar codigo
 class EvaluationItem extends StatelessWidget {
   final String userNameEvaluator;
   final String dayTimeEvaluation;
@@ -30,42 +28,18 @@ class EvaluationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     returnShowDialog() {
-      print("olá");
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ShowDialogQuestionAndAnswer(
+                questionAndAnswer: returnFormQuestionAndAnswer(true, 100, 100));
+          });
     }
 
     return GestureDetector(
       onTap: () => returnShowDialog(),
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: screenWidth * 0.05,
-          right: screenWidth * 0.05,
-        ),
-        child: Container(
-          height: screenHeight * 0.20,
-          width: screenWidth * 0.80,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 2,
-              color: Colors.grey[300],
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                AppSizes.size12,
-              ),
-            ),
-          ),
-          padding: EdgeInsets.only(
-            left: screenWidth * 0.03,
-            right: screenWidth * 0.03,
-            top: screenHeight * 0.01,
-            bottom: screenHeight * 0.01,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: returnFormQuestionAndAnswer(false, 2, 2),
-          ),
-        ),
+      child: BaseBoxQuestionsAndEvaluations(
+        listComponents: returnFormQuestionAndAnswer(false, 2, 3),
       ),
     );
   }
@@ -73,17 +47,19 @@ class EvaluationItem extends StatelessWidget {
   List<Widget> returnFormQuestionAndAnswer(
       bool showDialog, int maxLinesQuestion, int maxLinesAnswer) {
     return [
-      SmoothStarRating(
-        rating: amountStars,
-        isReadOnly: true,
-        size: AppSizes.size20,
-        filledIconData: Icons.star,
-        halfFilledIconData: Icons.star_half,
-        defaultIconData: Icons.star_border,
-        starCount: 5,
-        allowHalfRating: true,
-        color: Colors.yellow,
-        borderColor: Colors.yellow,
+      Center(
+        child: SmoothStarRating(
+          rating: amountStars,
+          isReadOnly: true,
+          size: AppSizes.size20,
+          filledIconData: Icons.star,
+          halfFilledIconData: Icons.star_half,
+          defaultIconData: Icons.star_border,
+          starCount: 5,
+          allowHalfRating: true,
+          color: Colors.yellow,
+          borderColor: Colors.yellow,
+        ),
       ),
       SizedBox(
         height: screenHeight * 0.01,
@@ -100,7 +76,7 @@ class EvaluationItem extends StatelessWidget {
             child: Text(
               objectiveOpition,
               overflow: TextOverflow.ellipsis,
-              maxLines: 3,
+              maxLines: maxLinesQuestion,
               style: TextStyle(
                 fontSize: AppFontSize.s14,
               ),
@@ -119,7 +95,7 @@ class EvaluationItem extends StatelessWidget {
               opinion,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              maxLines: 3,
+              maxLines: maxLinesAnswer,
               style: TextStyle(
                 fontSize: AppFontSize.s14,
               ),

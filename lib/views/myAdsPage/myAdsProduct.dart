@@ -1,6 +1,7 @@
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/components/components.dart';
@@ -87,7 +88,6 @@ class MyAdsPageState extends State<MyAdsPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    BuildContext context2 = context;
     return Scaffold(
       body: Container(
         height: screenHeight,
@@ -273,7 +273,7 @@ class MyAdsPageState extends State<MyAdsPage> {
               Padding(
                 padding: EdgeInsets.only(
                   bottom: screenHeight * 0.05,
-                  top: screenHeight * 0.05,
+                  top: screenHeight * 0.03,
                 ),
                 child: Row(
                   children: <Widget>[
@@ -373,8 +373,8 @@ class MyAdsPageState extends State<MyAdsPage> {
         label: "Menu",
       ),
       FFNavigationBarItem(
-        iconData: Icons.favorite,
-        label: "Favorite",
+        iconData: Icons.edit,
+        label: "Edit Ad",
       ),
       FFNavigationBarItem(
         iconData: FontAwesome.calendar,

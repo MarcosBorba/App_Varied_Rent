@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getAnswerRow.dart';
+import 'package:varied_rent/components/componentsMyAdsProduct/getBaseBoxQuestionsAndEvaluations.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionAndAnswerTitle.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionRow.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getShowDialogQuestionAndAnswer.dart';
@@ -44,37 +47,8 @@ class QuestionAndAnswerItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => returnShowDialog(),
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: screenWidth * 0.05,
-          right: screenWidth * 0.05,
-        ),
-        child: Container(
-          height: screenHeight * 0.20,
-          width: screenWidth * 0.80,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 2,
-              color: Colors.grey[300],
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                AppSizes.size12,
-              ),
-            ),
-          ),
-          padding: EdgeInsets.only(
-            left: screenWidth * 0.03,
-            right: screenWidth * 0.03,
-            top: screenHeight * 0.01,
-            bottom: screenHeight * 0.01,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: returnFormQuestionAndAnswer(false, 2, 2),
-          ),
-        ),
+      child: BaseBoxQuestionsAndEvaluations(
+        listComponents: returnFormQuestionAndAnswer(false, 2, 2),
       ),
     );
   }
@@ -103,24 +77,31 @@ class QuestionAndAnswerItem extends StatelessWidget {
         height: screenHeight * 0.02,
       ),
       answer == null
-          ? Text("")
+          ? TextFieldDefaultAplication(
+              labelText: "Response",
+              prefixIcon: FontAwesome.right,
+            )
           : QuestionAndAnswerTitle(
               userName: userNameAnswer,
               dayTime: dayTimeAnswer,
               textColorsItems: colorAnswerTitle,
             ),
-      showDialog
-          ? AnswerRow(
+      returna(showDialog, maxLinesAnswer),
+    ];
+  }
+
+  Widget returna(bool showDialog, int maxLinesAnswer) {
+    return showDialog
+        ? AnswerRow(
+            answer: answer == null ? textDefaultAnswerNull : answer,
+            maxLines: maxLinesAnswer,
+          )
+        : Flexible(
+            flex: 1,
+            child: AnswerRow(
               answer: answer == null ? textDefaultAnswerNull : answer,
               maxLines: maxLinesAnswer,
-            )
-          : Flexible(
-              flex: 1,
-              child: AnswerRow(
-                answer: answer == null ? textDefaultAnswerNull : answer,
-                maxLines: maxLinesAnswer,
-              ),
             ),
-    ];
+          );
   }
 }
