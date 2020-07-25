@@ -6,10 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/components/componentsMyAdsProduct/getContainerDescription.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getDividersAd.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getEvaluationItem.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getImagesAd.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getMaterialTitle.dart';
+import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionsAndAnswerContainer.dart';
 import 'package:varied_rent/components/componentsMyAdsProduct/getSubTitleAd.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
@@ -183,23 +185,6 @@ class MyAdsPageState extends State<MyAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    addResponseOnQuestion(
-        response, String userName, String dataResponse, index) {
-      setState(() {
-        questionsAnswers[index][3] = userName;
-        questionsAnswers[index][4] = dataResponse;
-        questionsAnswers[index][5] = response;
-      });
-    }
-
-    editResponseOnQuestion(index) {
-      setState(() {
-        questionsAnswers[index][3] = null;
-        questionsAnswers[index][4] = null;
-        questionsAnswers[index][5] = null;
-      });
-    }
-
     return Scaffold(
       body: Container(
         height: screenHeight,
@@ -212,54 +197,11 @@ class MyAdsPageState extends State<MyAdsPage> {
               returnSubTitle(),
               returnImagesAd(),
               returnDivider("Description"),
-              returnDescription(),
-              returnDivider("Questions"),
-              Container(
-                height: screenHeight * 0.20,
-                width: screenWidth,
-                child: ListView.builder(
-                  itemCount: questionsAnswers.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context2, index) {
-                    return QuestionAndAnswerItem(
-                      userNameQuestion: questionsAnswers[index][0],
-                      dayTimeQuestion: questionsAnswers[index][1],
-                      question: questionsAnswers[index][2],
-                      userNameAnswer: questionsAnswers[index][3],
-                      dayTimeAnswer: questionsAnswers[index][4],
-                      answer: questionsAnswers[index][5],
-                      onSubmitted: (value) {
-                        String formattedDate =
-                            DateFormat('d MMM yy').format(DateTime.now());
-                        addResponseOnQuestion(
-                          value,
-                          "Joao Gabriel Faria Borba da Silva",
-                          formattedDate,
-                          index,
-                        );
-                      },
-                      onEditIconButtonPressed: () {
-                        editResponseOnQuestion(index);
-                      },
-                      //onSubmitted: () {
-
-                      //a resposta envia pro banco só com o submit
-
-                      //pega o controller text
-                      //pega data
-                      //pega nome locador
-
-                      //muda para um estado de enviar resposta
-                      //envia a resposta pro banco na questao x
-                      //retorna se deu sucesso ou falha
-
-                      //retorna um snack bar
-                      //sucesso modifica a questao com a resposta
-                      // },
-                    );
-                  },
-                ),
+              returnDescription(
+                "O Mestre na arte da vida faz pouca distinção entre o seu trabalho e o seu lazer, entre a sua mente e o seu corpo, entre a sua educação e a sua recreação, entre o seu amor e a sua religião. Ele dificilmente sabe distinguir um corpo do outro. Ele simplesmente persegue sua visão de excelência em tudo que faz, deixando para os outros a decisão de saber se está trabalhando ou se divertindo. Ele acha que está sempre fazendo as duas coisas simultaneamente.",
               ),
+              returnDivider("Questions"),
+              returnQuestionsAndAnswer(),
               returnDivider("Evaluations"),
               Padding(
                 padding: EdgeInsets.only(
@@ -449,27 +391,16 @@ class MyAdsPageState extends State<MyAdsPage> {
     );
   }
 
-  Widget returnDescription() {
-    return Container(
-      width: screenWidth,
-      padding: EdgeInsets.only(
-        left: screenWidth * 0.05,
-        right: screenWidth * 0.05,
-      ),
-      child: TextField(
-        enabled: false,
-        readOnly: true,
-        decoration: InputDecoration(
-          hintMaxLines: 100,
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(width: 2, color: Colors.grey[300]),
-          ),
-          hintText:
-              "O Mestre na arte da vida faz pouca distinção entre o seu trabalho e o seu lazer, entre a sua mente e o seu corpo, entre a sua educação e a sua recreação, entre o seu amor e a sua religião. Ele dificilmente sabe distinguir um corpo do outro. Ele simplesmente persegue sua visão de excelência em tudo que faz, deixando para os outros a decisão de saber se está trabalhando ou se divertindo. Ele acha que está sempre fazendo as duas coisas simultaneamente.",
-          hintStyle: TextStyle(color: Colors.black87),
-        ),
-      ),
+  Widget returnDescription(String description) {
+    return Description(
+      textDescription: description,
+    );
+  }
+
+  Widget returnQuestionsAndAnswer() {
+    return QuestionsAndAnswerContainer(
+      questionsAnswers: questionsAnswers,
+      userNameLocator: "Joao Gabriel Faria Borba da Silva",
     );
   }
 
