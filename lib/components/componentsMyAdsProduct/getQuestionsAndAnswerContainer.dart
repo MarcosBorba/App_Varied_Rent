@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionAndAnswerItem.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 //onSubmitted: () {
 

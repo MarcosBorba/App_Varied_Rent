@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:intl/intl.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 class AnswerRow extends StatelessWidget {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getBaseBoxQuestionsAndEvaluations.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionAndAnswerTitle.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getShowDialogQuestionAndAnswer.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 //TODO: nivel - 3 - definir colors, texts, sizes, melhroar codigo

@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:varied_rent/components/components.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getAnswerRow.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getBaseBoxQuestionsAndEvaluations.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionAndAnswerTitle.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getQuestionRow.dart';
-import 'package:varied_rent/components/componentsMyAdsProduct/getShowDialogQuestionAndAnswer.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 //TODO: nivel - 3 - definir colors, texts, sizes, otimizar codigo e depois aplicar bloc
