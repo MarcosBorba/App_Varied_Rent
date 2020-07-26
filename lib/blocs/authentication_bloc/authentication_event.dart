@@ -15,6 +15,7 @@ class AppStarted extends AuthenticationEvent {}
 
 //LoggedIn para notificar o bloco de que o usuário efetuou login com êxito.
 class LoggedIn extends AuthenticationEvent {
+  final String id;
   final String token;
   final String name;
   final String genre;
@@ -25,7 +26,8 @@ class LoggedIn extends AuthenticationEvent {
   final Address address;
 
   const LoggedIn(
-      {@required this.genre,
+      {@required this.id,
+      @required this.genre,
       @required this.landlordType,
       @required this.cpfCnpj,
       @required this.phones,
@@ -36,11 +38,11 @@ class LoggedIn extends AuthenticationEvent {
 
   @override
   List<Object> get props =>
-      [token, name, genre, landlordType, cpfCnpj, email, phones, address];
+      [id, token, name, genre, landlordType, cpfCnpj, email, phones, address];
 
   @override
   String toString() =>
-      'LoggedIn { token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj, email: $email, phones: ' +
+      'LoggedIn { id: $id , token: $token , name: $name, genre: $genre, landLordType: $landlordType, cpfCnpj: $cpfCnpj, email: $email, phones: ' +
       phones.toString() +
       ', address: ' +
       address.toString();

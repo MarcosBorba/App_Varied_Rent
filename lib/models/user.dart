@@ -5,6 +5,7 @@ part 'user.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class User {
+  String id;
   String token;
   String name;
   String genre;
@@ -29,6 +30,7 @@ class User {
     this.password,
   );
   User.sharedPreference(
+    this.id,
     this.token,
     this.name,
     this.genre,
@@ -62,6 +64,7 @@ class User {
 
   User _$UserSharedPrefenrenceFromJson(Map<String, dynamic> json) {
     return User.sharedPreference(
+      json['id'] as String,
       json['token'] as String,
       json['name'] as String,
       json['genre'] as String,

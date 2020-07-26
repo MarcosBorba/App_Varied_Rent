@@ -55,6 +55,7 @@ class _SignupForm3SubmitState extends State<SignupForm3Submit> {
       } else if (state is SignupSuccessfullyConcluded) {
         BlocProvider.of<AuthenticationBloc>(context).add(
           LoggedIn(
+            id: userTransition.id,
             name: userTransition.name,
             genre: userTransition.genre,
             landlordType: userTransition.landlord_type,

@@ -35,6 +35,7 @@ class AuthenticationBloc
     //se o evento for logado como usuario, retorna um estado usuario autenticado.
     if (event is LoggedIn) {
       yield AuthenticationLoading();
+      await sharedPref.save('id', event.id);
       await sharedPref.save('token', event.token);
       await sharedPref.save('name', event.name);
       await sharedPref.save('genre', event.genre);
@@ -46,6 +47,7 @@ class AuthenticationBloc
       yield AuthenticationAuthenticated();
     } else if (event is LoggedOut) {
       yield AuthenticationLoading();
+      await sharedPref.remove('id');
       await sharedPref.remove('token');
       await sharedPref.remove('name');
       await sharedPref.remove('genre');
