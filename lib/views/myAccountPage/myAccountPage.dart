@@ -10,6 +10,7 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyAccountPage.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
+import 'package:varied_rent/views/myAdsPage/MyAdsPage.dart';
 import 'package:varied_rent/views/myAdsPage/myAdsProduct.dart';
 
 class MyAccountPage extends StatefulWidget {
@@ -203,7 +204,8 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   searchAndNavigationFunctionForScreenWithUserCreatedAds() {
-    AppRoutes.push(context, MyAdsPage());
+    //AppRoutes.push(context, MyAdsPage());
+    AppRoutes.push(context, MyAdsPages());
   }
 
   logoutAndNavigationFunctionForTheLoginScreen() {

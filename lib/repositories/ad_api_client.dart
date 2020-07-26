@@ -6,23 +6,17 @@ class AdApiCLient {
   Dio dio = new Dio();
   AdApiCLient();
 
-  Future getAdsComponents(Address address, String token, String email) async {
-    final userCheckUserUrl = '$baseUrl/getAdsComponents';
-    /* final ad */
-    final Map<String, dynamic> jsonUserAddress = {
-      "email": email,
-      "country": address.country,
-      "state": address.state,
-      "city": address.city,
-      "zip_code": address.zip_code,
-      "neighborhood": address.neighborhood,
-      "street": address.street,
-      "number": address.number,
+  Future<List<Ad>> getAdsComponents(String idUserLoggedIn, String token) async {
+    final userCheckUserUrl = '$baseUrl/get_ads_one_user';
+    List<Ad> adsList = [];
+    final Map<String, dynamic> jsonUserLoggedIn = {
+      "_locator_fk": idUserLoggedIn,
     };
+    Response<Map> adsResponse;
     try {
-      await dio.put(
+      adsResponse = await dio.get(
         userCheckUserUrl,
-        data: jsonUserAddress,
+        queryParameters: jsonUserLoggedIn,
         options: Options(
           headers: {'x-access-token': token},
         ),
@@ -40,5 +34,15 @@ class AdApiCLient {
         }
       }
     }
+    Ad ad = new Ad();
+    adsList = await populateAds(adsResponse.data);
+  }
+
+  Future<List<Ad>> populateAds(Map list) async {
+    final List<Ad> lista = [];
+    for (var i = 0; i < list['ads'].length; i++) {
+      print(list['ads'][i]['_id']);
+    }
+    return lista;
   }
 }
