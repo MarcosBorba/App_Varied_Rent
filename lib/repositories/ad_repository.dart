@@ -7,8 +7,13 @@ class AdRepository {
 
   AdRepository({@required this.adApiClient}) : assert(adApiClient != null);
 
-  Future<Ad> getAdRepository(String idUserLoggedIn, String token) async {
-    await adApiClient.getAdsComponents(idUserLoggedIn, token);
-    //return ads;
+  Future getAdRepository(String idUserLoggedIn, String token) async {
+    List ads = await adApiClient.getAdsComponents(idUserLoggedIn, token);
+    return ads;
+  }
+
+  Future<List> addAdRepository(String image, String token) async {
+    List ads = await adApiClient.addAdComponents(image, token);
+    return ads;
   }
 }

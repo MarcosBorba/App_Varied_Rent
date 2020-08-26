@@ -32,3 +32,14 @@ class MyAdProducPageStarted extends MyAdProductEvent {
   @override
   String toString() => 'MyAdProducPageStarted => ok';
 }
+
+class MyAdProducPageAddAds extends MyAdProductEvent {
+  final String image;
+  MyAdProducPageAddAds(this.image);
+
+  @override
+  List<Object> get props => [image];
+
+  @override
+  String toString() => 'MyAdProducPageAddAds => ok';
+}

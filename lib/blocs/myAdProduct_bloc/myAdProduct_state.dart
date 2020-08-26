@@ -7,6 +7,18 @@ class MyAdProductState extends Equatable {
   List<Object> get props => [];
 }
 
+class ShowMyAdProduct extends MyAdProductState {
+  final List ads;
+
+  const ShowMyAdProduct({@required this.ads});
+
+  @override
+  List<Object> get props => [ads];
+
+  @override
+  String toString() => 'ShowMyAdProduct { ads: $ads }';
+}
+
 class LoadingMyAdProduct extends MyAdProductState {}
 
 class FailureMyAdProduct extends MyAdProductState {

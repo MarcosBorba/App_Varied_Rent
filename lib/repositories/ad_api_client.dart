@@ -34,15 +34,60 @@ class AdApiCLient {
         }
       }
     }
-    Ad ad = new Ad();
     adsList = await populateAds(adsResponse.data);
+    return adsList;
   }
 
   Future<List<Ad>> populateAds(Map list) async {
     final List<Ad> lista = [];
     for (var i = 0; i < list['ads'].length; i++) {
-      print(list['ads'][i]['_id']);
+      lista.add(
+        new Ad(
+          id: list['ads'][i]['_id'],
+          locator_fk: list['ads'][i]['_locator_fk'],
+          title: list['ads'][i]['title'],
+          images: list['ads'][i]['images'],
+          value: list['ads'][i]['value'],
+          description: list['ads'][i]['description'],
+          category: list['ads'][i]['category'],
+        ),
+      );
     }
     return lista;
+  }
+
+  Future addAdComponents(String image, String token) async {
+    final userCheckUserUrl = '$baseUrl/create_ad';
+    final Map<String, dynamic> jsonUserLoggedIn = {
+      "_locator_fk": "5ebc83a7c2159307500e7f9c",
+      "images": [image.toString()],
+      "title": "test app varied",
+      "value": "12.00",
+      'description': "ads test of test test result",
+      "category": "cars",
+    };
+    Response<Map> adsResponse;
+    try {
+      adsResponse = await dio.post(
+        userCheckUserUrl,
+        data: jsonUserLoggedIn,
+        options: Options(
+          headers: {'x-access-token': token},
+        ),
+      );
+    } catch (error) {
+      print("error message: " + error.message);
+      print("response : " + adsResponse.toString());
+      if (error is DioError) {
+        if (error.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: error.response.statusCode.toString() +
+                  " - " +
+                  error.response.data['message']);
+        }
+      }
+    }
   }
 }

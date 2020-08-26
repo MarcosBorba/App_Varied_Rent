@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +31,12 @@ class MyAdProductBloc extends Bloc<MyAdProductEvent, MyAdProductState> {
       print("passou started");
       String token = await sharedPref.read('token');
       String idUserLoggedIn = await sharedPref.read('id');
-      await adRepository.getAdRepository(idUserLoggedIn, token);
+      List ads = await adRepository.getAdRepository(idUserLoggedIn, token);
+      yield ShowMyAdProduct(ads: ads);
+    } else if (event is MyAdProducPageAddAds) {
+      print("passou event add image");
+      String token = await sharedPref.read('token');
+      await adRepository.addAdRepository(event.image, token);
     }
   }
 }
