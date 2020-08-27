@@ -25,7 +25,7 @@ class AppRoutes {
   }
 
   static void duoPop(BuildContext context) {
-    Navigator.of(context).pop();
+    Navigator.pop(context, true);
     Navigator.of(context).pop();
   }
 

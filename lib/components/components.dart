@@ -8,3 +8,4 @@ export 'componentsSipnup/componentsSignupPage.dart';
 export 'componentsEditMyProfilePage/componentsEditMyProfile.dart';
 export 'componentsDefaultAplication/componentsDefaultAplication.dart';
 export 'componentsMyAdsProduct/componentsMyAdsProduct.dart';
+export 'componentsMyAdsPage/componentsMyAdsPage.dart';

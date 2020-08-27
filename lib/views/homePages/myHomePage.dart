@@ -377,10 +377,18 @@ class HomePageState extends State<HomePage> {
     AppRoutes.pop(context);
   }
 
-  navigationFunctionForMyAccountScreen() {
-    listenKeyboardVisibleOrNot.cancel();
-    Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => MyAccountPage()));
+  navigationFunctionForMyAccountScreen() async {
+    listenKeyboardVisibleOrNot.pause();
+    final result = await Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => MyAccountPage(),
+      ),
+    );
+    if (result) {
+      listenKeyboardVisibleOrNot.resume();
+      print('passou no if');
+    }
   }
 
   navigationFunctionForMyAdsScreen() {
