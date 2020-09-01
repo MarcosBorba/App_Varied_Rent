@@ -6,12 +6,14 @@ import 'package:varied_rent/utils/utils.dart';
 class TextFieldDefaultAplication extends StatelessWidget {
   final TextEditingController inputController;
   final String labelText;
-  final FormFieldValidator<String> validator;
   final String hintText;
+  final String helperText;
+  final FormFieldValidator<String> validator;
   final bool obscureText;
+  final bool filled;
+  final bool autofocus;
   final IconData prefixIcon;
   final IconButton suffixIcon;
-  final String helperText;
   final EdgeInsetsGeometry contentPadding;
   final Color cursorColor;
   final Color hintTextColor;
@@ -19,36 +21,42 @@ class TextFieldDefaultAplication extends StatelessWidget {
   final Color labelTextColor;
   final Color defaultFormColor;
   final Color focusedDefaultFormColor;
+  final Color fillColor;
   final TextInputType keyboardType;
   final Function onChanged;
+  final Function onFieldSubmitted;
   final List<TextInputFormatter> inputFormatters;
   final TextInputAction textInputAction;
-  final Function onFieldSubmitted;
+  final FocusNode focusNode;
 
-  const TextFieldDefaultAplication(
-      {Key key,
-      this.inputController,
-      this.labelText,
-      this.validator,
-      this.hintText,
-      this.obscureText = false,
-      this.prefixIcon,
-      this.helperText,
-      this.suffixIcon,
-      this.contentPadding,
-      this.cursorColor = AppColors.cursorTextFieldDefault,
-      this.hintTextColor = AppColors.hintTextTextFieldDefault,
-      this.prefixIconColor = AppColors.prefixIconTextFieldDefault,
-      this.labelTextColor = AppColors.labelTextTextFieldDefault,
-      this.defaultFormColor = AppColors.defaultFormBorderTextFieldDefault,
-      this.focusedDefaultFormColor =
-          AppColors.focusedDefaultFormBorderTextFieldDefault,
-      this.keyboardType,
-      this.onChanged,
-      this.inputFormatters,
-      this.textInputAction,
-      this.onFieldSubmitted})
-      : super(key: key);
+  TextFieldDefaultAplication({
+    Key key,
+    this.inputController,
+    this.labelText,
+    this.validator,
+    this.hintText,
+    this.obscureText = false,
+    this.prefixIcon,
+    this.helperText,
+    this.suffixIcon,
+    this.contentPadding,
+    this.cursorColor = AppColors.cursorTextFieldDefault,
+    this.hintTextColor = AppColors.hintTextTextFieldDefault,
+    this.prefixIconColor = AppColors.prefixIconTextFieldDefault,
+    this.labelTextColor = AppColors.labelTextTextFieldDefault,
+    this.defaultFormColor = AppColors.defaultFormBorderTextFieldDefault,
+    this.focusedDefaultFormColor =
+        AppColors.focusedDefaultFormBorderTextFieldDefault,
+    this.keyboardType,
+    this.onChanged,
+    this.inputFormatters,
+    this.textInputAction,
+    this.onFieldSubmitted,
+    this.focusNode,
+    this.filled = true,
+    this.autofocus = true,
+    this.fillColor = AppColors.fillColorBorderSearchTextField,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     verifyPrefixIcon() {
@@ -76,6 +84,8 @@ class TextFieldDefaultAplication extends StatelessWidget {
 
     return TextFormField(
       decoration: InputDecoration(
+        filled: filled,
+        fillColor: fillColor,
         contentPadding: contentPadding,
         hintText: hintText,
         prefixIcon: verifyPrefixIcon(),
@@ -94,6 +104,8 @@ class TextFieldDefaultAplication extends StatelessWidget {
         focusedErrorBorder: borderDefault(focusedDefaultFormColor),
         suffixIcon: suffixIcon,
       ),
+      focusNode: focusNode,
+      autofocus: autofocus,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       onFieldSubmitted: onFieldSubmitted,

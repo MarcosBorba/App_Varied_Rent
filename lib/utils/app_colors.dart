@@ -27,6 +27,19 @@ class AppColors {
   static const Color defaultFormBorderTextFieldDefault = secondaryColor;
   static const Color focusedDefaultFormBorderTextFieldDefault = tertiaryColor;
 
+  static const Color backgroundBottomNavigationBarDefault =
+      AppColors.tertiaryColor;
+  static const Color selectedItemBorderBottomNavigationBarDefault =
+      AppColors.tertiaryColor;
+  static const Color selectedItemBackgroundBottomNavigationBarDefault =
+      Colors.black38;
+  static const Color selectedItemIconBottomNavigationBarDefault = Colors.white;
+  static const Color selectedItemLabelBottomNavigationBarDefault = Colors.white;
+  static const Color unSelectedItemIconBottomNavigationBarDefault =
+      Colors.white;
+  static const Color unSelectedItemLabelBottomNavigationBarDefault =
+      Colors.white;
+
   //Colors HomePage
   static const Color cursorColorSearchTextField = secondaryColor;
   static const Color hintTextColorSearchTextField = secondaryColor;
@@ -35,17 +48,6 @@ class AppColors {
   static const Color focusedDefaultFormColorBorderSearchTextField =
       tertiaryColor;
   static const Color fillColorBorderSearchTextField = Colors.white;
-
-  static const Color backgroundColorBottomNanigationBar =
-      AppColors.tertiaryColor;
-  static const Color selectedItemBorderColorBottomNanigationBar =
-      AppColors.tertiaryColor;
-  static const Color selectedItemBackgroundColorBottomNanigationBar =
-      Colors.black38;
-  static const Color selectedItemIconColorBottomNanigationBar = Colors.white;
-  static const Color selectedItemLabelColorBottomNanigationBar = Colors.white;
-  static const Color unselectedItemIconColorBottomNanigationBar = Colors.white;
-  static const Color unselectedItemLabelColorBottomNanigationBar = Colors.white;
 
   static const Color borderColorForCategoryOptionsButton =
       AppColors.tertiaryColor;

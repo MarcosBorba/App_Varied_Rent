@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/app_colors.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 
-class HomePageFFNavigationBar extends StatelessWidget {
+class BottomNavigationBarDefault extends StatelessWidget {
   final Color barBackgroundColor;
   final Color selectedItemBorderColor;
   final Color selectedItemBackgroundColor;
@@ -14,14 +14,14 @@ class HomePageFFNavigationBar extends StatelessWidget {
   final bool showSelectedItemShadow;
   final double itemWidth;
   final double barHeight;
-  final List<FFNavigationBarItem> bottomNavyBarItems;
-  final Function onSelectTab;
+  final List<FFNavigationBarItem> bottomNavigationBarItems;
+  final Function onSelectTabItem;
   final int selectedIndex;
 
-  const HomePageFFNavigationBar({
+  const BottomNavigationBarDefault({
     Key key,
-    this.bottomNavyBarItems,
-    this.onSelectTab,
+    this.bottomNavigationBarItems,
+    this.onSelectTabItem,
     this.barBackgroundColor = AppColors.backgroundBottomNavigationBarDefault,
     this.selectedIndex = 0,
     this.showSelectedItemShadow = true,
@@ -40,6 +40,7 @@ class HomePageFFNavigationBar extends StatelessWidget {
     this.itemWidth,
     this.barHeight,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FFNavigationBar(
@@ -56,8 +57,8 @@ class HomePageFFNavigationBar extends StatelessWidget {
         barHeight: barHeight == null ? AppSizes.size60 : barHeight,
       ),
       selectedIndex: selectedIndex,
-      onSelectTab: onSelectTab,
-      items: bottomNavyBarItems,
+      onSelectTab: onSelectTabItem,
+      items: bottomNavigationBarItems,
     );
   }
 }

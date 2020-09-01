@@ -20,49 +20,51 @@ class MyAdsPages extends StatefulWidget {
 class MyAdsPagesState extends State<MyAdsPages> {
   List<Ad> listAds = [];
   double heightBodyScaffold = screenHeight - AppSizes.size60 - statusBarHeight;
-  int navigationBarBottomIndex;
+  int navigationBarBottomIndex = 0;
   bool selectedSearchButton;
   FocusNode searchTextFieldFocusNode = FocusNode();
-  StreamSubscription<bool> listenKeyboardVisibleOrNot;
+  StreamSubscription<bool> listenKeyboardVisibleOrNots;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider<MyAdProductBloc>(
-        create: (_) {
-          AdRepository adRepository = AdRepository(adApiClient: AdApiCLient());
-          selectedSearchButton = false;
-          listenKeyboardVisibleOrNot = KeyboardVisibility.onChange.listen(
-            (bool showKeyboard) {
-              if (mounted) {
-                setState(
-                  () {
-                    showKeyboard == false
-                        ? selectedSearchButton = false
-                        : selectedSearchButton = true;
-                  },
-                );
-              }
-            },
-          );
-          return MyAdProductBloc(adRepository: adRepository)
-            ..add(
-              MyAdProducPageStarted(),
-            );
-        },
-        child: BlocListener<MyAdProductBloc, MyAdProductState>(
-          listener: (context, state) {
-            if (state is ShowMyAdProduct) {
+    return BlocProvider<MyAdProductBloc>(
+      create: (_) {
+        AdRepository adRepository = AdRepository(adApiClient: AdApiCLient());
+        selectedSearchButton = false;
+        listenKeyboardVisibleOrNots = KeyboardVisibility.onChange.listen(
+          (bool showKeyboard) {
+            if (mounted) {
+              print("########################################### visibilyti");
               setState(
                 () {
-                  listAds = state.ads;
+                  showKeyboard == false
+                      ? selectedSearchButton = false
+                      : selectedSearchButton = true;
                 },
               );
             }
           },
-          child: BlocBuilder<MyAdProductBloc, MyAdProductState>(
-            builder: (context, state) {
-              return Scaffold(
+        );
+        return MyAdProductBloc(adRepository: adRepository)
+          ..add(
+            MyAdProducPageStarted(),
+          );
+      },
+      child: BlocListener<MyAdProductBloc, MyAdProductState>(
+        listener: (context, state) {
+          if (state is ShowMyAdProduct) {
+            setState(
+              () {
+                listAds = state.ads;
+              },
+            );
+          }
+        },
+        child: BlocBuilder<MyAdProductBloc, MyAdProductState>(
+          builder: (context, state) {
+            return WillPopScope(
+              onWillPop: funcaoVoltarHomePage,
+              child: Scaffold(
                 body: Container(
                   height: screenHeight,
                   width: screenWidth,
@@ -105,9 +107,9 @@ class MyAdsPagesState extends State<MyAdsPages> {
                     : null,
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerDocked,
-                bottomNavigationBar: MyAccountPageFFNavigationBar(
+                bottomNavigationBar: BottomNavigationBarDefault(
                   selectedIndex: navigationBarBottomIndex,
-                  onSelectTab: (index) {
+                  onSelectTabItem: (index) {
                     setState(
                       () {
                         navigationBarBottomIndex = index;
@@ -122,14 +124,19 @@ class MyAdsPagesState extends State<MyAdsPages> {
                       },
                     );
                   },
-                  bottomNavyBarItems: listBottomFFNavigationBarItems(),
+                  bottomNavigationBarItems: listBottomFFNavigationBarItems(),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
+  }
+
+  Future<bool> funcaoVoltarHomePage() async {
+    AppRoutes.duoPop(context);
+    return true;
   }
 
   Widget returnFloatingTextFieldSearch(BuildContext context) {
@@ -152,17 +159,22 @@ class MyAdsPagesState extends State<MyAdsPages> {
         ),
         Positioned(
           bottom: MediaQuery.of(context).viewInsets.bottom + AppSizes.size10,
-          child: HomePageSearchTextsField(
-            prefixIcon: Icons.search,
-            hintText: AppTexts().hintTextSearch,
-            focusNode: searchTextFieldFocusNode,
-            textInputAction: TextInputAction.search,
-            onSubmitted: (value) {
-              searchTextFieldFocusNode.unfocus();
-              selectedSearchButton = !selectedSearchButton;
-              listenKeyboardVisibleOrNot.pause();
-              searchAndNavigationFunctionForUserSearch(value);
-            },
+          child: Container(
+            alignment: AlignmentDirectional.center,
+            height: AppSizes.size50,
+            width: screenWidth * 0.90,
+            child: TextFieldDefaultAplication(
+              prefixIcon: Icons.search,
+              hintText: AppTexts().hintTextSearch,
+              focusNode: searchTextFieldFocusNode,
+              textInputAction: TextInputAction.search,
+              onFieldSubmitted: (value) {
+                searchTextFieldFocusNode.unfocus();
+                selectedSearchButton = !selectedSearchButton;
+                listenKeyboardVisibleOrNots.pause();
+                searchAndNavigationFunctionForUserSearch(value);
+              },
+            ),
           ),
         ),
       ],
@@ -206,7 +218,8 @@ class MyAdsPagesState extends State<MyAdsPages> {
 
   @override
   void dispose() {
-    listenKeyboardVisibleOrNot.cancel();
+    searchTextFieldFocusNode.dispose();
+    listenKeyboardVisibleOrNots.cancel();
     super.dispose();
   }
 }

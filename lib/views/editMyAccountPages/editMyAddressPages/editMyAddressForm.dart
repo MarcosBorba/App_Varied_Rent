@@ -110,6 +110,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _countryController,
       validator: FieldValidators().countryFormFieldValidator,
     );
@@ -123,6 +124,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _stateController,
       validator: FieldValidators().stateFormFieldValidator,
     );
@@ -136,6 +138,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _cityController,
       validator: FieldValidators().cityFormFieldValidator,
     );
@@ -149,6 +152,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _zipCodeController,
       validator: FieldValidators().zipCodeFormFieldValidator,
     );
@@ -162,6 +166,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _neighborhoodController,
       validator: FieldValidators().neighborhoodFormFieldValidator,
     );
@@ -175,6 +180,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _streetController,
       validator: FieldValidators().streetFormFieldValidator,
     );
@@ -187,6 +193,7 @@ class EditMyAddressPageFormState extends State<EditMyAddressPageForm> {
       helperText: AppTexts().addressNumberTextFieldHelpText,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
+      autofocus: false,
       inputController: _numberController,
       validator: FieldValidators().numberFormFieldValidator,
     );

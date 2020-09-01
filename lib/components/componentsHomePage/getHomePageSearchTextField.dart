@@ -15,8 +15,8 @@ class HomePageSearchTextsField extends StatelessWidget {
   final TextInputType keyboardType;
   final Color fillColor;
   final bool filled;
-  final Function onSubmitted;
   final bool autofocus;
+  final Function onSubmitted;
   final FocusNode focusNode;
   final TextInputAction textInputAction;
   final Align textAlignVertical;
@@ -30,8 +30,10 @@ class HomePageSearchTextsField extends StatelessWidget {
       this.cursorColor = AppColors.cursorColorSearchTextField,
       this.hintTextColor = AppColors.hintTextColorSearchTextField,
       this.prefixIconColor = AppColors.prefixIconColorSearchTextField,
-      this.defaultFormColorBorder = AppColors.defaultFormColorBorderSearchTextField,
-      this.focusedDefaultFormColorBorder = AppColors.focusedDefaultFormColorBorderSearchTextField,
+      this.defaultFormColorBorder =
+          AppColors.defaultFormColorBorderSearchTextField,
+      this.focusedDefaultFormColorBorder =
+          AppColors.focusedDefaultFormColorBorderSearchTextField,
       this.keyboardType,
       this.fillColor = AppColors.fillColorBorderSearchTextField,
       this.filled = true,
@@ -48,14 +50,23 @@ class HomePageSearchTextsField extends StatelessWidget {
       var turnBack;
       prefixIcon == null
           ? turnBack = null
-          : turnBack = Icon(prefixIcon, color: prefixIconColor);
+          : turnBack = Icon(
+              prefixIcon,
+              color: prefixIconColor,
+            );
       return turnBack;
     }
 
     borderDefault(Color color) {
       return OutlineInputBorder(
-          borderSide: BorderSide(color: color, width: AppSizes.size3),
-          borderRadius: BorderRadius.all(Radius.circular(AppSizes.size30)));
+        borderSide: BorderSide(
+          color: color,
+          width: AppSizes.size3,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(AppSizes.size30),
+        ),
+      );
     }
 
     return Container(
@@ -67,7 +78,8 @@ class HomePageSearchTextsField extends StatelessWidget {
           filled: filled,
           fillColor: fillColor,
           contentPadding: contentPadding == null
-              ? EdgeInsets.symmetric(horizontal: AppSizes.size10, vertical: AppSizes.size0)
+              ? EdgeInsets.symmetric(
+                  horizontal: AppSizes.size10, vertical: AppSizes.size0)
               : contentPadding,
           hintText: hintText,
           prefixIcon: verifyPrefixIcon(),

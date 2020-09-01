@@ -112,6 +112,7 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       textInputAction: TextInputAction.done,
       inputController: _nameController,
       validator: FieldValidators().nameFormFieldValidator,
+      autofocus: false,
     );
   }
 
@@ -165,6 +166,7 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       prefixIcon: FontAwesome5.id_badge,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
+      autofocus: false,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputController: _cpfCnpjController,
       validator: FieldValidators().cpfCnpjFormFieldValidator,
@@ -184,6 +186,7 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      autofocus: false,
       inputController: _telephoneMandatoryController,
       validator: FieldValidators().telephoneMandatoryFormFieldValidator,
       inputFormatters: [
@@ -201,6 +204,7 @@ class EditMyProfilePageFormState extends State<EditMyProfilePageForm> {
       prefixIcon: ModernPictograms.mobile,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.done,
+      autofocus: false,
       inputController: _telephoneOptionalController,
       validator: FieldValidators().telephoneOptionalFormFieldValidator,
       inputFormatters: [

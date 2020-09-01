@@ -22,21 +22,21 @@ class MyAccountPageFFNavigationBar extends StatelessWidget {
     Key key,
     this.bottomNavyBarItems,
     this.onSelectTab,
-    this.barBackgroundColor = AppColors.backgroundColorBottomNanigationBar,
+    this.barBackgroundColor = AppColors.backgroundBottomNavigationBarDefault,
     this.selectedIndex = 0,
     this.showSelectedItemShadow = true,
     this.selectedItemBorderColor =
-        AppColors.selectedItemBorderColorBottomNanigationBar,
+        AppColors.selectedItemBorderBottomNavigationBarDefault,
     this.selectedItemBackgroundColor =
-        AppColors.selectedItemBackgroundColorBottomNanigationBar,
+        AppColors.selectedItemBackgroundBottomNavigationBarDefault,
     this.selectedItemIconColor =
-        AppColors.selectedItemIconColorBottomNanigationBar,
+        AppColors.selectedItemIconBottomNavigationBarDefault,
     this.selectedItemLabelColor =
-        AppColors.selectedItemLabelColorBottomNanigationBar,
+        AppColors.selectedItemLabelBottomNavigationBarDefault,
     this.unselectedItemIconColor =
-        AppColors.unselectedItemIconColorBottomNanigationBar,
+        AppColors.unSelectedItemIconBottomNavigationBarDefault,
     this.unselectedItemLabelColor =
-        AppColors.unselectedItemLabelColorBottomNanigationBar,
+        AppColors.unSelectedItemLabelBottomNavigationBarDefault,
     this.itemWidth,
     this.barHeight,
   }) : super(key: key);

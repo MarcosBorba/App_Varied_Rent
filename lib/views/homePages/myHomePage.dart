@@ -18,6 +18,7 @@ import 'package:varied_rent/main.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAccountPage/myAccountPage.dart';
+import 'package:varied_rent/views/myAdsPage/MyAdsPage.dart';
 
 //TODO: nivel - 4 depois de criar outras telas, adicionar a navegacao de cada uma
 
@@ -391,8 +392,20 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  navigationFunctionForMyAdsScreen() {
-    print("navega para tela de meus anuncios");
+  navigationFunctionForMyAdsScreen() async {
+    listenKeyboardVisibleOrNot.pause();
+
+    final result = await Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => MyAdsPages(),
+      ),
+    );
+
+    if (result) {
+      listenKeyboardVisibleOrNot.resume();
+      print('passou no if 2');
+    }
   }
 
   navigationFunctionForFavoritesScreen() {
