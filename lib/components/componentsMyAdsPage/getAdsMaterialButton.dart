@@ -39,7 +39,7 @@ class AdsMaterialButton extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Material(
-            elevation: elevationImage == null ? AppSizes.size2 : elevationImage,
+            elevation: elevationImage == null ? AppSizes.size3 : elevationImage,
             borderRadius: BorderRadius.circular(AppSizes.size18),
             clipBehavior: Clip.antiAlias,
             child: Container(
@@ -162,17 +162,12 @@ class AdsMaterialButton extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: onPressedEditAds,
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.delete_forever,
-                            color: Colors.red,
-                          ),
-                          onPressed: onPressedDeleteAds,
-                        ),
+                        returnBottomButtons(
+                            Icon(Icons.edit), onPressedEditAds, true),
+                        returnBottomButtons(
+                            Icon(Icons.delete_forever, color: Colors.red),
+                            onPressedDeleteAds,
+                            false),
                       ],
                     ),
                   )
@@ -191,5 +186,21 @@ class AdsMaterialButton extends StatelessWidget {
     );
     var medianEvaluations = sumEvaluations / adsListEvaluations.length;
     return medianEvaluations as double;
+  }
+
+  Widget returnBottomButtons(Icon icon, Function onPressed, bool rightMargin) {
+    return Container(
+      width: screenWidth * 0.15,
+      margin: rightMargin ? EdgeInsets.only(right: 5) : null,
+      child: RaisedButton(
+        color: Colors.white,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18.0),
+        ),
+        child: icon,
+        onPressed: onPressed,
+      ),
+    );
   }
 }

@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
-import 'package:varied_rent/models/models.dart';
-import 'package:varied_rent/repositories/ad_api_client.dart';
-import 'package:varied_rent/repositories/ad_repository.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdsPage/myAdsPageForm.dart';
+import 'package:varied_rent/repositories/repositories.dart';
+import 'package:varied_rent/models/models.dart';
+import 'package:varied_rent/blocs/blocs.dart';
 
 class MyAdsPages extends StatefulWidget {
   @override
@@ -19,7 +19,6 @@ class MyAdsPages extends StatefulWidget {
 
 class MyAdsPagesState extends State<MyAdsPages> {
   List<Ad> listAds = [];
-  double heightBodyScaffold = screenHeight - AppSizes.size60 - statusBarHeight;
   int navigationBarBottomIndex = 0;
   bool selectedSearchButton;
   FocusNode searchTextFieldFocusNode = FocusNode();
@@ -27,145 +26,77 @@ class MyAdsPagesState extends State<MyAdsPages> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider<MyAdProductBloc>(
-        create: (_) {
-          AdRepository adRepository = AdRepository(adApiClient: AdApiCLient());
-          selectedSearchButton = false;
-          listenKeyboardVisibleOrNots = KeyboardVisibility.onChange.listen(
-            (bool showKeyboard) {
-              if (mounted) {
-                print("########################################### visibilyti");
-                setState(
-                  () {
-                    showKeyboard == false
-                        ? selectedSearchButton = false
-                        : selectedSearchButton = true;
-                  },
+    return WillPopScope(
+      onWillPop: onReturnHomePage,
+      child: Scaffold(
+        body: BlocProvider<MyAdProductBloc>(
+          create: (_) {
+            selectedSearchButton = false;
+            listenKeyboardVisibleOrNots = KeyboardVisibility.onChange.listen(
+              (bool showKeyboard) {
+                if (mounted) {
+                  print(
+                      "########################################### visibilyti");
+                  setState(
+                    () {
+                      showKeyboard == false
+                          ? selectedSearchButton = false
+                          : selectedSearchButton = true;
+                    },
+                  );
+                }
+              },
+            );
+            AdRepository adRepository =
+                AdRepository(adApiClient: AdApiCLient());
+            return MyAdProductBloc(adRepository: adRepository)
+              ..add(
+                MyAdProducPageStarted(),
+              );
+          },
+          child: BlocListener<MyAdProductBloc, MyAdProductState>(
+            listener: (context, state) {
+              if (state is ShowMyAdProduct) {
+                setState(() => listAds = state.ads);
+              } else if (state is FailureMyAdProduct) {
+                return Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${state.error}'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                  ),
                 );
               }
             },
-          );
-          return MyAdProductBloc(adRepository: adRepository)
-            ..add(
-              MyAdProducPageStarted(),
-            );
-        },
-        child: BlocListener<MyAdProductBloc, MyAdProductState>(
-          listener: (context, state) {
-            if (state is ShowMyAdProduct) {
-              setState(() => listAds = state.ads);
-            } else if (state is FailureMyAdProduct) {
-              return Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('${state.error}'),
-                  backgroundColor: Colors.red,
-                  duration: Duration(seconds: 5),
-                ),
-              );
-            }
-          },
-          child: BlocBuilder<MyAdProductBloc, MyAdProductState>(
-            builder: (context, state) {
-              return WillPopScope(
-                onWillPop: funcaoVoltarHomePage,
-                child: Scaffold(
-                  body: Container(
-                    height: screenHeight,
-                    width: screenWidth,
-                    child: state is LoadingMyAdProduct
-                        ? Center(child: CircularProgressIndicator())
-                        : state is FailureMyAdProduct
-                            ? Padding(
-                                padding: EdgeInsets.only(
-                                  left: AppSizes.size12,
-                                  right: AppSizes.size12,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.error_outline,
-                                      color: Colors.red,
-                                      size: AppSizes.size50,
-                                    ),
-                                    Text(
-                                      "Internal Server Error",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : listAds.length > 0
-                                ? ListView.builder(
-                                    itemCount: listAds.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        height: heightBodyScaffold * 0.30,
-                                        width: screenWidth,
-                                        margin: EdgeInsets.only(
-                                            top: AppSizes.size8),
-                                        child: AdsMaterialButton(
-                                          listAds: listAds,
-                                          indexListAds: index,
-                                          elevationButton: AppSizes.size4,
-                                          onPressedAds: navigationToTheAdScreen,
-                                          onPressedEditAds:
-                                              navigationToTheEditAdScreen,
-                                          onPressedDeleteAds: deleteTheAd,
-                                        ),
-                                      );
-                                    },
-                                  )
-                                : Center(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: AppSizes.size12,
-                                        right: AppSizes.size12,
-                                      ),
-                                      child: Text(
-                                        "You haven't created any ads yet!",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                  ),
-                  floatingActionButton: selectedSearchButton == true
-                      ? returnFloatingTextFieldSearch(context)
-                      : null,
-                  floatingActionButtonLocation:
-                      FloatingActionButtonLocation.centerDocked,
-                  bottomNavigationBar: BottomNavigationBarDefault(
-                    selectedIndex: navigationBarBottomIndex,
-                    onSelectTabItem: (index) {
-                      setState(
-                        () {
-                          navigationBarBottomIndex = index;
-                          index == 0
-                              ? navigationToTheAddAdScreen()
-                              : index == 1
-                                  ? setState(() {
-                                      selectedSearchButton =
-                                          !selectedSearchButton;
-                                    })
-                                  : false;
-                        },
-                      );
-                    },
-                    bottomNavigationBarItems: listBottomFFNavigationBarItems(),
-                  ),
-                ),
-              );
-            },
+            child: MyAdsPageForm(
+              listAds: listAds,
+            ),
           ),
+        ),
+        floatingActionButton: selectedSearchButton == true
+            ? returnFloatingTextFieldSearch(context)
+            : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomNavigationBarDefault(
+          selectedIndex: navigationBarBottomIndex,
+          onSelectTabItem: (index) {
+            setState(
+              () {
+                navigationBarBottomIndex = index;
+                index == 0
+                    ? navigationToTheAddAdScreen()
+                    : index == 1
+                        ? setState(() {
+                            selectedSearchButton = !selectedSearchButton;
+                          })
+                        : false;
+              },
+            );
+          },
+          bottomNavigationBarItems: listBottomFFNavigationBarItems(),
         ),
       ),
     );
-  }
-
-  Future<bool> funcaoVoltarHomePage() async {
-    AppRoutes.duoPop(context);
-    return true;
   }
 
   Widget returnFloatingTextFieldSearch(BuildContext context) {
@@ -210,11 +141,6 @@ class MyAdsPagesState extends State<MyAdsPages> {
     );
   }
 
-  searchAndNavigationFunctionForUserSearch(value) {
-    print("pesquisa value");
-    print("navega para tela de buscas e exibe resultados");
-  }
-
   List<FFNavigationBarItem> listBottomFFNavigationBarItems() {
     var fFNavigationBarItem = [
       FFNavigationBarItem(
@@ -229,20 +155,18 @@ class MyAdsPagesState extends State<MyAdsPages> {
     return fFNavigationBarItem;
   }
 
-  navigationToTheAdScreen() {
-    print("navigation to ad screen");
-  }
-
-  navigationToTheEditAdScreen() {
-    print("navigation to edit ad screen");
-  }
-
-  deleteTheAd() {
-    print("delete the ad e refresh the list");
+  searchAndNavigationFunctionForUserSearch(value) {
+    print("pesquisa value");
+    print("navega para tela de buscas e exibe resultados");
   }
 
   navigationToTheAddAdScreen() {
     print("navigation to add ad screen");
+  }
+
+  Future<bool> onReturnHomePage() async {
+    AppRoutes.duoPop(context);
+    return true;
   }
 
   @override

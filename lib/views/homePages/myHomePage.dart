@@ -404,7 +404,6 @@ class HomePageState extends State<HomePage> {
 
     if (result) {
       listenKeyboardVisibleOrNot.resume();
-      print('passou no if 2');
     }
   }
 
