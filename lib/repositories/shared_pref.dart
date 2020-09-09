@@ -22,4 +22,9 @@ class SharedPref {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(key);
   }
+
+  getKeys() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getKeys();
+  }
 }

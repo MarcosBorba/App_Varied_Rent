@@ -9,7 +9,8 @@ class AdsMaterialButton extends StatelessWidget {
   final List<Ad> listAds;
   final int indexListAds;
   final Color color;
-  final double elevation;
+  final double elevationButton;
+  final double elevationImage;
   final Function onPressedAds;
   final Function onPressedEditAds;
   final Function onPressedDeleteAds;
@@ -19,28 +20,31 @@ class AdsMaterialButton extends StatelessWidget {
     this.listAds,
     this.indexListAds,
     this.color = Colors.white,
-    this.elevation,
+    this.elevationButton,
     this.onPressedAds,
     this.onPressedEditAds,
     this.onPressedDeleteAds,
+    this.elevationImage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       color: Colors.white,
-      elevation: elevation == null ? AppSizes.size10 : elevation,
+      elevation: elevationButton == null ? AppSizes.size10 : elevationButton,
       onPressed: onPressedAds,
       padding: EdgeInsets.all(
         AppSizes.size12,
       ),
       child: Row(
         children: <Widget>[
-          Container(
-            height: heightBodyScaffold * 0.30,
-            width: screenWidth * 0.40,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppSizes.size18),
+          Material(
+            elevation: elevationImage == null ? AppSizes.size2 : elevationImage,
+            borderRadius: BorderRadius.circular(AppSizes.size18),
+            clipBehavior: Clip.antiAlias,
+            child: Container(
+              height: heightBodyScaffold * 0.30,
+              width: screenWidth * 0.40,
               child: Image.network(
                 listAds[indexListAds].images[0],
                 fit: BoxFit.cover,
@@ -53,6 +57,22 @@ class AdsMaterialButton extends StatelessWidget {
                               loadingProgress.expectedTotalBytes
                           : null,
                     ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.broken_image,
+                        color: Colors.red,
+                        size: AppSizes.size50,
+                      ),
+                      Text(
+                        "Error loading image!",
+                        textAlign: TextAlign.center,
+                      )
+                    ],
                   );
                 },
               ),
@@ -89,18 +109,31 @@ class AdsMaterialButton extends StatelessWidget {
                         ),
                         Row(
                           children: <Widget>[
-                            SmoothStarRating(
-                              rating: 3.5,
-                              isReadOnly: true,
-                              size: AppSizes.size25,
-                              filledIconData: Icons.star,
-                              halfFilledIconData: Icons.star_half,
-                              defaultIconData: Icons.star_border,
-                              starCount: 5,
-                              allowHalfRating: true,
-                              color: Colors.yellow,
-                              borderColor: Colors.yellow,
-                            ),
+                            listAds[indexListAds].starsEvaluations.length <= 0
+                                ? Text("No Evaluations")
+                                : FutureBuilder(
+                                    future: sumEvaluationsValues(
+                                        listAds[indexListAds].starsEvaluations),
+                                    builder: (context, snapshot) {
+                                      return snapshot.hasError ||
+                                              snapshot.data == null
+                                          ? Text("")
+                                          : SmoothStarRating(
+                                              rating: snapshot.data,
+                                              isReadOnly: true,
+                                              size: AppSizes.size25,
+                                              filledIconData: Icons.star,
+                                              halfFilledIconData:
+                                                  Icons.star_half,
+                                              defaultIconData:
+                                                  Icons.star_border,
+                                              starCount: 5,
+                                              allowHalfRating: true,
+                                              color: Colors.yellow,
+                                              borderColor: Colors.yellow,
+                                            );
+                                    },
+                                  ),
                           ],
                         ),
                         Row(
@@ -150,5 +183,13 @@ class AdsMaterialButton extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<double> sumEvaluationsValues(List adsListEvaluations) async {
+    num sumEvaluations = await adsListEvaluations.reduce(
+      (value, element) => value is num ? value + element : false,
+    );
+    var medianEvaluations = sumEvaluations / adsListEvaluations.length;
+    return medianEvaluations as double;
   }
 }

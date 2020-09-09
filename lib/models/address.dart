@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'address.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true)
 class Address {
   String country;
   String state;

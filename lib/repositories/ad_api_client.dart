@@ -47,6 +47,7 @@ class AdApiCLient {
           locator_fk: list['ads'][i]['_locator_fk'],
           title: list['ads'][i]['title'],
           images: list['ads'][i]['images'],
+          starsEvaluations: list['ads'][i]['starsEvaluations'],
           value: list['ads'][i]['value'],
           description: list['ads'][i]['description'],
           category: list['ads'][i]['category'],

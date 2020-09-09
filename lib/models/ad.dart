@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'ad.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true)
 class Ad {
   String id;
   String locator_fk;
   String title;
   List images;
+  List starsEvaluations;
   String value;
   String description;
   String category;
@@ -16,6 +17,7 @@ class Ad {
     this.locator_fk,
     this.title,
     this.images,
+    this.starsEvaluations,
     this.value,
     this.description,
     this.category,

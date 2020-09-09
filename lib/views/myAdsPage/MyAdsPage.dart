@@ -27,108 +27,137 @@ class MyAdsPagesState extends State<MyAdsPages> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MyAdProductBloc>(
-      create: (_) {
-        AdRepository adRepository = AdRepository(adApiClient: AdApiCLient());
-        selectedSearchButton = false;
-        listenKeyboardVisibleOrNots = KeyboardVisibility.onChange.listen(
-          (bool showKeyboard) {
-            if (mounted) {
-              print("########################################### visibilyti");
-              setState(
-                () {
-                  showKeyboard == false
-                      ? selectedSearchButton = false
-                      : selectedSearchButton = true;
-                },
+    return Scaffold(
+      body: BlocProvider<MyAdProductBloc>(
+        create: (_) {
+          AdRepository adRepository = AdRepository(adApiClient: AdApiCLient());
+          selectedSearchButton = false;
+          listenKeyboardVisibleOrNots = KeyboardVisibility.onChange.listen(
+            (bool showKeyboard) {
+              if (mounted) {
+                print("########################################### visibilyti");
+                setState(
+                  () {
+                    showKeyboard == false
+                        ? selectedSearchButton = false
+                        : selectedSearchButton = true;
+                  },
+                );
+              }
+            },
+          );
+          return MyAdProductBloc(adRepository: adRepository)
+            ..add(
+              MyAdProducPageStarted(),
+            );
+        },
+        child: BlocListener<MyAdProductBloc, MyAdProductState>(
+          listener: (context, state) {
+            if (state is ShowMyAdProduct) {
+              setState(() => listAds = state.ads);
+            } else if (state is FailureMyAdProduct) {
+              return Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('${state.error}'),
+                  backgroundColor: Colors.red,
+                  duration: Duration(seconds: 5),
+                ),
               );
             }
           },
-        );
-        return MyAdProductBloc(adRepository: adRepository)
-          ..add(
-            MyAdProducPageStarted(),
-          );
-      },
-      child: BlocListener<MyAdProductBloc, MyAdProductState>(
-        listener: (context, state) {
-          if (state is ShowMyAdProduct) {
-            setState(
-              () {
-                listAds = state.ads;
-              },
-            );
-          }
-        },
-        child: BlocBuilder<MyAdProductBloc, MyAdProductState>(
-          builder: (context, state) {
-            return WillPopScope(
-              onWillPop: funcaoVoltarHomePage,
-              child: Scaffold(
-                body: Container(
-                  height: screenHeight,
-                  width: screenWidth,
-                  child: state is LoadingMyAdProduct
-                      ? Center(child: CircularProgressIndicator())
-                      : listAds.length > 0
-                          ? ListView.builder(
-                              itemCount: listAds.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  height: heightBodyScaffold * 0.30,
-                                  width: screenWidth,
-                                  margin: EdgeInsets.only(top: AppSizes.size10),
-                                  child: AdsMaterialButton(
-                                    listAds: listAds,
-                                    indexListAds: index,
-                                    onPressedAds: navigationToTheAdScreen,
-                                    onPressedEditAds:
-                                        navigationToTheEditAdScreen,
-                                    onPressedDeleteAds: deleteTheAd,
-                                  ),
-                                );
-                              },
-                            )
-                          : Center(
-                              child: Padding(
+          child: BlocBuilder<MyAdProductBloc, MyAdProductState>(
+            builder: (context, state) {
+              return WillPopScope(
+                onWillPop: funcaoVoltarHomePage,
+                child: Scaffold(
+                  body: Container(
+                    height: screenHeight,
+                    width: screenWidth,
+                    child: state is LoadingMyAdProduct
+                        ? Center(child: CircularProgressIndicator())
+                        : state is FailureMyAdProduct
+                            ? Padding(
                                 padding: EdgeInsets.only(
                                   left: AppSizes.size12,
                                   right: AppSizes.size12,
                                 ),
-                                child: Text(
-                                  "You haven't created any ads yet!",
-                                  textAlign: TextAlign.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.error_outline,
+                                      color: Colors.red,
+                                      size: AppSizes.size50,
+                                    ),
+                                    Text(
+                                      "Internal Server Error",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
+                              )
+                            : listAds.length > 0
+                                ? ListView.builder(
+                                    itemCount: listAds.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        height: heightBodyScaffold * 0.30,
+                                        width: screenWidth,
+                                        margin: EdgeInsets.only(
+                                            top: AppSizes.size8),
+                                        child: AdsMaterialButton(
+                                          listAds: listAds,
+                                          indexListAds: index,
+                                          elevationButton: AppSizes.size4,
+                                          onPressedAds: navigationToTheAdScreen,
+                                          onPressedEditAds:
+                                              navigationToTheEditAdScreen,
+                                          onPressedDeleteAds: deleteTheAd,
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: AppSizes.size12,
+                                        right: AppSizes.size12,
+                                      ),
+                                      child: Text(
+                                        "You haven't created any ads yet!",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                  ),
+                  floatingActionButton: selectedSearchButton == true
+                      ? returnFloatingTextFieldSearch(context)
+                      : null,
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.centerDocked,
+                  bottomNavigationBar: BottomNavigationBarDefault(
+                    selectedIndex: navigationBarBottomIndex,
+                    onSelectTabItem: (index) {
+                      setState(
+                        () {
+                          navigationBarBottomIndex = index;
+                          index == 0
+                              ? navigationToTheAddAdScreen()
+                              : index == 1
+                                  ? setState(() {
+                                      selectedSearchButton =
+                                          !selectedSearchButton;
+                                    })
+                                  : false;
+                        },
+                      );
+                    },
+                    bottomNavigationBarItems: listBottomFFNavigationBarItems(),
+                  ),
                 ),
-                floatingActionButton: selectedSearchButton == true
-                    ? returnFloatingTextFieldSearch(context)
-                    : null,
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerDocked,
-                bottomNavigationBar: BottomNavigationBarDefault(
-                  selectedIndex: navigationBarBottomIndex,
-                  onSelectTabItem: (index) {
-                    setState(
-                      () {
-                        navigationBarBottomIndex = index;
-                        index == 0
-                            ? navigationToTheAddAdScreen()
-                            : index == 1
-                                ? setState(() {
-                                    selectedSearchButton =
-                                        !selectedSearchButton;
-                                  })
-                                : false;
-                      },
-                    );
-                  },
-                  bottomNavigationBarItems: listBottomFFNavigationBarItems(),
-                ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
