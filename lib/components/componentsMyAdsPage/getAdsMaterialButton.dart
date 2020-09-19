@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:varied_rent/models/imageAd.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 
@@ -29,6 +30,7 @@ class AdsMaterialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //List<ImageAd> listImages = listAds[indexListAds].images.cast<ImageAd>();
     return MaterialButton(
       color: Colors.white,
       elevation: elevationButton == null ? AppSizes.size10 : elevationButton,
@@ -45,8 +47,10 @@ class AdsMaterialButton extends StatelessWidget {
             child: Container(
               height: heightBodyScaffold * 0.30,
               width: screenWidth * 0.40,
+              //List<String>.from(dlist);
+              //dlist.Cast <string> () .ToList ();
               child: Image.network(
-                listAds[indexListAds].images[0],
+                listAds[indexListAds].images[0]['url'],
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;

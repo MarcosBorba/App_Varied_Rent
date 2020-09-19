@@ -8,13 +8,13 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 //674 linhas antes otimizar
-class MyAdsPage extends StatefulWidget {
+class MyAdsPages extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => MyAdsPageState();
+  State<StatefulWidget> createState() => MyAdsPagesState();
 }
 
 //TODO: nivel 4 - definir texts, colors, routes....
-class MyAdsPageState extends State<MyAdsPage> {
+class MyAdsPagesState extends State<MyAdsPages> {
   String titleAd = "Viagens para lua de mel - EUA, MEX, BRA, FRA, CHI";
   String valueAd = "R\$ 2,00";
   String typeValueAd = " / Hr";

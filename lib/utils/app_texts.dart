@@ -280,4 +280,11 @@ class AppTexts {
   String editMyAddressTitlePage = "   Edit Address Data";
   static const String editMyAddressUpdateSuccessfully =
       " The data has been updated successfully";
+
+  //Edit My Ads Page Texts
+  String myAdsOptionInsertAds = "Insert Ads";
+  String myAdsOptionSearch = "Search";
+  String myAdsHintTextSearch = "Search";
+  String myAdsNoAdsCreated = "You haven't created any ads yet!";
+  String myAdsErrorOnSearchAds = "Internal Server Error";
 }

@@ -398,7 +398,7 @@ class HomePageState extends State<HomePage> {
     final result = await Navigator.push(
       context,
       new MaterialPageRoute(
-        builder: (context) => MyAdsPages(),
+        builder: (context) => MyAdsPage(),
       ),
     );
 

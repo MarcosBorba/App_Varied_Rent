@@ -204,8 +204,8 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   searchAndNavigationFunctionForScreenWithUserCreatedAds() {
-    //AppRoutes.push(context, MyAdsPage());
     AppRoutes.push(context, MyAdsPages());
+    //AppRoutes.push(context, MyAdsPage());
   }
 
   logoutAndNavigationFunctionForTheLoginScreen() {

@@ -16,4 +16,8 @@ class AdRepository {
     List ads = await adApiClient.addAdComponents(image, token);
     return ads;
   }
+
+  Future deleteAdRepository(String id, String token) async {
+    await adApiClient.deleteAdComponents(id, token);
+  }
 }

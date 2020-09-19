@@ -8,10 +8,10 @@ import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/ad_repository.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-part 'myAdProduct_event.dart';
-part 'myAdProduct_state.dart';
+part 'myAdsPage_event.dart';
+part 'myAdsPage_state.dart';
 
-class MyAdProductBloc extends Bloc<MyAdProductEvent, MyAdProductState> {
+class MyAdProductBloc extends Bloc<MyAdsPageEvent, MyAdProductState> {
   AdRepository adRepository;
 
   MyAdProductBloc({
@@ -23,8 +23,8 @@ class MyAdProductBloc extends Bloc<MyAdProductEvent, MyAdProductState> {
   get initialState => LoadingMyAdProduct();
 
   @override
-  Stream<MyAdProductState> mapEventToState(MyAdProductEvent event) async* {
-    if (event is MyAdProducPageStarted) {
+  Stream<MyAdProductState> mapEventToState(MyAdsPageEvent event) async* {
+    if (event is MyAdsPageStarted) {
       try {
         String token = await sharedPref.read('token');
         String idUserLoggedIn = await sharedPref.read('id');
@@ -41,7 +41,22 @@ class MyAdProductBloc extends Bloc<MyAdProductEvent, MyAdProductState> {
           yield FailureMyAdProduct(error: "500 - Internal Server Error");
         }
       }
-    } else if (event is MyAdProducPageAddAds) {
+    } else if (event is MyAdsPageDeleteAd) {
+      try {
+        yield LoadingMyAdProduct();
+        String token = await sharedPref.read('token');
+        await adRepository.deleteAdRepository(event.id, token);
+        await event.ads.removeAt(event.index);
+        yield ShowMyAdProduct(ads: event.ads);
+      } catch (error) {
+        print(error);
+        if (error is DioError) {
+          yield FailureMyAdProduct(error: error.message);
+        } else {
+          yield FailureMyAdProduct(error: "500 - Internal Server Error");
+        }
+      }
+    } else if (event is MyAdsPageAddAds) {
       print("passou event add image");
       String token = await sharedPref.read('token');
       await adRepository.addAdRepository(event.image, token);

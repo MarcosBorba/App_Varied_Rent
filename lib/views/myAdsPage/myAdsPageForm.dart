@@ -1,28 +1,18 @@
-import 'dart:async';
-
-import 'package:ff_navigation_bar/ff_navigation_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:varied_rent/blocs/blocs.dart';
+import 'package:flutter/material.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 
+//TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
 class MyAdsPageForm extends StatefulWidget {
-  List<Ad> listAds = [];
-  MyAdsPageForm({Key key, this.listAds}) : super(key: key);
-
   @override
-  State<StatefulWidget> createState() => MyAdsPageFormState(listAds: listAds);
+  State<StatefulWidget> createState() => MyAdsPageFormState();
 }
 
 class MyAdsPageFormState extends State<MyAdsPageForm> {
-  List<Ad> listAds = [];
   double heightBodyScaffold = screenHeight - AppSizes.size60 - statusBarHeight;
-
-  MyAdsPageFormState({this.listAds});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +43,10 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                       onPressedAds: navigationToTheAdScreen,
                                       onPressedEditAds:
                                           navigationToTheEditAdScreen,
-                                      onPressedDeleteAds: deleteTheAd,
+                                      onPressedDeleteAds: () {
+                                        deleteTheAd(state.ads[index].id,
+                                            state.ads, index);
+                                      },
                                     ),
                                   );
                                 },
@@ -65,7 +58,7 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                     right: AppSizes.size12,
                                   ),
                                   child: Text(
-                                    "You haven't created any ads yet!",
+                                    AppTexts().myAdsNoAdsCreated,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -88,11 +81,11 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
         children: [
           Icon(
             Icons.error_outline,
-            color: Colors.red,
+            color: AppColors.myAdsIconOnFailure,
             size: AppSizes.size50,
           ),
           Text(
-            "Internal Server Error",
+            AppTexts().myAdsErrorOnSearchAds,
             textAlign: TextAlign.center,
           ),
         ],
@@ -108,7 +101,46 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
     print("navigation to edit ad screen");
   }
 
-  deleteTheAd() {
-    print("delete the ad e refresh the list");
+  deleteTheAd(String id, List<Ad> ads, int index) {
+    showDialog(
+      context: context,
+      builder: (context) => returnAlertDialogOnDeleteAd(id, ads, index),
+    );
+  }
+
+  Widget returnAlertDialogOnDeleteAd(String id, List<Ad> ads, int index) {
+    return AlertDialog(
+      title: Text(
+        "Deletando Anúncio",
+        textAlign: TextAlign.center,
+      ),
+      content: Text(
+        "Você esta prestes a deletar um anúncio,\n" +
+            "você tem certeza que quer deleta-lo?",
+        textAlign: TextAlign.center,
+      ),
+      elevation: 24.0,
+      actions: [
+        FlatButton(
+          child: Text("no"),
+          onPressed: () {
+            AppRoutes.pop(context);
+          },
+        ),
+        FlatButton(
+          child: Text("yes"),
+          onPressed: () {
+            BlocProvider.of<MyAdProductBloc>(context).add(
+              MyAdsPageDeleteAd(
+                id,
+                ads,
+                index,
+              ),
+            );
+            AppRoutes.pop(context);
+          },
+        ),
+      ],
+    );
   }
 }

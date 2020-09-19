@@ -1,24 +1,23 @@
-import 'dart:async';
-
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:varied_rent/components/components.dart';
-import 'package:varied_rent/utils/utils.dart';
+import 'dart:async';
 import 'package:varied_rent/views/myAdsPage/myAdsPageForm.dart';
 import 'package:varied_rent/repositories/repositories.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
+import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 
-class MyAdsPages extends StatefulWidget {
+//TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
+class MyAdsPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => MyAdsPagesState();
+  State<StatefulWidget> createState() => MyAdsPageState();
 }
 
-class MyAdsPagesState extends State<MyAdsPages> {
-  List<Ad> listAds = [];
+class MyAdsPageState extends State<MyAdsPage> {
   int navigationBarBottomIndex = 0;
   bool selectedSearchButton;
   FocusNode searchTextFieldFocusNode = FocusNode();
@@ -51,26 +50,30 @@ class MyAdsPagesState extends State<MyAdsPages> {
                 AdRepository(adApiClient: AdApiCLient());
             return MyAdProductBloc(adRepository: adRepository)
               ..add(
-                MyAdProducPageStarted(),
+                MyAdsPageStarted(),
               );
           },
           child: BlocListener<MyAdProductBloc, MyAdProductState>(
             listener: (context, state) {
-              if (state is ShowMyAdProduct) {
-                setState(() => listAds = state.ads);
-              } else if (state is FailureMyAdProduct) {
-                return Scaffold.of(context).showSnackBar(
+              if (state is FailureMyAdProduct) {
+                Scaffold.of(context).showSnackBar(
                   SnackBar(
                     content: Text('${state.error}'),
                     backgroundColor: Colors.red,
                     duration: Duration(seconds: 5),
                   ),
                 );
+              } else if (state is DeleteMyAdProductSuccess) {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Ads success deleted!'),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 5),
+                  ),
+                );
               }
             },
-            child: MyAdsPageForm(
-              listAds: listAds,
-            ),
+            child: MyAdsPageForm(),
           ),
         ),
         floatingActionButton: selectedSearchButton == true
@@ -121,17 +124,17 @@ class MyAdsPagesState extends State<MyAdsPages> {
           bottom: MediaQuery.of(context).viewInsets.bottom + AppSizes.size10,
           child: Container(
             alignment: AlignmentDirectional.center,
-            height: AppSizes.size50,
             width: screenWidth * 0.90,
+            height: AppSizes.size50,
             child: TextFieldDefaultAplication(
-              prefixIcon: Icons.search,
-              hintText: AppTexts().hintTextSearch,
-              focusNode: searchTextFieldFocusNode,
+              hintText: AppTexts().myAdsHintTextSearch,
               textInputAction: TextInputAction.search,
+              focusNode: searchTextFieldFocusNode,
+              prefixIcon: Icons.search,
               onFieldSubmitted: (value) {
                 searchTextFieldFocusNode.unfocus();
-                selectedSearchButton = !selectedSearchButton;
                 listenKeyboardVisibleOrNots.pause();
+                selectedSearchButton = !selectedSearchButton;
                 searchAndNavigationFunctionForUserSearch(value);
               },
             ),
@@ -145,11 +148,11 @@ class MyAdsPagesState extends State<MyAdsPages> {
     var fFNavigationBarItem = [
       FFNavigationBarItem(
         iconData: FontAwesome5.plus,
-        label: "Inserir Ads",
+        label: AppTexts().myAdsOptionInsertAds,
       ),
       FFNavigationBarItem(
         iconData: Icons.search,
-        label: "Search",
+        label: AppTexts().myAdsOptionSearch,
       ),
     ];
     return fFNavigationBarItem;

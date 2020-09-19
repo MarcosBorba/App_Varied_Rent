@@ -1,4 +1,4 @@
-part of './myAdProduct_bloc.dart';
+part of 'myAdsPage_bloc.dart';
 
 class MyAdProductState extends Equatable {
   const MyAdProductState();
@@ -8,7 +8,7 @@ class MyAdProductState extends Equatable {
 }
 
 class ShowMyAdProduct extends MyAdProductState {
-  final List ads;
+  final List<Ad> ads;
 
   const ShowMyAdProduct({@required this.ads});
 
@@ -17,6 +17,16 @@ class ShowMyAdProduct extends MyAdProductState {
 
   @override
   String toString() => 'ShowMyAdProduct { ads: $ads }';
+}
+
+class DeleteMyAdProductSuccess extends MyAdProductState {
+  DeleteMyAdProductSuccess();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'DeleteMyAdProduct';
 }
 
 class LoadingMyAdProduct extends MyAdProductState {}

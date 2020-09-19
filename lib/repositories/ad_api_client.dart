@@ -91,4 +91,34 @@ class AdApiCLient {
       }
     }
   }
+
+  Future deleteAdComponents(String id, String token) async {
+    final deleteAdUrl = '$baseUrl/delete_ads';
+    final Map<String, dynamic> jsonId = {
+      "_id": id,
+    };
+    Response<Map> adsResponse;
+    try {
+      adsResponse = await dio.delete(
+        deleteAdUrl,
+        queryParameters: jsonId,
+        options: Options(
+          headers: {'x-access-token': token},
+        ),
+      );
+    } catch (error) {
+      print("error message: " + error.message);
+      print("response : " + adsResponse.toString());
+      if (error is DioError) {
+        if (error.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: error.response.statusCode.toString() +
+                  " - " +
+                  error.response.data['message']);
+        }
+      }
+    }
+  }
 }

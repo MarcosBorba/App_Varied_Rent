@@ -138,4 +138,7 @@ class AppColors {
   static const Color editMyAddressButtonSubmit = tertiaryColor;
   static const Color editMyAddressLinearProgressBackground = secondaryColor;
   static const Color editMyAddressLinearProgressSecondary = tertiaryColor;
+
+  //Colors Edit My Ads Page
+  static const Color myAdsIconOnFailure = Colors.red;
 }
