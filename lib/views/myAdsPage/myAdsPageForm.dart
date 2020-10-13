@@ -34,8 +34,11 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                   return Container(
                                     height: heightBodyScaffold * 0.30,
                                     width: screenWidth,
-                                    margin:
-                                        EdgeInsets.only(top: AppSizes.size8),
+                                    margin: EdgeInsets.only(
+                                        top: AppSizes.size8,
+                                        bottom: (state.ads.length - 1) == index
+                                            ? AppSizes.size85
+                                            : 0),
                                     child: AdsMaterialButton(
                                       listAds: state.ads,
                                       indexListAds: index,
@@ -111,24 +114,26 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
   Widget returnAlertDialogOnDeleteAd(String id, List<Ad> ads, int index) {
     return AlertDialog(
       title: Text(
-        "Deletando Anúncio",
+        AppTexts().myAdsDeletingAds,
         textAlign: TextAlign.center,
       ),
       content: Text(
-        "Você esta prestes a deletar um anúncio,\n" +
-            "você tem certeza que quer deleta-lo?",
+        AppTexts().myAdsDeletingAdsExplanation,
         textAlign: TextAlign.center,
       ),
       elevation: 24.0,
       actions: [
         FlatButton(
-          child: Text("no"),
+          child: Text(
+            AppTexts().myAdsDeletingAdsNotConfirm,
+          ),
           onPressed: () {
             AppRoutes.pop(context);
           },
         ),
         FlatButton(
-          child: Text("yes"),
+          child: Text(AppTexts().myAdsDeletingAdsConfirm),
+          color: Colors.red,
           onPressed: () {
             BlocProvider.of<MyAdProductBloc>(context).add(
               MyAdsPageDeleteAd(

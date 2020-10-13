@@ -287,4 +287,9 @@ class AppTexts {
   String myAdsHintTextSearch = "Search";
   String myAdsNoAdsCreated = "You haven't created any ads yet!";
   String myAdsErrorOnSearchAds = "Internal Server Error";
+  String myAdsDeletingAds = "Deleting Ad";
+  String myAdsDeletingAdsExplanation =
+      "You are about to delete an ad, \n are you sure you want to delete it?";
+  String myAdsDeletingAdsConfirm = "Delete Ad";
+  String myAdsDeletingAdsNotConfirm = "No";
 }
