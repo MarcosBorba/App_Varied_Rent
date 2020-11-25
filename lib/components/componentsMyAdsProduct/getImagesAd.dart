@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductShowImages.dart';
 
-//TODO: nivel 4 - definir cores,texts,sizes..
 class ImagesAd extends StatelessWidget {
   final Color backgroundOpacityImages;
   final double imagesHeight;
@@ -11,16 +11,16 @@ class ImagesAd extends StatelessWidget {
 
   ImagesAd({
     Key key,
-    this.backgroundOpacityImages = AppColors.tertiaryColor,
+    this.backgroundOpacityImages = AppColors.backgroundOpacityImages,
     this.imagesHeight,
     this.images,
-    this.elevation = 20,
+    this.elevation,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(
       color: backgroundOpacityImages.withOpacity(0.1),
-      elevation: elevation,
+      elevation: elevation == null ? AppSizes.size20 : elevation,
       child: Container(
         height: imagesHeight == null ? screenHeight * 0.40 : imagesHeight,
         width: screenWidth,
@@ -28,14 +28,18 @@ class ImagesAd extends StatelessWidget {
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
             return new Image.network(
-              images[index],
-              fit: BoxFit.cover,
+              images[index]['url'],
+              fit: BoxFit.contain,
             );
           },
           itemCount: images.length,
           viewportFraction: 0.9,
           scale: 0.95,
           pagination: new SwiperPagination(),
+          onTap: (index) {
+            AppRoutes.push(
+                context, ShowImagesProduct(imageUrl: images[index]['url']));
+          },
         ),
       ),
     );

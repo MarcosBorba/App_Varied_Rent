@@ -56,10 +56,6 @@ class MyAdProductBloc extends Bloc<MyAdsPageEvent, MyAdProductState> {
           yield FailureMyAdProduct(error: "500 - Internal Server Error");
         }
       }
-    } else if (event is MyAdsPageAddAds) {
-      print("passou event add image");
-      String token = await sharedPref.read('token');
-      await adRepository.addAdRepository(event.image, token);
     }
   }
 }

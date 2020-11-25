@@ -1,9 +1,11 @@
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
 
 //TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
 class MyAdsPageForm extends StatefulWidget {
@@ -43,9 +45,17 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                       listAds: state.ads,
                                       indexListAds: index,
                                       elevationButton: AppSizes.size4,
-                                      onPressedAds: navigationToTheAdScreen,
-                                      onPressedEditAds:
-                                          navigationToTheEditAdScreen,
+                                      onPressedAds: () {
+                                        navigationToTheAdScreen(
+                                          state.ads[index].title,
+                                          state.ads[index].description,
+                                          state.ads[index].value,
+                                          state.ads[index].images,
+                                        );
+                                      },
+                                      onPressedEditAds: () {
+                                        navigationToTheEditAdScreen();
+                                      },
                                       onPressedDeleteAds: () {
                                         deleteTheAd(state.ads[index].id,
                                             state.ads, index);
@@ -96,8 +106,17 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
     );
   }
 
-  navigationToTheAdScreen() {
+  navigationToTheAdScreen(
+      String titleAd, String descriptionAd, String valueAd, List imagesAd) {
     print("navigation to ad screen");
+    AppRoutes.push(
+        context,
+        MyAdsProduct(
+          titleAd: titleAd,
+          descriptionAd: descriptionAd,
+          valueAd: valueAd,
+          imagesAd: imagesAd,
+        ));
   }
 
   navigationToTheEditAdScreen() {

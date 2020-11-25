@@ -11,7 +11,7 @@ import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editMyAccountPages/editMyAccountPage.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
 import 'package:varied_rent/views/myAdsPage/MyAdsPage.dart';
-import 'package:varied_rent/views/myAdsPage/myAdsProduct.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
 
 class MyAccountPage extends StatefulWidget {
   @override
@@ -204,7 +204,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   searchAndNavigationFunctionForScreenWithUserCreatedAds() {
-    AppRoutes.push(context, MyAdsPages());
+    AppRoutes.push(context, MyAdsProduct());
     //AppRoutes.push(context, MyAdsPage());
   }
 

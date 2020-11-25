@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:varied_rent/models/imageAd.dart';
 part 'ad.g.dart';
 
 @JsonSerializable(nullable: true)

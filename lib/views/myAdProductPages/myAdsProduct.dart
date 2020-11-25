@@ -8,26 +8,45 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 //674 linhas antes otimizar
-class MyAdsPages extends StatefulWidget {
+class MyAdsProduct extends StatefulWidget {
+  final String titleAd;
+  final String descriptionAd;
+  final String valueAd;
+  final List imagesAd;
+
+  const MyAdsProduct({
+    Key key,
+    this.titleAd,
+    this.descriptionAd,
+    this.valueAd,
+    this.imagesAd,
+  }) : super(key: key);
   @override
-  State<StatefulWidget> createState() => MyAdsPagesState();
+  State<StatefulWidget> createState() => MyAdsProductState(
+        titleAd: titleAd,
+        descriptionAd: descriptionAd,
+        valueAd: valueAd,
+        imagesAd: imagesAd,
+      );
 }
 
 //TODO: nivel 4 - definir texts, colors, routes....
-class MyAdsPagesState extends State<MyAdsPages> {
-  String titleAd = "Viagens para lua de mel - EUA, MEX, BRA, FRA, CHI";
-  String valueAd = "R\$ 2,00";
+class MyAdsProductState extends State<MyAdsProduct> {
+  MyAdsProductState({
+    Key key,
+    this.titleAd = "NO TITLE",
+    this.descriptionAd = "NO DESCRIPTION",
+    this.valueAd = "0.00",
+    this.imagesAd,
+  });
+  final String titleAd;
+  final String descriptionAd;
+  final String valueAd;
+  final List imagesAd;
   String typeValueAd = " / Hr";
   String nameLocator = "Joao Gabriel Faria Borba da Silva";
   ItemScrollController _evaluation2ScrollController = ItemScrollController();
   int navigationBarBottomIndex = 0;
-  final List<String> images = [
-    'https://cdn.pixabay.com/photo/2020/05/15/11/49/pet-5173354_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/07/01/16/59/cherries-5360265_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/07/09/10/31/sea-5386810_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/01/14/17/17/kyrgyzstan-4765706_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/03/06/22/10/zakynthos-4908247_960_720.jpg',
-  ];
 
   List questionsAnswers = [
     [
@@ -127,9 +146,7 @@ class MyAdsPagesState extends State<MyAdsPages> {
               returnSubTitle(),
               returnImagesAd(),
               returnDivider("Description"),
-              returnDescription(
-                "O Mestre na arte da vida faz pouca distinção entre o seu trabalho e o seu lazer, entre a sua mente e o seu corpo, entre a sua educação e a sua recreação, entre o seu amor e a sua religião. Ele dificilmente sabe distinguir um corpo do outro. Ele simplesmente persegue sua visão de excelência em tudo que faz, deixando para os outros a decisão de saber se está trabalhando ou se divertindo. Ele acha que está sempre fazendo as duas coisas simultaneamente.",
-              ),
+              returnDescription(),
               returnDivider("Questions"),
               returnQuestionsAndAnswer(),
               returnDivider("Evaluations"),
@@ -144,22 +161,6 @@ class MyAdsPagesState extends State<MyAdsPages> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: MyAccountPageFFNavigationBar(
-        selectedIndex: navigationBarBottomIndex,
-        onSelectTab: (index) {
-          setState(
-            () {
-              navigationBarBottomIndex = index;
-              index == 0
-                  ? navigateToTheEditAdScreen()
-                  : index == 1
-                      ? navigateToTheReservationScreen()
-                      : index == 2 ? navigateToTheChatScreen() : false;
-            },
-          );
-        },
-        bottomNavyBarItems: listBottomFFNavigationBarItems(),
       ),
     );
   }
@@ -180,7 +181,7 @@ class MyAdsPagesState extends State<MyAdsPages> {
 
   Widget returnImagesAd() {
     return ImagesAd(
-      images: images,
+      images: imagesAd,
     );
   }
 
@@ -190,9 +191,9 @@ class MyAdsPagesState extends State<MyAdsPages> {
     );
   }
 
-  Widget returnDescription(String description) {
+  Widget returnDescription() {
     return Description(
-      textDescription: description,
+      textDescription: descriptionAd,
     );
   }
 
@@ -225,37 +226,5 @@ class MyAdsPagesState extends State<MyAdsPages> {
 
   Widget returnLocatorInfo() {
     return LocatorInfo();
-  }
-
-  List<FFNavigationBarItem> listBottomFFNavigationBarItems() {
-    var fFNavigationBarItem = [
-      FFNavigationBarItem(
-        iconData: Icons.edit,
-        label: "Edit Ad",
-      ),
-      FFNavigationBarItem(
-        iconData: FontAwesome.calendar,
-        label: "Reservations",
-      ),
-      FFNavigationBarItem(
-        iconData: Icons.chat,
-        label: "Chat",
-      ),
-    ];
-    return fFNavigationBarItem;
-  }
-
-  navigateToTheEditAdScreen() {
-    //print("pega os dados deste anuncio e ");
-    print("navega para a tela de editar anuncio");
-  }
-
-  navigateToTheReservationScreen() {
-    //ainda nao decidi como vai ser feito, se vai para uma nova tela ou cria um especie de pop up
-    print("navega para a tela de editar e ver reserva");
-  }
-
-  navigateToTheChatScreen() {
-    print("navega para a tela de chat");
   }
 }

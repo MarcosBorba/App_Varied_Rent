@@ -25,16 +25,37 @@ class SubTitleAd extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            valueAd,
-            style: TextStyle(
-              fontSize: sizeValueAd == null ? AppFontSize.s29 : sizeValueAd,
+          Expanded(
+            flex: 1,
+            child: Text(
+              "R\$ ",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontSize:
+                    sizeTypeValue == null ? AppFontSize.s18 : sizeTypeValue,
+              ),
             ),
           ),
-          Text(
-            typeValue,
-            style: TextStyle(
-              fontSize: sizeTypeValue == null ? AppFontSize.s18 : sizeTypeValue,
+          Expanded(
+            flex: 4,
+            child: Text(
+              valueAd,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: sizeValueAd == null ? AppFontSize.s29 : sizeValueAd,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              typeValue,
+              style: TextStyle(
+                fontSize:
+                    sizeTypeValue == null ? AppFontSize.s18 : sizeTypeValue,
+              ),
             ),
           ),
         ],

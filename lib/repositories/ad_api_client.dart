@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:varied_rent/models/models.dart';
 
 class AdApiCLient {
-  static const baseUrl = 'http://192.168.2.180:3000/adRoute';
+  static const baseUrl = 'http://192.168.0.180:3000/adRoute';
   Dio dio = new Dio();
   AdApiCLient();
 

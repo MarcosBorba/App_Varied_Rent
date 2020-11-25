@@ -141,4 +141,7 @@ class AppColors {
 
   //Colors Edit My Ads Page
   static const Color myAdsIconOnFailure = Colors.red;
+
+  //Colors My Ads Product Page
+  static const Color backgroundOpacityImages = tertiaryColor;
 }

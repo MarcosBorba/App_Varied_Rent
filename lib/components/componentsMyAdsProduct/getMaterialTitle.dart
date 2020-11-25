@@ -15,7 +15,7 @@ class MaterialTitle extends StatelessWidget {
   const MaterialTitle({
     Key key,
     this.titleColor = AppColors.tertiaryColor,
-    this.title = "Viagens para lua de mel - EUA, MEX, BRA, FRA, CHI",
+    this.title = "",
     this.titleBackgroundColor = Colors.white,
     this.sizeStars,
     this.titleSize,
@@ -50,10 +50,13 @@ class MaterialTitle extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
               style: TextStyle(
-                  fontSize: titleSize == null ? AppFontSize.s18 : titleSize,
-                  color: titleBackgroundColor,
-                  fontWeight: FontWeight.w500),
+                fontSize: titleSize == null ? AppFontSize.s18 : titleSize,
+                color: titleBackgroundColor,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
