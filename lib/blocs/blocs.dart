@@ -5,3 +5,4 @@ export './editAccountData_bloc/editAccountData_bloc.dart';
 export './editProfileData_bloc/editProfileData.dart';
 export './editAddressData_bloc/editAddressData.dart';
 export './myAdsPage_bloc/myAdsPageBloc.dart';
+export './myAdsProduct_bloc/myAdProductBloc.dart';

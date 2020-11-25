@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 
@@ -13,6 +16,7 @@ class MyAdsProduct extends StatefulWidget {
   final String descriptionAd;
   final String valueAd;
   final List imagesAd;
+  final List<Evaluation> evaluations;
 
   const MyAdsProduct({
     Key key,
@@ -20,6 +24,7 @@ class MyAdsProduct extends StatefulWidget {
     this.descriptionAd,
     this.valueAd,
     this.imagesAd,
+    this.evaluations,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => MyAdsProductState(
@@ -27,9 +32,11 @@ class MyAdsProduct extends StatefulWidget {
         descriptionAd: descriptionAd,
         valueAd: valueAd,
         imagesAd: imagesAd,
+        evaluations: evaluations,
       );
 }
 
+//TODO: nivel 4 - estrela no cabecario não rebuilda
 //TODO: nivel 4 - definir texts, colors, routes....
 class MyAdsProductState extends State<MyAdsProduct> {
   MyAdsProductState({
@@ -38,11 +45,13 @@ class MyAdsProductState extends State<MyAdsProduct> {
     this.descriptionAd = "NO DESCRIPTION",
     this.valueAd = "0.00",
     this.imagesAd,
+    this.evaluations,
   });
   final String titleAd;
   final String descriptionAd;
   final String valueAd;
   final List imagesAd;
+  List<Evaluation> evaluations;
   String typeValueAd = " / Hr";
   String nameLocator = "Joao Gabriel Faria Borba da Silva";
   ItemScrollController _evaluation2ScrollController = ItemScrollController();
@@ -83,51 +92,8 @@ class MyAdsProductState extends State<MyAdsProduct> {
     ],
   ];
 
-  List evaluations = [
-    [
-      "Marcos Flavio Ferreira Borba",
-      "25 Jul 20",
-      5.0,
-      "Casa linda, espaçosa, limpa, curti!",
-      "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
-    ],
-    [
-      "Mariana Damaceno Campos",
-      "25 Jul 20",
-      4.0,
-      "Curti pra caramba, recomendo",
-      "Curti, curti e curti, recomendo recomendo",
-    ],
-    [
-      "Marcos Flavio Ferreira Borba",
-      "25 Jul 20",
-      5.0,
-      "Casa linda, espaçosa, limpa, curti!",
-      "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
-    ],
-    [
-      "Mariana Damaceno Campos",
-      "25 Jul 20",
-      4.0,
-      "Curti pra caramba, recomendo",
-      "Curti, curti e curti, recomendo recomendo",
-    ],
-    [
-      "Marcos Flavio Ferreira Borba",
-      "25 Jul 20",
-      5.0,
-      "Casa linda, espaçosa, limpa, curti!",
-      "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
-    ],
-    [
-      "Mariana Damaceno Campos",
-      "25 Jul 20",
-      4.0,
-      "Curti pra caramba, recomendo",
-      "Curti, curti e curti, recomendo recomendo",
-    ],
-  ];
-
+  int qtdEvaluations = 0;
+  double adEvaluation = 0.0;
   double selectStars;
   SharedPref sharedPrefUser = SharedPref();
   List valuesSharedPrefUser = [];
@@ -135,31 +101,47 @@ class MyAdsProductState extends State<MyAdsProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: screenHeight,
-        width: screenWidth,
-        color: Colors.white,
-        child: SafeArea(
-          child: ListView(
-            children: <Widget>[
-              returnHeader(),
-              returnSubTitle(),
-              returnImagesAd(),
-              returnDivider("Description"),
-              returnDescription(),
-              returnDivider("Questions"),
-              returnQuestionsAndAnswer(),
-              returnDivider("Evaluations"),
-              returnSelectEvaluationAmountStars(),
-              returnEvaluationsAd(),
-              returnDivider("Locator"),
-              returnLocatorInfo(),
-              Padding(
-                  padding: EdgeInsets.only(
-                bottom: screenHeight * 0.05,
-              ))
-            ],
-          ),
+      body: BlocListener<MyAdProductPageBloc, MyAdProductPageState>(
+        listener: (context, state) async {
+          if (state is ShowQuestionsAndEvaluationsMyAdProductPage) {
+            setState(() async {
+              evaluations = state.evaluations;
+              qtdEvaluations = evaluations.length;
+              adEvaluation = await medianCalculationEvaluationsStars();
+            });
+          }
+        },
+        child: BlocBuilder<MyAdProductPageBloc, MyAdProductPageState>(
+          builder: (context, state) {
+            return Container(
+              height: screenHeight,
+              width: screenWidth,
+              color: Colors.white,
+              child: SafeArea(
+                child: ListView(
+                  children: <Widget>[
+                    returnHeader(),
+                    returnSubTitle(),
+                    returnImagesAd(),
+                    returnDivider("Description"),
+                    returnDescription(),
+                    returnDivider("Questions"),
+                    returnQuestionsAndAnswer(),
+                    returnDivider("Evaluations"),
+                    returnSelectEvaluationAmountStars(),
+                    returnEvaluationsAd(),
+                    returnDivider("Locator"),
+                    returnLocatorInfo(),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: screenHeight * 0.05,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -168,7 +150,8 @@ class MyAdsProductState extends State<MyAdsProduct> {
   Widget returnHeader() {
     return MaterialTitle(
       title: titleAd,
-      evaluationsForCalculeAmount: evaluations,
+      qtdEvaluations: qtdEvaluations,
+      adEvaluations: adEvaluation,
     );
   }
 
@@ -210,7 +193,9 @@ class MyAdsProductState extends State<MyAdsProduct> {
       onChanged: (SmoothStarRating value) {
         setState(() {
           selectStars = value.rating;
-          _evaluation2ScrollController.jumpTo(index: 0);
+          evaluations != null && evaluations.length > 0
+              ? _evaluation2ScrollController.jumpTo(index: 0)
+              : 0;
         });
       },
     );
@@ -226,5 +211,19 @@ class MyAdsProductState extends State<MyAdsProduct> {
 
   Widget returnLocatorInfo() {
     return LocatorInfo();
+  }
+
+  Future<double> medianCalculationEvaluationsStars() async {
+    double median = 0.0;
+    double sum = 0.0;
+    if (evaluations != null) {
+      for (var index = 0; index < evaluations.length; index++) {
+        sum += double.parse(evaluations[index].amount_stars);
+      }
+      evaluations.length > 0 ? median = sum / evaluations.length : 0;
+      return median;
+    } else {
+      return median;
+    }
   }
 }

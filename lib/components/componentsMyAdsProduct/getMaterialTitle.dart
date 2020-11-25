@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:varied_rent/models/evaluation.dart';
 import 'package:varied_rent/utils/utils.dart';
 
 //TODO: nivel 3 - definir cores,texts,sizes
@@ -10,9 +11,10 @@ class MaterialTitle extends StatelessWidget {
   final String title;
   final double sizeStars;
   final double titleSize;
-  final List evaluationsForCalculeAmount;
+  final int qtdEvaluations;
+  final double adEvaluations;
 
-  const MaterialTitle({
+  MaterialTitle({
     Key key,
     this.titleColor = AppColors.tertiaryColor,
     this.title = "",
@@ -20,20 +22,11 @@ class MaterialTitle extends StatelessWidget {
     this.sizeStars,
     this.titleSize,
     this.backgroundHeight,
-    this.evaluationsForCalculeAmount,
+    this.qtdEvaluations,
+    this.adEvaluations,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    double medianCalculation() {
-      double median = 0.0;
-      double sum = 0.0;
-      for (var index = 0; index < evaluationsForCalculeAmount.length; index++) {
-        sum += (evaluationsForCalculeAmount[index][2]);
-      }
-      median = sum / evaluationsForCalculeAmount.length;
-      return median;
-    }
-
     return Material(
       elevation: 7,
       child: Container(
@@ -61,8 +54,8 @@ class MaterialTitle extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SmoothStarRating(
-                  rating: medianCalculation(),
+                new SmoothStarRating(
+                  rating: adEvaluations,
                   isReadOnly: true,
                   size: sizeStars == null ? AppSizes.size20 : sizeStars,
                   filledIconData: Icons.star,
@@ -73,8 +66,8 @@ class MaterialTitle extends StatelessWidget {
                   color: Colors.yellow,
                   borderColor: Colors.yellow,
                 ),
-                Text(
-                  " ( " + evaluationsForCalculeAmount.length.toString() + " )",
+                new Text(
+                  " ( " + qtdEvaluations.toString() + " )",
                   style: TextStyle(
                     color: Colors.yellow,
                   ),

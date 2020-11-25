@@ -6,6 +6,7 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductPage.dart';
 
 //TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
 class MyAdsPageForm extends StatefulWidget {
@@ -47,6 +48,7 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                       elevationButton: AppSizes.size4,
                                       onPressedAds: () {
                                         navigationToTheAdScreen(
+                                          state.ads[index].id,
                                           state.ads[index].title,
                                           state.ads[index].description,
                                           state.ads[index].value,
@@ -106,12 +108,21 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
     );
   }
 
-  navigationToTheAdScreen(
-      String titleAd, String descriptionAd, String valueAd, List imagesAd) {
+  navigationToTheAdScreen(String id, String titleAd, String descriptionAd,
+      String valueAd, List imagesAd) {
     print("navigation to ad screen");
-    AppRoutes.push(
+    /* AppRoutes.push(
         context,
         MyAdsProduct(
+          titleAd: titleAd,
+          descriptionAd: descriptionAd,
+          valueAd: valueAd,
+          imagesAd: imagesAd,
+        )); */
+    AppRoutes.push(
+        context,
+        MyAdsProductPage(
+          idAd: id,
           titleAd: titleAd,
           descriptionAd: descriptionAd,
           valueAd: valueAd,

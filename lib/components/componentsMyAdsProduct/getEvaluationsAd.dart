@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 
+//TODO: nivel 4 - text e colors
 class EvaluationsAd extends StatelessWidget {
-  final List evaluations;
+  final List<Evaluation> evaluations;
   final double heightEvaluation;
   final ItemScrollController controllerItemRefreshListView;
   final double starSelected;
@@ -22,22 +24,43 @@ class EvaluationsAd extends StatelessWidget {
       height: heightEvaluation == null ? screenHeight * 0.20 : heightEvaluation,
       width: screenWidth,
       margin: EdgeInsets.only(top: screenHeight * 0.05),
-      child: ScrollablePositionedList.builder(
-        itemScrollController: controllerItemRefreshListView,
-        scrollDirection: Axis.horizontal,
-        itemCount: evaluations.length,
-        itemBuilder: (context, index) {
-          return evaluations[index][2] == starSelected || starSelected == null
-              ? EvaluationItem(
-                  userNameEvaluator: evaluations[index][0],
-                  dayTimeEvaluation: evaluations[index][1],
-                  amountStars: evaluations[index][2],
-                  objectiveOpition: evaluations[index][3],
-                  opinion: evaluations[index][4],
-                )
-              : Text("");
-        },
-      ),
+      child: evaluations != null && evaluations.length > 0
+          ? ScrollablePositionedList.builder(
+              itemScrollController: controllerItemRefreshListView,
+              scrollDirection: Axis.horizontal,
+              itemCount: evaluations.length,
+              itemBuilder: (context, index) {
+                return double.parse(evaluations[index].amount_stars) ==
+                            starSelected ||
+                        starSelected == null
+                    ? EvaluationItem(
+                        userNameEvaluator: evaluations[index].user_name,
+                        dayTimeEvaluation: evaluations[index].evaluation_date,
+                        amountStars:
+                            double.parse(evaluations[index].amount_stars),
+                        objectiveOpition: evaluations[index].objective_opition,
+                        opinion: evaluations[index].opinion,
+                      )
+                    : Text("");
+              },
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.sentiment_dissatisfied,
+                  color: Colors.yellow,
+                  size: AppSizes.size50,
+                ),
+                SizedBox(
+                  height: AppSizes.size20,
+                ),
+                Text(
+                  "This ad has no rating yet!",
+                  style: TextStyle(fontSize: AppFontSize.s18),
+                ),
+              ],
+            ),
     );
   }
 }
