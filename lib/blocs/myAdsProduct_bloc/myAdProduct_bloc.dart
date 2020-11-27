@@ -11,10 +11,13 @@ part 'myAdProduct_state.dart';
 class MyAdProductPageBloc
     extends Bloc<MyAdProductPageEvent, MyAdProductPageState> {
   EvaluationRepository evaluationRepository;
+  QuestionAndAnswerRepository questionAndAnswerRepository;
 
   MyAdProductPageBloc({
     @required this.evaluationRepository,
-  }) : assert(evaluationRepository != null);
+    @required this.questionAndAnswerRepository,
+  })  : assert(evaluationRepository != null),
+        assert(questionAndAnswerRepository != null);
 
   SharedPref sharedPref = SharedPref();
   @override
@@ -27,11 +30,28 @@ class MyAdProductPageBloc
       try {
         String token = await sharedPref.read('token');
 
-        List<Evaluation> evaluations = await evaluationRepository
-            .getEvaluationsAdRepository(event.idAd, token);
-        await printEvaluationAds(evaluations);
+        List<Evaluation> evaluations =
+            await evaluationRepository.getEvaluationsAdRepository(
+          event.idAd,
+          token,
+        );
+
+        List<QuestionAndAnswer> questionsAndAnswers =
+            await questionAndAnswerRepository.getQuestionAndAnswersAdRepository(
+          event.idAd,
+          token,
+        );
+
+        double medianEvaluationStars =
+            await medianCalculationEvaluationsStars(evaluations);
+        //await printEvaluationAds(evaluations);
+        //await printQuestionsAndAnswersAds(questionsAndAnswers);
+
         yield ShowQuestionsAndEvaluationsMyAdProductPage(
-            evaluations: evaluations);
+          evaluations: evaluations,
+          questionsAndAnswer: questionsAndAnswers,
+          medianAmountStars: medianEvaluationStars,
+        );
       } catch (error) {
         print(error);
         if (error is DioError) {
@@ -42,6 +62,21 @@ class MyAdProductPageBloc
       }
       //event.
       ///criar parte de repositorio e backend e depois ligar com o front
+    }
+  }
+
+  Future<double> medianCalculationEvaluationsStars(
+      List<Evaluation> evaluations) async {
+    double median = 0.0;
+    double sum = 0.0;
+    if (evaluations != null) {
+      for (var index = 0; index < evaluations.length; index++) {
+        sum += double.parse(evaluations[index].amount_stars);
+      }
+      evaluations.length > 0 ? median = sum / evaluations.length : 0;
+      return median;
+    } else {
+      return median;
     }
   }
 
@@ -57,6 +92,19 @@ class MyAdProductPageBloc
       print(list[i].objective_opition);
       print(list[i].opinion);
       print(list[i].evaluation_date);
+      print("\n");
+    }
+  }
+
+  Future<List<Evaluation>> printQuestionsAndAnswersAds(
+      List<QuestionAndAnswer> list) async {
+    for (var i = 0; i < list.length; i++) {
+      print("item" + i.toString());
+      print(list[i].id);
+      print(list[i].ad_fk);
+      print(list[i].tenant_fk);
+      print(list[i].question);
+      print(list[i].answer);
       print("\n");
     }
   }

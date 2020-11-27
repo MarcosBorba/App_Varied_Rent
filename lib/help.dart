@@ -56,3 +56,38 @@
       "Curti, curti e curti, recomendo recomendo",
     ],
   ]; */
+/* 
+    List questionsAnswers = [
+    [
+      'Marcos Flavio Ferreira Borba',
+      '23 Jul 20',
+      'Qual o valor por dia completo?',
+      null,
+      null,
+      null
+    ],
+    [
+      'Marcos Flavio Ferreira Borba',
+      '23 Jul 20',
+      'Qual o valor por dia completo?',
+      'Joao Gabriel Faria Borba da Silva',
+      '24 Jul 20',
+      "O valor por dia completo é 120."
+    ],
+    [
+      'Mariana Damaceno Campos',
+      '24 Jul 20',
+      'Qual é o limite de pessoas que podem ficar no imovel?',
+      'Joao Gabriel Faria Borba da Silva',
+      '25 Jul 20',
+      "Podem ficar 16 pessoas."
+    ],
+    [
+      'Adriano Barroso do Sul',
+      '25 Jul 20',
+      'A área em volta do imóvel é segura?',
+      'Joao Gabriel Faria Borba da Silva',
+      '25 Jul 20',
+      'A segurança do bairro é mediana, com rondas nas ruas em horários variados e uma quantidade de policias que atende bem os chamados normais.'
+    ],
+  ]; */

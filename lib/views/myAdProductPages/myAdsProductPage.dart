@@ -23,13 +23,17 @@ class MyAdsProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Evaluation> evaluations;
     return Scaffold(
       body: BlocProvider<MyAdProductPageBloc>(
         create: (_) {
           EvaluationRepository evaluationRepository =
               EvaluationRepository(evaluationApiClient: EvaluationApiCLient());
-          return MyAdProductPageBloc(evaluationRepository: evaluationRepository)
+          QuestionAndAnswerRepository questionAndAnswerRepository =
+              QuestionAndAnswerRepository(
+                  questionAndAnswerApiClient: QuestionAndAnswerApiCLient());
+          return MyAdProductPageBloc(
+              evaluationRepository: evaluationRepository,
+              questionAndAnswerRepository: questionAndAnswerRepository)
             ..add(
               MyAdProductPageGetQuestionsAndEvaluations(idAd),
             );
@@ -51,7 +55,6 @@ class MyAdsProductPage extends StatelessWidget {
             descriptionAd: descriptionAd,
             valueAd: valueAd,
             imagesAd: imagesAd,
-            evaluations: evaluations,
           ),
         ),
       ),

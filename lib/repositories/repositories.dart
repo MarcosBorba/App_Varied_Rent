@@ -5,3 +5,5 @@ export 'ad_api_client.dart';
 export 'ad_repository.dart';
 export 'evalulation_api_client.dart';
 export 'evaluation_repository.dart';
+export 'questionAndAnswer_api_client.dart';
+export 'questionAndAnswer_repository.dart';

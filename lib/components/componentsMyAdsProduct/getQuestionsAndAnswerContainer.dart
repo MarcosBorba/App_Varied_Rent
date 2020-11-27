@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:varied_rent/components/components.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
 //onSubmitted: () {
 
 //a resposta envia pro banco só com o submit
@@ -19,7 +21,6 @@ import 'package:varied_rent/utils/utils.dart';
 // },
 //TODO: nivel 4 - definir texts,colors,sizes
 class QuestionsAndAnswerContainer extends StatefulWidget {
-  final List questionsAnswers;
   final Function onSubmitted;
   final Function onEditIconButtonPressed;
   final double containerHeight;
@@ -27,7 +28,6 @@ class QuestionsAndAnswerContainer extends StatefulWidget {
 
   QuestionsAndAnswerContainer({
     Key key,
-    this.questionsAnswers,
     this.onSubmitted,
     this.onEditIconButtonPressed,
     this.containerHeight,
@@ -36,65 +36,94 @@ class QuestionsAndAnswerContainer extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => QuestionsAndAnswerContainerState(
-        questionsAnswers,
-        onSubmitted,
-        onEditIconButtonPressed,
-        containerHeight,
-        userNameLocator,
+        onSubmitted: onSubmitted,
+        onEditIconButtonPressed: onEditIconButtonPressed,
+        containerHeight: containerHeight,
+        userNameLocator: userNameLocator,
       );
 }
 
 class QuestionsAndAnswerContainerState
     extends State<QuestionsAndAnswerContainer> {
-  final List questionsAnswers;
-  final Function onSubmitted;
-  final Function onEditIconButtonPressed;
-  final double containerHeight;
-  final String userNameLocator;
+  List<QuestionAndAnswer> questionsAnswers;
+  Function onSubmitted;
+  Function onEditIconButtonPressed;
+  double containerHeight;
+  String userNameLocator;
 
-  QuestionsAndAnswerContainerState(
-    this.questionsAnswers,
+  QuestionsAndAnswerContainerState({
     this.onSubmitted,
     this.onEditIconButtonPressed,
     this.containerHeight,
     this.userNameLocator,
-  );
+  });
 
   @override
   Widget build(BuildContext context) {
+    questionsAnswers = CacheProvider.of(context).questionsAndAnswers;
     return Container(
       height: containerHeight == null ? screenHeight * 0.20 : containerHeight,
       width: screenWidth,
-      child: ListView.builder(
-        itemCount: questionsAnswers.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context2, index) {
-          return QuestionAndAnswerItem(
-            userNameQuestion: questionsAnswers[index][0],
-            dayTimeQuestion: questionsAnswers[index][1],
-            question: questionsAnswers[index][2],
-            userNameAnswer: questionsAnswers[index][3],
-            dayTimeAnswer: questionsAnswers[index][4],
-            answer: questionsAnswers[index][5],
-            onSubmitted: (value) {
-              String formattedDate =
-                  DateFormat('d MMM yy').format(DateTime.now());
-              setState(() {
-                questionsAnswers[index][3] = userNameLocator;
-                questionsAnswers[index][4] = formattedDate;
-                questionsAnswers[index][5] = value;
-              });
-            },
-            onEditIconButtonPressed: () {
-              setState(() {
-                questionsAnswers[index][3] = null;
-                questionsAnswers[index][4] = null;
-                questionsAnswers[index][5] = null;
-              });
-            },
-          );
-        },
-      ),
+      child: questionsAnswers != null && questionsAnswers.length > 0
+          ? ListView.builder(
+              itemCount: questionsAnswers != null ? questionsAnswers.length : 0,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context2, index) {
+                return QuestionAndAnswerItem(
+                  userNameQuestion:
+                      questionsAnswers[index].question.tenant_name,
+                  dayTimeQuestion:
+                      questionsAnswers[index].question.question_date_time,
+                  question: questionsAnswers[index].question.question,
+                  userNameAnswer: questionsAnswers[index].answer != null
+                      ? questionsAnswers[index].answer.locator_name
+                      : null,
+                  dayTimeAnswer: questionsAnswers[index].answer != null
+                      ? questionsAnswers[index].answer.answer_date_time
+                      : null,
+                  answer: questionsAnswers[index].answer != null
+                      ? questionsAnswers[index].answer.answer
+                      : null,
+                  onSubmitted: (value) {
+                    String formattedDate =
+                        DateFormat('d MMM yy').format(DateTime.now());
+                    setState(() {
+                      questionsAnswers[index].answer.locator_email =
+                          "mano@gmail.com";
+                      questionsAnswers[index].answer.locator_name =
+                          "Marcos Flavio Ferreira Borba";
+                      questionsAnswers[index].answer.answer_date_time =
+                          formattedDate;
+                      questionsAnswers[index].answer.answer = value;
+                    });
+                  },
+                  onEditIconButtonPressed: () {
+                    setState(() {
+                      questionsAnswers[index].answer.locator_name = null;
+                      questionsAnswers[index].answer.answer_date_time = null;
+                      questionsAnswers[index].answer.answer = null;
+                    });
+                  },
+                );
+              },
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.question_answer,
+                  color: AppColors.tertiaryColor,
+                  size: AppSizes.size50,
+                ),
+                SizedBox(
+                  height: AppSizes.size20,
+                ),
+                Text(
+                  "This ad has no questions yet!",
+                  style: TextStyle(fontSize: AppFontSize.s18),
+                ),
+              ],
+            ),
     );
   }
 }

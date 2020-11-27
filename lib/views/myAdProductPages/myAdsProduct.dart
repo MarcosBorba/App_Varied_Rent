@@ -16,7 +16,6 @@ class MyAdsProduct extends StatefulWidget {
   final String descriptionAd;
   final String valueAd;
   final List imagesAd;
-  final List<Evaluation> evaluations;
 
   const MyAdsProduct({
     Key key,
@@ -24,7 +23,6 @@ class MyAdsProduct extends StatefulWidget {
     this.descriptionAd,
     this.valueAd,
     this.imagesAd,
-    this.evaluations,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => MyAdsProductState(
@@ -32,12 +30,36 @@ class MyAdsProduct extends StatefulWidget {
         descriptionAd: descriptionAd,
         valueAd: valueAd,
         imagesAd: imagesAd,
-        evaluations: evaluations,
       );
 }
 
 //TODO: nivel 4 - estrela no cabecario não rebuilda
 //TODO: nivel 4 - definir texts, colors, routes....
+
+class CacheProvider extends InheritedWidget {
+  final List<Evaluation> evaluations;
+  final List<QuestionAndAnswer> questionsAndAnswers;
+  final int qtdEvaluations;
+  final double adEvaluation;
+  final Widget child;
+  CacheProvider(
+    this.evaluations,
+    this.questionsAndAnswers,
+    this.qtdEvaluations,
+    this.adEvaluation,
+    this.child, {
+    Key key,
+  })  : assert(child != null),
+        super(key: key);
+
+  static CacheProvider of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<CacheProvider>();
+  }
+
+  @override
+  bool updateShouldNotify(CacheProvider old) => true;
+}
+
 class MyAdsProductState extends State<MyAdsProduct> {
   MyAdsProductState({
     Key key,
@@ -45,53 +67,17 @@ class MyAdsProductState extends State<MyAdsProduct> {
     this.descriptionAd = "NO DESCRIPTION",
     this.valueAd = "0.00",
     this.imagesAd,
-    this.evaluations,
   });
   final String titleAd;
   final String descriptionAd;
   final String valueAd;
   final List imagesAd;
   List<Evaluation> evaluations;
+  List<QuestionAndAnswer> questionsAndAnswers;
   String typeValueAd = " / Hr";
   String nameLocator = "Joao Gabriel Faria Borba da Silva";
   ItemScrollController _evaluation2ScrollController = ItemScrollController();
   int navigationBarBottomIndex = 0;
-
-  List questionsAnswers = [
-    [
-      'Marcos Flavio Ferreira Borba',
-      '23 Jul 20',
-      'Qual o valor por dia completo?',
-      null,
-      null,
-      null
-    ],
-    [
-      'Marcos Flavio Ferreira Borba',
-      '23 Jul 20',
-      'Qual o valor por dia completo?',
-      'Joao Gabriel Faria Borba da Silva',
-      '24 Jul 20',
-      "O valor por dia completo é 120."
-    ],
-    [
-      'Mariana Damaceno Campos',
-      '24 Jul 20',
-      'Qual é o limite de pessoas que podem ficar no imovel?',
-      'Joao Gabriel Faria Borba da Silva',
-      '25 Jul 20',
-      "Podem ficar 16 pessoas."
-    ],
-    [
-      'Adriano Barroso do Sul',
-      '25 Jul 20',
-      'A área em volta do imóvel é segura?',
-      'Joao Gabriel Faria Borba da Silva',
-      '25 Jul 20',
-      'A segurança do bairro é mediana, com rondas nas ruas em horários variados e uma quantidade de policias que atende bem os chamados normais.'
-    ],
-  ];
-
   int qtdEvaluations = 0;
   double adEvaluation = 0.0;
   double selectStars;
@@ -102,42 +88,50 @@ class MyAdsProductState extends State<MyAdsProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<MyAdProductPageBloc, MyAdProductPageState>(
-        listener: (context, state) async {
+        listener: (context, state) {
           if (state is ShowQuestionsAndEvaluationsMyAdProductPage) {
-            setState(() async {
-              evaluations = state.evaluations;
-              qtdEvaluations = evaluations.length;
-              adEvaluation = await medianCalculationEvaluationsStars();
-            });
+            adEvaluation = state.medianAmountStars;
+            evaluations = state.evaluations;
+            qtdEvaluations = evaluations.length;
+            questionsAndAnswers = state.questionsAndAnswer;
+            nameLocator = "joana";
           }
         },
         child: BlocBuilder<MyAdProductPageBloc, MyAdProductPageState>(
           builder: (context, state) {
-            return Container(
-              height: screenHeight,
-              width: screenWidth,
-              color: Colors.white,
-              child: SafeArea(
-                child: ListView(
-                  children: <Widget>[
-                    returnHeader(),
-                    returnSubTitle(),
-                    returnImagesAd(),
-                    returnDivider("Description"),
-                    returnDescription(),
-                    returnDivider("Questions"),
-                    returnQuestionsAndAnswer(),
-                    returnDivider("Evaluations"),
-                    returnSelectEvaluationAmountStars(),
-                    returnEvaluationsAd(),
-                    returnDivider("Locator"),
-                    returnLocatorInfo(),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: screenHeight * 0.05,
-                      ),
-                    )
-                  ],
+            return CacheProvider(
+              evaluations,
+              questionsAndAnswers,
+              qtdEvaluations,
+              adEvaluation,
+              Container(
+                height: screenHeight,
+                width: screenWidth,
+                color: Colors.white,
+                child: SafeArea(
+                  child: ListView(
+                    children: <Widget>[
+                      //usando inhetited widget para tentar ´passar dados para os filhos
+                      //continuar implementando
+                      returnHeader(),
+                      returnSubTitle(),
+                      returnImagesAd(),
+                      returnDivider("Description"),
+                      returnDescription(),
+                      returnDivider("Questions"),
+                      returnQuestionsAndAnswer(),
+                      returnDivider("Evaluations"),
+                      returnSelectEvaluationAmountStars(),
+                      returnEvaluationsAd(),
+                      returnDivider("Locator"),
+                      returnLocatorInfo(),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: screenHeight * 0.05,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             );
@@ -148,10 +142,8 @@ class MyAdsProductState extends State<MyAdsProduct> {
   }
 
   Widget returnHeader() {
-    return MaterialTitle(
-      title: titleAd,
-      qtdEvaluations: qtdEvaluations,
-      adEvaluations: adEvaluation,
+    return new MaterialTitle(
+      titleAd: titleAd,
     );
   }
 
@@ -181,8 +173,7 @@ class MyAdsProductState extends State<MyAdsProduct> {
   }
 
   Widget returnQuestionsAndAnswer() {
-    return QuestionsAndAnswerContainer(
-      questionsAnswers: questionsAnswers,
+    return new QuestionsAndAnswerContainer(
       userNameLocator: nameLocator,
     );
   }
@@ -211,19 +202,5 @@ class MyAdsProductState extends State<MyAdsProduct> {
 
   Widget returnLocatorInfo() {
     return LocatorInfo();
-  }
-
-  Future<double> medianCalculationEvaluationsStars() async {
-    double median = 0.0;
-    double sum = 0.0;
-    if (evaluations != null) {
-      for (var index = 0; index < evaluations.length; index++) {
-        sum += double.parse(evaluations[index].amount_stars);
-      }
-      evaluations.length > 0 ? median = sum / evaluations.length : 0;
-      return median;
-    } else {
-      return median;
-    }
   }
 }

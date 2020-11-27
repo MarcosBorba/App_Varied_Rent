@@ -10,14 +10,17 @@ class MyAdProductPageState extends Equatable {
 class ShowQuestionsAndEvaluationsMyAdProductPage extends MyAdProductPageState {
   final List<QuestionAndAnswer> questionsAndAnswer;
   final List<Evaluation> evaluations;
+  final double medianAmountStars;
 
   const ShowQuestionsAndEvaluationsMyAdProductPage({
     this.questionsAndAnswer,
     this.evaluations,
+    this.medianAmountStars,
   });
 
   @override
-  List<Object> get props => [questionsAndAnswer, evaluations];
+  List<Object> get props =>
+      [questionsAndAnswer, evaluations, medianAmountStars];
 
   @override
   String toString() => 'ShowQuestionsAndEvaluationsMyAdProductPage';
