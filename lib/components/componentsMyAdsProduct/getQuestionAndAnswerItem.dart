@@ -18,7 +18,7 @@ class QuestionAndAnswerItem extends StatelessWidget {
   final TextEditingController textController;
   final Function onSubmitted;
   final int indexQuestion;
-  String formatDate = DateFormat('d MMM yy').format(DateTime.now());
+  String formatDate = DateFormat('y-M-d').format(DateTime.now());
   final Function onEditIconButtonPressed;
 
   QuestionAndAnswerItem({

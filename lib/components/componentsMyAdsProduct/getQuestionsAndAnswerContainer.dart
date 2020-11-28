@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
@@ -86,22 +88,40 @@ class QuestionsAndAnswerContainerState
                       : null,
                   onSubmitted: (value) {
                     String formattedDate =
-                        DateFormat('d MMM yy').format(DateTime.now());
+                        DateFormat('y-M-d').format(DateTime.now());
                     setState(() {
-                      questionsAnswers[index].answer.locator_email =
-                          "mano@gmail.com";
-                      questionsAnswers[index].answer.locator_name =
-                          "Marcos Flavio Ferreira Borba";
-                      questionsAnswers[index].answer.answer_date_time =
-                          formattedDate;
-                      questionsAnswers[index].answer.answer = value;
+                      questionsAnswers[index].answer != null
+                          ? {
+                              questionsAnswers[index].answer.locator_email =
+                                  "mano@gmail.com",
+                              questionsAnswers[index].answer.locator_name =
+                                  "Marcos Flavio Ferreira Borba",
+                              questionsAnswers[index].answer.answer_date_time =
+                                  formattedDate,
+                              questionsAnswers[index].answer.answer = value
+                            }
+                          : questionsAnswers[index].answer = new Answer(
+                              locator_name: "mano@gmail.com",
+                              locator_email: "Marcos Flavio Ferreira Borba",
+                              answer_date_time: formattedDate,
+                              answer: value,
+                            );
+
+                      BlocProvider.of<MyAdProductPageBloc>(context).add(
+                        MyAdProductPageUpdateQuestionAndEvaluation(
+                          questionsAnswers[index],
+                        ),
+                      );
                     });
                   },
                   onEditIconButtonPressed: () {
                     setState(() {
-                      questionsAnswers[index].answer.locator_name = null;
-                      questionsAnswers[index].answer.answer_date_time = null;
-                      questionsAnswers[index].answer.answer = null;
+                      questionsAnswers[index].answer = null;
+                      BlocProvider.of<MyAdProductPageBloc>(context).add(
+                        MyAdProductPageUpdateQuestionAndEvaluation(
+                          questionsAnswers[index],
+                        ),
+                      );
                     });
                   },
                 );

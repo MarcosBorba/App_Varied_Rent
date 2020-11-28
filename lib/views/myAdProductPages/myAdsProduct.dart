@@ -95,6 +95,9 @@ class MyAdsProductState extends State<MyAdsProduct> {
             qtdEvaluations = evaluations.length;
             questionsAndAnswers = state.questionsAndAnswer;
             nameLocator = "joana";
+          } else if (state
+              is ShowUpdateQuestionsAndEvaluationsMyAdProductPage) {
+            setState(() {});
           }
         },
         child: BlocBuilder<MyAdProductPageBloc, MyAdProductPageState>(

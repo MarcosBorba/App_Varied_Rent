@@ -15,4 +15,10 @@ class QuestionAndAnswerRepository {
             idAd, token);
     return questionsAndAnswers;
   }
+
+  Future updateQuestionAndAnswersAdRepository(
+      QuestionAndAnswer questionAndAnswer, String token) async {
+    await questionAndAnswerApiClient.updateQuestionsAndAnswersAdComponent(
+        questionAndAnswer, token);
+  }
 }

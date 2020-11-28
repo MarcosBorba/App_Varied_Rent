@@ -33,3 +33,14 @@ class MyAdProductPageGetQuestionsAndEvaluations extends MyAdProductPageEvent {
   @override
   String toString() => 'MyAdProductPageGetQuestionsAndEvaluations => $idAd';
 }
+
+class MyAdProductPageUpdateQuestionAndEvaluation extends MyAdProductPageEvent {
+  final QuestionAndAnswer questionAndAnswer;
+  const MyAdProductPageUpdateQuestionAndEvaluation(this.questionAndAnswer);
+
+  @override
+  List<Object> get props => [questionAndAnswer];
+
+  @override
+  String toString() => 'MyAdProductPageUpdateQuestionAndEvaluation';
+}

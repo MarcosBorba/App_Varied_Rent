@@ -26,6 +26,17 @@ class ShowQuestionsAndEvaluationsMyAdProductPage extends MyAdProductPageState {
   String toString() => 'ShowQuestionsAndEvaluationsMyAdProductPage';
 }
 
+class ShowUpdateQuestionsAndEvaluationsMyAdProductPage
+    extends MyAdProductPageState {
+  const ShowUpdateQuestionsAndEvaluationsMyAdProductPage();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'ShowUpdateQuestionsAndEvaluationsMyAdProductPage';
+}
+
 class LoadingMyAdProductPage extends MyAdProductPageState {}
 
 class FailureMyAdProductPage extends MyAdProductPageState {

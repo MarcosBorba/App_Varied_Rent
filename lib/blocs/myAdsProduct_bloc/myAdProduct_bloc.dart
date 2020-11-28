@@ -62,6 +62,22 @@ class MyAdProductPageBloc
       }
       //event.
       ///criar parte de repositorio e backend e depois ligar com o front
+    } else if (event is MyAdProductPageUpdateQuestionAndEvaluation) {
+      try {
+        String token = await sharedPref.read('token');
+
+        await questionAndAnswerRepository.updateQuestionAndAnswersAdRepository(
+            event.questionAndAnswer, token);
+
+        yield ShowUpdateQuestionsAndEvaluationsMyAdProductPage();
+      } catch (error) {
+        print(error);
+        if (error is DioError) {
+          yield FailureMyAdProductPage(error: error.message);
+        } else {
+          yield FailureMyAdProductPage(error: "500 - Internal Server Error");
+        }
+      }
     }
   }
 
