@@ -15,12 +15,14 @@ class ShowQuestionsAndEvaluationsMyAdProductPage extends MyAdProductPageState {
   final String landlordTypeLocator;
   final String telephone1;
   final String telephone2;
+  final String emailLocator;
 
   const ShowQuestionsAndEvaluationsMyAdProductPage({
     this.questionsAndAnswer,
     this.evaluations,
     this.medianAmountStars,
     this.nameLocator,
+    this.emailLocator,
     this.landlordTypeLocator,
     this.telephone1,
     this.telephone2,
@@ -32,6 +34,7 @@ class ShowQuestionsAndEvaluationsMyAdProductPage extends MyAdProductPageState {
         evaluations,
         medianAmountStars,
         nameLocator,
+        emailLocator,
         landlordTypeLocator,
         telephone1,
         telephone2

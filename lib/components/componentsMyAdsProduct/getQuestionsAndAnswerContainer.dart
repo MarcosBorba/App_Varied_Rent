@@ -5,24 +5,8 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
-//onSubmitted: () {
 
-//a resposta envia pro banco só com o submit
-
-//pega o controller text
-//pega data
-//pega nome locador
-
-//muda para um estado de enviar resposta
-//envia a resposta pro banco na questao x
-//retorna se deu sucesso ou falha
-
-//retorna um snack bar
-//sucesso modifica a questao com a resposta
-// },
-//TODO: nivel 4 - definir texts,colors,sizes
 class QuestionsAndAnswerContainer extends StatefulWidget {
   final Function onSubmitted;
   final Function onEditIconButtonPressed;
@@ -64,6 +48,8 @@ class QuestionsAndAnswerContainerState
   @override
   Widget build(BuildContext context) {
     questionsAnswers = CacheProvider.of(context).questionsAndAnswers;
+    userNameLocator = CacheProvider.of(context).nameLocator;
+    String emailLocator = CacheProvider.of(context).emailLocator;
     return Container(
       height: containerHeight == null ? screenHeight * 0.20 : containerHeight,
       width: screenWidth,
@@ -94,16 +80,16 @@ class QuestionsAndAnswerContainerState
                       questionsAnswers[index].answer != null
                           ? {
                               questionsAnswers[index].answer.locator_email =
-                                  "mano@gmail.com",
+                                  emailLocator,
                               questionsAnswers[index].answer.locator_name =
-                                  "Marcos Flavio Ferreira Borba",
+                                  userNameLocator,
                               questionsAnswers[index].answer.answer_date_time =
                                   formattedDate,
                               questionsAnswers[index].answer.answer = value
                             }
                           : questionsAnswers[index].answer = new Answer(
-                              locator_name: "Marcos Flavio Ferreira Borba",
-                              locator_email: "mano@gmail.com",
+                              locator_name: userNameLocator,
+                              locator_email: emailLocator,
                               answer_date_time: formattedDate,
                               answer: value,
                             );
@@ -133,14 +119,14 @@ class QuestionsAndAnswerContainerState
               children: [
                 Icon(
                   Icons.question_answer,
-                  color: AppColors.tertiaryColor,
+                  color: AppColors.adsProductIconNoQuestion,
                   size: AppSizes.size50,
                 ),
                 SizedBox(
                   height: AppSizes.size20,
                 ),
                 Text(
-                  "This ad has no questions yet!",
+                  AppTexts().myAdsProductNoQuestions,
                   style: TextStyle(fontSize: AppFontSize.s18),
                 ),
               ],

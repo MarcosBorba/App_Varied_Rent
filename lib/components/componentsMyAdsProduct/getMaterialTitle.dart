@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:varied_rent/models/evaluation.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
-//TODO: nivel 3 - definir cores,texts,sizes
 class MaterialTitle extends StatelessWidget {
   final double backgroundHeight;
   final Color titleBackgroundColor;
   final Color titleColor;
-  String titleAd;
   final double sizeStars;
   final double titleSize;
 
   MaterialTitle({
     Key key,
-    this.titleColor = AppColors.tertiaryColor,
-    this.titleAd = "No title",
-    this.titleBackgroundColor = Colors.white,
+    this.titleColor = AppColors.titleAdsProduct,
+    this.titleBackgroundColor = AppColors.titleAdsProductBackground,
     this.sizeStars,
     this.titleSize,
     this.backgroundHeight,
@@ -27,6 +22,7 @@ class MaterialTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     int qtdEvaluations = 0;
     double adEvaluations = 0.0;
+    String titleAd;
     qtdEvaluations = CacheProvider.of(context).qtdEvaluations;
     adEvaluations = CacheProvider.of(context).adEvaluation;
     titleAd = CacheProvider.of(context).titleAd;
@@ -65,16 +61,19 @@ class MaterialTitle extends StatelessWidget {
                   allowHalfRating: true,
                   itemCount: 5,
                   ratingWidget: RatingWidget(
-                    full: Icon(Icons.star, color: Colors.yellow),
-                    half: Icon(Icons.star_half, color: Colors.yellow),
-                    empty: Icon(Icons.star_border, color: Colors.yellow),
+                    full: Icon(Icons.star,
+                        color: AppColors.starsAdsProductBackground),
+                    half: Icon(Icons.star_half,
+                        color: AppColors.starsAdsProductBackground),
+                    empty: Icon(Icons.star_border,
+                        color: AppColors.starsAdsProductBackground),
                   ),
                   onRatingUpdate: null,
                 ),
                 new Text(
                   " ( " + qtdEvaluations.toString() + " )",
                   style: TextStyle(
-                    color: Colors.yellow,
+                    color: AppColors.starsQtdAdsProductBackground,
                   ),
                 ),
               ],

@@ -5,7 +5,6 @@ import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
-//TODO: nivel 4 - text e colors
 class EvaluationsAd extends StatelessWidget {
   final double heightEvaluation;
   final ItemScrollController controllerItemRefreshListView;
@@ -49,14 +48,14 @@ class EvaluationsAd extends StatelessWidget {
               children: [
                 Icon(
                   Icons.sentiment_dissatisfied,
-                  color: Colors.yellow,
+                  color: AppColors.adsProductIconNoEvaluation,
                   size: AppSizes.size50,
                 ),
                 SizedBox(
                   height: AppSizes.size20,
                 ),
                 Text(
-                  "This ad has no rating yet!",
+                  AppTexts().myAdsProductNoEvaluations,
                   style: TextStyle(fontSize: AppFontSize.s18),
                 ),
               ],

@@ -7,6 +7,7 @@ class CacheProvider extends InheritedWidget {
   final int qtdEvaluations;
   final double adEvaluation;
   final String nameLocator;
+  final String emailLocator;
   final String landlordTypeLocator;
   final String telephone1;
   final String telephone2;
@@ -21,6 +22,7 @@ class CacheProvider extends InheritedWidget {
     this.qtdEvaluations,
     this.adEvaluation,
     this.nameLocator,
+    this.emailLocator,
     this.landlordTypeLocator,
     this.telephone1,
     this.telephone2,

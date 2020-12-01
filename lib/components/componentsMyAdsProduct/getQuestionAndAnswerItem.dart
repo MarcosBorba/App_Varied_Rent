@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: nivel - 3 - definir colors, texts, sizes, otimizar codigo e depois aplicar bloc
 class QuestionAndAnswerItem extends StatelessWidget {
   final String question;
   final String answer;
@@ -18,20 +17,20 @@ class QuestionAndAnswerItem extends StatelessWidget {
   final TextEditingController textController;
   final Function onSubmitted;
   final int indexQuestion;
-  String formatDate = DateFormat('y-M-d').format(DateTime.now());
   final Function onEditIconButtonPressed;
+  String formatDate = DateFormat('y-M-d').format(DateTime.now());
 
   QuestionAndAnswerItem({
     Key key,
     @required this.question,
     this.answer,
-    this.userNameQuestion = "Marcos Flavio Ferreira Borba",
+    this.userNameQuestion,
     this.userNameAnswer,
     this.dayTimeQuestion,
     this.dayTimeAnswer,
-    this.colorQuestionTitle = Colors.blue,
-    this.colorAnswerTitle = Colors.green,
-    this.textDefaultAnswerNull = "Nao há resposta ainda",
+    this.colorQuestionTitle = AppColors.adsProductQuestionTitle,
+    this.colorAnswerTitle = AppColors.adsProductAnswerTitle,
+    this.textDefaultAnswerNull = AppTexts.myAdsProductNoAnswer,
     this.textController,
     this.onSubmitted,
     this.indexQuestion,
@@ -87,7 +86,7 @@ class QuestionAndAnswerItem extends StatelessWidget {
               onSubmitted: onSubmitted,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(),
-                labelText: "Response user",
+                labelText: AppTexts().myAdsProductResponseTitle,
                 prefixIconConstraints: BoxConstraints(
                   minWidth: 30,
                 ),
@@ -105,29 +104,27 @@ class QuestionAndAnswerItem extends StatelessWidget {
             ),
       Row(
         children: <Widget>[
-          returna(showDialog, maxLinesAnswer),
+          returnAnswerToEdit(showDialog, maxLinesAnswer),
           dayTimeAnswer == formatDate
               ? Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
                     icon: Icon(
                       Icons.edit,
-                      color: Colors.black,
+                      color: AppColors.adsProductIconEditAnswer,
                     ),
                     onPressed: onEditIconButtonPressed,
                   ),
                 )
               : Padding(
-                  padding: EdgeInsets.all(
-                    0,
-                  ),
+                  padding: EdgeInsets.all(0),
                 )
         ],
       ),
     ];
   }
 
-  Widget returna(bool showDialog, int maxLinesAnswer) {
+  Widget returnAnswerToEdit(bool showDialog, int maxLinesAnswer) {
     if (answer != null) {
       return Flexible(
         flex: 1,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:varied_rent/models/models.dart';
 
 class EvaluationApiCLient {
@@ -53,7 +54,8 @@ class EvaluationApiCLient {
           amount_stars: list['evaluation'][i]['amount_stars'].toString(),
           objective_opition: list['evaluation'][i]['objective_opition'],
           opinion: list['evaluation'][i]['opinion'],
-          evaluation_date: list['evaluation'][i]['evaluation_date'],
+          evaluation_date: DateFormat('y-M-d')
+              .format(DateTime.parse(list['evaluation'][i]['evaluation_date'])),
         ),
       );
     }

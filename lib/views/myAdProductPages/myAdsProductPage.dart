@@ -30,6 +30,7 @@ class MyAdsProductPage extends StatelessWidget {
     List<Evaluation> evaluations;
     List<QuestionAndAnswer> questionsAndAnswers;
     String nameLocator;
+    String emailLocator;
     String landlordTypeLocator;
     String telephone1;
     String telephone2;
@@ -64,6 +65,7 @@ class MyAdsProductPage extends StatelessWidget {
               qtdEvaluations = evaluations.length;
               questionsAndAnswers = state.questionsAndAnswer;
               nameLocator = state.nameLocator;
+              emailLocator = state.emailLocator;
               landlordTypeLocator = state.landlordTypeLocator;
               telephone1 = state.telephone1;
               telephone2 = state.telephone2;
@@ -79,6 +81,7 @@ class MyAdsProductPage extends StatelessWidget {
                       qtdEvaluations,
                       adEvaluation,
                       nameLocator,
+                      emailLocator,
                       landlordTypeLocator,
                       telephone1,
                       telephone2,

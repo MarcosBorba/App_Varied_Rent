@@ -1,38 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:ff_navigation_bar/ff_navigation_bar.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
-import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
-//674 linhas antes otimizar
 class MyAdsProduct extends StatefulWidget {
-  const MyAdsProduct({
-    Key key,
-  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => MyAdsProductState();
 }
 
-//TODO: nivel 4 - definir texts, colors, routes....
-
 class MyAdsProductState extends State<MyAdsProduct> {
-  /* MyAdsProductState({
-    Key key,
-    this.titleAd = "NO TITLE",
-    this.descriptionAd = "NO DESCRIPTION",
-    this.valueAd = "0.00",
-    this.imagesAd,
-  }); */
-  List<Evaluation> evaluations;
-  String typeValueAd = " / Hr";
   ItemScrollController _evaluation2ScrollController = ItemScrollController();
+  List<Evaluation> evaluations;
   double selectStars;
 
   @override
@@ -42,21 +23,21 @@ class MyAdsProductState extends State<MyAdsProduct> {
       body: Container(
         height: screenHeight,
         width: screenWidth,
-        color: Colors.white,
+        color: AppColors.adsProductBackgroundPage,
         child: SafeArea(
           child: ListView(
             children: <Widget>[
               returnHeader(),
               returnSubTitle(),
               returnImagesAd(),
-              returnDivider("Description"),
+              returnDivider(AppTexts().myAdsProductDescription),
               returnDescription(),
-              returnDivider("Questions"),
+              returnDivider(AppTexts().myAdsProductQuestions),
               returnQuestionsAndAnswer(),
-              returnDivider("Evaluations"),
+              returnDivider(AppTexts().myAdsProductEvaluations),
               returnSelectEvaluationAmountStars(),
               returnEvaluationsAd(),
-              returnDivider("Locator"),
+              returnDivider(AppTexts().myAdsProductLocator),
               returnLocatorInfo(),
               Padding(
                 padding: EdgeInsets.only(
@@ -75,13 +56,15 @@ class MyAdsProductState extends State<MyAdsProduct> {
   }
 
   Widget returnSubTitle() {
-    return SubTitleAd(
-      typeValue: typeValueAd,
-    );
+    return SubTitleAd();
   }
 
   Widget returnImagesAd() {
     return ImagesAd();
+  }
+
+  Widget returnDescription() {
+    return Description();
   }
 
   Widget returnDivider(String textDivider) {
@@ -90,17 +73,12 @@ class MyAdsProductState extends State<MyAdsProduct> {
     );
   }
 
-  Widget returnDescription() {
-    return Description();
-  }
-
   Widget returnQuestionsAndAnswer() {
     return new QuestionsAndAnswerContainer();
   }
 
   Widget returnSelectEvaluationAmountStars() {
     return SelectStarsEvaluation(
-      hintText: "Select Evaluations Stars",
       onChanged: (SmoothStarRating value) {
         setState(() {
           selectStars = value.rating;

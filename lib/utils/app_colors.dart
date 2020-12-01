@@ -142,6 +142,37 @@ class AppColors {
   //Colors Edit My Ads Page
   static const Color myAdsIconOnFailure = Colors.red;
 
-  //Colors My Ads Product Page
+  //Colors My Ads Product
+  static const Color adsProductBackgroundPage = Colors.white;
+  ////Material Title
+  static const Color titleAdsProduct = tertiaryColor;
+  static const Color titleAdsProductBackground = Colors.white;
+  static const Color starsAdsProductBackground = Colors.yellow;
+  static const Color starsQtdAdsProductBackground = Colors.yellow;
+  ////Images Ad
   static const Color backgroundOpacityImages = tertiaryColor;
+  ////Description
+  static const Color adsProducttextDescription = Colors.black87;
+  static Color adsProductBorderDescription = Colors.grey[300];
+  ////Questions And Answers
+  static const Color adsProductIconNoQuestion = AppColors.tertiaryColor;
+  ////Select Evalutions
+  static const Color adsProductIconStars = Colors.yellow;
+  static const Color adsProductIconStarsBorder = Colors.yellow;
+  ////Evaluations
+  static const Color adsProductIconNoEvaluation = Colors.yellow;
+  ////Item Evaluation
+  static const Color adsProductIconTitleAnswer = Colors.blue;
+  static const Color adsProductIconStarsItemEvaluation = Colors.yellow;
+  static const Color adsProductIconStarsBorderItemEvaluation = Colors.yellow;
+  ////BaseBoxQuestionsAndEvaluations
+  static Color adsProductBaseBoxQuestionsAndEvaluations = Colors.grey[300];
+  ////ShowDialogQuestionAndAnswer
+  static Color adsProductShowDialogQuestionAndAnswerBackground = Colors.white;
+  static Color adsProductShowDialogQuestionAndAnswerContainer =
+      Colors.grey[300];
+  ////QuestionAndAnswerItem
+  static const Color adsProductQuestionTitle = Colors.blue;
+  static const Color adsProductAnswerTitle = Colors.green;
+  static const Color adsProductIconEditAnswer = Colors.black;
 }

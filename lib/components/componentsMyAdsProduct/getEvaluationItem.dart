@@ -3,7 +3,6 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: nivel - 3 - definir colors, texts, sizes, melhroar codigo
 class EvaluationItem extends StatelessWidget {
   final String userNameEvaluator;
   final String dayTimeEvaluation;
@@ -14,13 +13,12 @@ class EvaluationItem extends StatelessWidget {
 
   const EvaluationItem({
     Key key,
-    this.userNameEvaluator = "Marcos Flavio Ferreira Borba",
-    this.dayTimeEvaluation = "25 Jul 20",
-    this.amountStars = 2.5,
-    this.objectiveOpition =
-        "A casa é bem bonita mesmo, os quartos e a varanda são muito espaçosos, a garagem também, o local é muito bem cuidado e limpo, recomendo!",
-    this.opinion = "Casa linda, espaçosa, limpa, curti!",
-    this.colorAnswerTitle = Colors.blue,
+    this.userNameEvaluator,
+    this.dayTimeEvaluation,
+    this.amountStars,
+    this.objectiveOpition,
+    this.opinion,
+    this.colorAnswerTitle = AppColors.adsProductIconTitleAnswer,
   })  : assert(objectiveOpition != null),
         super(key: key);
   @override
@@ -55,8 +53,8 @@ class EvaluationItem extends StatelessWidget {
           defaultIconData: Icons.star_border,
           starCount: 5,
           allowHalfRating: true,
-          color: Colors.yellow,
-          borderColor: Colors.yellow,
+          color: AppColors.adsProductIconStarsItemEvaluation,
+          borderColor: AppColors.adsProductIconStarsBorderItemEvaluation,
         ),
       ),
       SizedBox(

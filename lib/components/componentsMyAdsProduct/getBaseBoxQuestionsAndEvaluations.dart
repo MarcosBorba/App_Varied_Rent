@@ -22,7 +22,7 @@ class BaseBoxQuestionsAndEvaluations extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             width: 2,
-            color: Colors.grey[300],
+            color: AppColors.adsProductBaseBoxQuestionsAndEvaluations,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(

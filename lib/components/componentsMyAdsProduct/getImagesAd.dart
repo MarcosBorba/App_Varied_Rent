@@ -7,7 +7,6 @@ import 'package:varied_rent/views/myAdProductPages/myAdsProductShowImages.dart';
 class ImagesAd extends StatelessWidget {
   final Color backgroundOpacityImages;
   final double imagesHeight;
-
   final double elevation;
 
   ImagesAd({
@@ -39,7 +38,11 @@ class ImagesAd extends StatelessWidget {
           pagination: new SwiperPagination(),
           onTap: (index) {
             AppRoutes.push(
-                context, ShowImagesProduct(imageUrl: images[index]['url']));
+              context,
+              ShowImagesProduct(
+                imageUrl: images[index]['url'],
+              ),
+            );
           },
         ),
       ),

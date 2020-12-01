@@ -13,7 +13,7 @@ class SelectStarsEvaluation extends StatefulWidget {
   SelectStarsEvaluation({
     Key key,
     this.stars,
-    this.hintText = "Select Evaluations Stars",
+    this.hintText = AppTexts.myAdsProductSelectStars,
     this.controllerItemRefreshListView,
     this.starSelected,
     this.onChanged,
@@ -62,8 +62,8 @@ class SelectStarsEvaluationState extends State<SelectStarsEvaluation> {
           defaultIconData: Icons.star_border,
           starCount: 5,
           allowHalfRating: true,
-          color: Colors.yellow,
-          borderColor: Colors.yellow,
+          color: AppColors.adsProductIconStars,
+          borderColor: AppColors.adsProductIconStarsBorder,
         ),
       );
     }

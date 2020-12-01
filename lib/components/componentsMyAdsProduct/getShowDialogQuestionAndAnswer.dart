@@ -11,7 +11,8 @@ class ShowDialogQuestionAndAnswer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          AppColors.adsProductShowDialogQuestionAndAnswerBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           AppSizes.size12,
@@ -23,7 +24,7 @@ class ShowDialogQuestionAndAnswer extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             width: AppSizes.size2,
-            color: Colors.grey[300],
+            color: AppColors.adsProductShowDialogQuestionAndAnswerContainer,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(

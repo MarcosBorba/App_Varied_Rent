@@ -292,4 +292,24 @@ class AppTexts {
       "You are about to delete an ad, \n are you sure you want to delete it?";
   String myAdsDeletingAdsConfirm = "Delete Ad";
   String myAdsDeletingAdsNotConfirm = "No";
+
+  //My Ads Product Texts
+  String myAdsProductDescription = "Description";
+  String myAdsProductQuestions = "Questions";
+  String myAdsProductEvaluations = "Evaluations";
+  String myAdsProductLocator = "Locator";
+  ////Sub Title Ads Product
+  String myAdsProductTypeValue = " / Hr";
+  String myAdsProductTypeCoin = "R\$ ";
+  ////Questions and Answers
+  String myAdsProductNoQuestions = "This ad has no questions yet!";
+  ////Select Evaluations
+  static const String myAdsProductSelectStars = "Select Evaluations Stars";
+  ////Select Evaluations
+  String myAdsProductNoEvaluations = "This ad has no rating yet!";
+  ////QuestionAndAnswerItem
+  static const String myAdsProductNoAnswer = "There is no answer yet";
+  String myAdsProductResponseTitle = "Response user";
+  ////LocatorInfo
+  static const String myAdsProductLocatorTelephones = "Telephones:";
 }

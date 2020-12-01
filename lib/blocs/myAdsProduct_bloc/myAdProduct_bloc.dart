@@ -53,6 +53,7 @@ class MyAdProductPageBloc
           landlordTypeLocator: dataUserLogged[2],
           telephone1: dataUserLogged[3]['telephone1'],
           telephone2: dataUserLogged[3]['telephone2'],
+          emailLocator: dataUserLogged[4],
         );
       } catch (error) {
         print(error);
@@ -93,6 +94,9 @@ class MyAdProductPageBloc
       valuesSharedPrefUser.add(value);
     });
     await sharedPref.read('phones').then((value) {
+      valuesSharedPrefUser.add(value);
+    });
+    await sharedPref.read('email').then((value) {
       valuesSharedPrefUser.add(value);
     });
     return valuesSharedPrefUser;

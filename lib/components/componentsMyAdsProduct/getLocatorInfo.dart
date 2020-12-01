@@ -3,7 +3,6 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
-//TODO: nivel 4 - definir texts, colors, routes....
 class LocatorInfo extends StatelessWidget {
   final double heightContainer;
   final double sizeNameText;
@@ -19,7 +18,7 @@ class LocatorInfo extends StatelessWidget {
     this.sizeLandlordTypeText,
     this.sizeTitleTelephonesText,
     this.sizeTelephonesText,
-    this.textTitleTelephone = "Telephones:",
+    this.textTitleTelephone = AppTexts.myAdsProductLocatorTelephones,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
