@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
 //TODO: nivel 4 - colors,texts,sizes
 class Description extends StatelessWidget {
   final int maxLines;
-  final String textDescription;
+
   final Color textDescriptionColor;
 
-  const Description({
+  Description({
     Key key,
     this.maxLines = 200,
-    this.textDescription =
-        "O Mestre na arte da vida faz pouca distinção entre o seu trabalho e o seu lazer, entre a sua mente e o seu corpo, entre a sua educação e a sua recreação, entre o seu amor e a sua religião. Ele dificilmente sabe distinguir um corpo do outro. Ele simplesmente persegue sua visão de excelência em tudo que faz, deixando para os outros a decisão de saber se está trabalhando ou se divertindo. Ele acha que está sempre fazendo as duas coisas simultaneamente.",
     this.textDescriptionColor = Colors.black87,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    String textDescription = CacheProvider.of(context).descriptionAd;
     return Container(
       width: screenWidth,
       padding: EdgeInsets.only(

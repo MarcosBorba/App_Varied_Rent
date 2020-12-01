@@ -6,6 +6,7 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 //onSubmitted: () {
 
 //a resposta envia pro banco só com o submit
@@ -101,8 +102,8 @@ class QuestionsAndAnswerContainerState
                               questionsAnswers[index].answer.answer = value
                             }
                           : questionsAnswers[index].answer = new Answer(
-                              locator_name: "mano@gmail.com",
-                              locator_email: "Marcos Flavio Ferreira Borba",
+                              locator_name: "Marcos Flavio Ferreira Borba",
+                              locator_email: "mano@gmail.com",
                               answer_date_time: formattedDate,
                               answer: value,
                             );

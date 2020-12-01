@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:varied_rent/blocs/blocs.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
 class MyAdsProductPage extends StatelessWidget {
   final String idAd;
@@ -23,6 +25,14 @@ class MyAdsProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int qtdEvaluations = 0;
+    double adEvaluation = 0.0;
+    List<Evaluation> evaluations;
+    List<QuestionAndAnswer> questionsAndAnswers;
+    String nameLocator;
+    String landlordTypeLocator;
+    String telephone1;
+    String telephone2;
     return Scaffold(
       body: BlocProvider<MyAdProductPageBloc>(
         create: (_) {
@@ -48,13 +58,37 @@ class MyAdsProductPage extends StatelessWidget {
                   duration: Duration(seconds: 5),
                 ),
               );
+            } else if (state is ShowQuestionsAndEvaluationsMyAdProductPage) {
+              adEvaluation = state.medianAmountStars;
+              evaluations = state.evaluations;
+              qtdEvaluations = evaluations.length;
+              questionsAndAnswers = state.questionsAndAnswer;
+              nameLocator = state.nameLocator;
+              landlordTypeLocator = state.landlordTypeLocator;
+              telephone1 = state.telephone1;
+              telephone2 = state.telephone2;
             }
           },
-          child: MyAdsProduct(
-            titleAd: titleAd,
-            descriptionAd: descriptionAd,
-            valueAd: valueAd,
-            imagesAd: imagesAd,
+          child: BlocBuilder<MyAdProductPageBloc, MyAdProductPageState>(
+            builder: (context, state) {
+              return state is LoadingMyAdProductPage
+                  ? LoadingMyAdsProduct()
+                  : CacheProvider(
+                      evaluations,
+                      questionsAndAnswers,
+                      qtdEvaluations,
+                      adEvaluation,
+                      nameLocator,
+                      landlordTypeLocator,
+                      telephone1,
+                      telephone2,
+                      titleAd,
+                      descriptionAd,
+                      valueAd,
+                      imagesAd,
+                      MyAdsProduct(),
+                    );
+            },
           ),
         ),
       ),

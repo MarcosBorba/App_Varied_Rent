@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductShowImages.dart';
 
 class ImagesAd extends StatelessWidget {
   final Color backgroundOpacityImages;
   final double imagesHeight;
-  final List images;
+
   final double elevation;
 
   ImagesAd({
     Key key,
     this.backgroundOpacityImages = AppColors.backgroundOpacityImages,
     this.imagesHeight,
-    this.images,
     this.elevation,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    List images = CacheProvider.of(context).imagesAd;
     return Material(
       color: backgroundOpacityImages.withOpacity(0.1),
       elevation: elevation == null ? AppSizes.size20 : elevation,

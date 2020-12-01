@@ -3,14 +3,14 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:varied_rent/models/evaluation.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
 //TODO: nivel 3 - definir cores,texts,sizes
 class MaterialTitle extends StatelessWidget {
   final double backgroundHeight;
   final Color titleBackgroundColor;
   final Color titleColor;
-  final String titleAd;
+  String titleAd;
   final double sizeStars;
   final double titleSize;
 
@@ -29,6 +29,7 @@ class MaterialTitle extends StatelessWidget {
     double adEvaluations = 0.0;
     qtdEvaluations = CacheProvider.of(context).qtdEvaluations;
     adEvaluations = CacheProvider.of(context).adEvaluation;
+    titleAd = CacheProvider.of(context).titleAd;
     return new Material(
       elevation: 7,
       child: new Container(

@@ -28,29 +28,31 @@ class MyAdProductPageBloc
       MyAdProductPageEvent event) async* {
     if (event is MyAdProductPageGetQuestionsAndEvaluations) {
       try {
-        String token = await sharedPref.read('token');
-
+        List dataUserLogged = await getFutureDataUserLogged();
         List<Evaluation> evaluations =
             await evaluationRepository.getEvaluationsAdRepository(
           event.idAd,
-          token,
+          dataUserLogged[0].toString(),
         );
 
         List<QuestionAndAnswer> questionsAndAnswers =
             await questionAndAnswerRepository.getQuestionAndAnswersAdRepository(
           event.idAd,
-          token,
+          dataUserLogged[0].toString(),
         );
 
         double medianEvaluationStars =
             await medianCalculationEvaluationsStars(evaluations);
         //await printEvaluationAds(evaluations);
         //await printQuestionsAndAnswersAds(questionsAndAnswers);
-
         yield ShowQuestionsAndEvaluationsMyAdProductPage(
           evaluations: evaluations,
           questionsAndAnswer: questionsAndAnswers,
           medianAmountStars: medianEvaluationStars,
+          nameLocator: dataUserLogged[1],
+          landlordTypeLocator: dataUserLogged[2],
+          telephone1: dataUserLogged[3]['telephone1'],
+          telephone2: dataUserLogged[3]['telephone2'],
         );
       } catch (error) {
         print(error);
@@ -60,8 +62,6 @@ class MyAdProductPageBloc
           yield FailureMyAdProductPage(error: "500 - Internal Server Error");
         }
       }
-      //event.
-      ///criar parte de repositorio e backend e depois ligar com o front
     } else if (event is MyAdProductPageUpdateQuestionAndEvaluation) {
       try {
         String token = await sharedPref.read('token');
@@ -81,10 +81,28 @@ class MyAdProductPageBloc
     }
   }
 
+  Future<List> getFutureDataUserLogged() async {
+    List valuesSharedPrefUser = [];
+    await sharedPref.read('token').then((value) {
+      valuesSharedPrefUser.add(value);
+    });
+    await sharedPref.read('name').then((value) {
+      valuesSharedPrefUser.add(value);
+    });
+    await sharedPref.read('landlordType').then((value) {
+      valuesSharedPrefUser.add(value);
+    });
+    await sharedPref.read('phones').then((value) {
+      valuesSharedPrefUser.add(value);
+    });
+    return valuesSharedPrefUser;
+  }
+
   Future<double> medianCalculationEvaluationsStars(
       List<Evaluation> evaluations) async {
     double median = 0.0;
     double sum = 0.0;
+    Duration(seconds: 5);
     if (evaluations != null) {
       for (var index = 0; index < evaluations.length; index++) {
         sum += double.parse(evaluations[index].amount_stars);

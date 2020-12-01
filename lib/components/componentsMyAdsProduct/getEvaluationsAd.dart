@@ -3,23 +3,23 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
 
 //TODO: nivel 4 - text e colors
 class EvaluationsAd extends StatelessWidget {
-  final List<Evaluation> evaluations;
   final double heightEvaluation;
   final ItemScrollController controllerItemRefreshListView;
   final double starSelected;
 
   EvaluationsAd({
     Key key,
-    this.evaluations,
     this.heightEvaluation,
     this.controllerItemRefreshListView,
     this.starSelected,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    List<Evaluation> evaluations = CacheProvider.of(context).evaluations;
     return Container(
       height: heightEvaluation == null ? screenHeight * 0.20 : heightEvaluation,
       width: screenWidth,

@@ -11,16 +11,31 @@ class ShowQuestionsAndEvaluationsMyAdProductPage extends MyAdProductPageState {
   final List<QuestionAndAnswer> questionsAndAnswer;
   final List<Evaluation> evaluations;
   final double medianAmountStars;
+  final String nameLocator;
+  final String landlordTypeLocator;
+  final String telephone1;
+  final String telephone2;
 
   const ShowQuestionsAndEvaluationsMyAdProductPage({
     this.questionsAndAnswer,
     this.evaluations,
     this.medianAmountStars,
+    this.nameLocator,
+    this.landlordTypeLocator,
+    this.telephone1,
+    this.telephone2,
   });
 
   @override
-  List<Object> get props =>
-      [questionsAndAnswer, evaluations, medianAmountStars];
+  List<Object> get props => [
+        questionsAndAnswer,
+        evaluations,
+        medianAmountStars,
+        nameLocator,
+        landlordTypeLocator,
+        telephone1,
+        telephone2
+      ];
 
   @override
   String toString() => 'ShowQuestionsAndEvaluationsMyAdProductPage';
