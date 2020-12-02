@@ -36,7 +36,6 @@ main() {
   final UserRepository userRepository = UserRepository(
     userApiClient: UserApiClient(),
   );
-
   runApp(
     BlocProvider<AuthenticationBloc>(
       create: (context) {

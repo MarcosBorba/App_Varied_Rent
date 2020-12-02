@@ -79,20 +79,25 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GridView.count(
-          crossAxisCount: 2,
-          children: <Widget>[
-            returnsNavigationButtonForAllCategories(),
-            returnsNavigationButtonForVehicleCategory(),
-            returnsNavigationButtonToCommunicationCategory(),
-            returnsNavigationButtonForRealEstateCategory(),
-            returnsNavigationButtonForMobileHomeCategory(),
-            returnsNavigationButtonForAnimalsCategory(),
-            returnsNavigationButtonForClothingCategory(),
-            returnsNavigationButtonForServicesCategory(),
-            returnsNavigationButtonForMachinesCategory(),
-            returnsNavigationButtonForToysCategory(),
-          ],
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light.copyWith(
+            statusBarColor: AppColors.transparentBackground,
+          ),
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: <Widget>[
+              returnsNavigationButtonForAllCategories(),
+              returnsNavigationButtonForVehicleCategory(),
+              returnsNavigationButtonToCommunicationCategory(),
+              returnsNavigationButtonForRealEstateCategory(),
+              returnsNavigationButtonForMobileHomeCategory(),
+              returnsNavigationButtonForAnimalsCategory(),
+              returnsNavigationButtonForClothingCategory(),
+              returnsNavigationButtonForServicesCategory(),
+              returnsNavigationButtonForMachinesCategory(),
+              returnsNavigationButtonForToysCategory(),
+            ],
+          ),
         ),
         floatingActionButton: selectedSearchButton == true
             ? returnFloatingTextFieldSearch(context)
@@ -398,7 +403,9 @@ class HomePageState extends State<HomePage> {
     final result = await Navigator.push(
       context,
       new MaterialPageRoute(
-        builder: (context) => MyAdsPage(),
+        builder: (context) => MyAdsPage(
+          typeNavigation: 1,
+        ),
       ),
     );
 

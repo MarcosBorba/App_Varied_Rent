@@ -1,4 +1,5 @@
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:varied_rent/components/components.dart';
@@ -22,63 +23,69 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
     return BlocBuilder<MyAdProductBloc, MyAdProductState>(
       builder: (context, state) {
         return Scaffold(
-          body: Container(
-            height: screenHeight,
-            width: screenWidth,
-            child: state is LoadingMyAdProduct
-                ? Center(child: CircularProgressIndicator())
-                : state is FailureMyAdProduct
-                    ? returnBodyOnFailure()
-                    : state is ShowMyAdProduct
-                        ? state.ads.length > 0
-                            ? ListView.builder(
-                                itemCount: state.ads.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    height: heightBodyScaffold * 0.30,
-                                    width: screenWidth,
-                                    margin: EdgeInsets.only(
-                                        top: AppSizes.size8,
-                                        bottom: (state.ads.length - 1) == index
-                                            ? AppSizes.size85
-                                            : 0),
-                                    child: AdsMaterialButton(
-                                      listAds: state.ads,
-                                      indexListAds: index,
-                                      elevationButton: AppSizes.size4,
-                                      onPressedAds: () {
-                                        navigationToTheAdScreen(
-                                          state.ads[index].id,
-                                          state.ads[index].title,
-                                          state.ads[index].description,
-                                          state.ads[index].value,
-                                          state.ads[index].images,
-                                        );
-                                      },
-                                      onPressedEditAds: () {
-                                        navigationToTheEditAdScreen();
-                                      },
-                                      onPressedDeleteAds: () {
-                                        deleteTheAd(state.ads[index].id,
-                                            state.ads, index);
-                                      },
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: AppColors.transparentBackground,
+            ),
+            child: Container(
+              height: screenHeight,
+              width: screenWidth,
+              child: state is LoadingMyAdProduct
+                  ? Center(child: CircularProgressIndicator())
+                  : state is FailureMyAdProduct
+                      ? returnBodyOnFailure()
+                      : state is ShowMyAdProduct
+                          ? state.ads.length > 0
+                              ? ListView.builder(
+                                  itemCount: state.ads.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      height: heightBodyScaffold * 0.30,
+                                      width: screenWidth,
+                                      margin: EdgeInsets.only(
+                                          top: AppSizes.size8,
+                                          bottom:
+                                              (state.ads.length - 1) == index
+                                                  ? AppSizes.size85
+                                                  : 0),
+                                      child: AdsMaterialButton(
+                                        listAds: state.ads,
+                                        indexListAds: index,
+                                        elevationButton: AppSizes.size4,
+                                        onPressedAds: () {
+                                          navigationToTheAdScreen(
+                                            state.ads[index].id,
+                                            state.ads[index].title,
+                                            state.ads[index].description,
+                                            state.ads[index].value,
+                                            state.ads[index].images,
+                                          );
+                                        },
+                                        onPressedEditAds: () {
+                                          navigationToTheEditAdScreen();
+                                        },
+                                        onPressedDeleteAds: () {
+                                          deleteTheAd(state.ads[index].id,
+                                              state.ads, index);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                )
+                              : Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: AppSizes.size12,
+                                      right: AppSizes.size12,
                                     ),
-                                  );
-                                },
-                              )
-                            : Center(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    left: AppSizes.size12,
-                                    right: AppSizes.size12,
+                                    child: Text(
+                                      AppTexts().myAdsNoAdsCreated,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                  child: Text(
-                                    AppTexts().myAdsNoAdsCreated,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )
-                        : returnBodyOnFailure(),
+                                )
+                          : returnBodyOnFailure(),
+            ),
           ),
         );
       },
@@ -110,15 +117,6 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
 
   navigationToTheAdScreen(String id, String titleAd, String descriptionAd,
       String valueAd, List imagesAd) {
-    print("navigation to ad screen");
-    /* AppRoutes.push(
-        context,
-        MyAdsProduct(
-          titleAd: titleAd,
-          descriptionAd: descriptionAd,
-          valueAd: valueAd,
-          imagesAd: imagesAd,
-        )); */
     AppRoutes.push(
         context,
         MyAdsProductPage(

@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/ad_repository.dart';
 import 'package:varied_rent/repositories/repositories.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 part 'myAdsPage_event.dart';
 part 'myAdsPage_state.dart';
 

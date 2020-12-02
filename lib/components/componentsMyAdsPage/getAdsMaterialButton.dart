@@ -114,7 +114,9 @@ class AdsMaterialButton extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             listAds[indexListAds].starsEvaluations.length <= 0
-                                ? Text("No Evaluations")
+                                ? SizedBox(
+                                    height: AppSizes.size10,
+                                  )
                                 : FutureBuilder(
                                     future: sumEvaluationsValues(
                                         listAds[indexListAds].starsEvaluations),

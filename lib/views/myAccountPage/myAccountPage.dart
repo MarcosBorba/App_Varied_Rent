@@ -204,8 +204,11 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   searchAndNavigationFunctionForScreenWithUserCreatedAds() {
-    AppRoutes.push(context, MyAdsProduct());
-    //AppRoutes.push(context, MyAdsPage());
+    AppRoutes.push(
+        context,
+        MyAdsPage(
+          typeNavigation: 2,
+        ));
   }
 
   logoutAndNavigationFunctionForTheLoginScreen() {
@@ -260,7 +263,11 @@ class MyAccountPageState extends State<MyAccountPage> {
   }
 
   navigationFunctionForMyAdsScreen() {
-    print("navega para tela de meus anuncios");
+    AppRoutes.push(
+        context,
+        MyAdsPage(
+          typeNavigation: 1,
+        ));
   }
 
   navigationFunctionForFavoritesScreen() {

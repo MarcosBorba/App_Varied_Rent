@@ -9,11 +9,17 @@ import 'package:varied_rent/blocs/blocs.dart';
 
 //TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
 class MyAdsPage extends StatefulWidget {
+  final int typeNavigation;
+
+  MyAdsPage({Key key, this.typeNavigation}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => MyAdsPageState();
+  State<StatefulWidget> createState() => MyAdsPageState(typeNavigation);
 }
 
 class MyAdsPageState extends State<MyAdsPage> {
+  final int typeNavigation;
+  MyAdsPageState(this.typeNavigation);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -77,7 +83,9 @@ class MyAdsPageState extends State<MyAdsPage> {
   }
 
   Future<bool> onReturnHomePage() async {
-    AppRoutes.duoPop(context);
+    this.typeNavigation == 1
+        ? AppRoutes.duoPop(context)
+        : AppRoutes.pop(context);
     return true;
   }
 

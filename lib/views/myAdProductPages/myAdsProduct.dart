@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/components/components.dart';
@@ -20,31 +21,36 @@ class MyAdsProductState extends State<MyAdsProduct> {
   Widget build(BuildContext context) {
     evaluations = CacheProvider.of(context).evaluations;
     return Scaffold(
-      body: Container(
-        height: screenHeight,
-        width: screenWidth,
-        color: AppColors.adsProductBackgroundPage,
-        child: SafeArea(
-          child: ListView(
-            children: <Widget>[
-              returnHeader(),
-              returnSubTitle(),
-              returnImagesAd(),
-              returnDivider(AppTexts().myAdsProductDescription),
-              returnDescription(),
-              returnDivider(AppTexts().myAdsProductQuestions),
-              returnQuestionsAndAnswer(),
-              returnDivider(AppTexts().myAdsProductEvaluations),
-              returnSelectEvaluationAmountStars(),
-              returnEvaluationsAd(),
-              returnDivider(AppTexts().myAdsProductLocator),
-              returnLocatorInfo(),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: screenHeight * 0.05,
-                ),
-              )
-            ],
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: AppColors.tertiaryColor,
+        ),
+        child: Container(
+          height: screenHeight,
+          width: screenWidth,
+          color: AppColors.adsProductBackgroundPage,
+          child: SafeArea(
+            child: ListView(
+              children: <Widget>[
+                returnHeader(),
+                returnSubTitle(),
+                returnImagesAd(),
+                returnDivider(AppTexts().myAdsProductDescription),
+                returnDescription(),
+                returnDivider(AppTexts().myAdsProductQuestions),
+                returnQuestionsAndAnswer(),
+                returnDivider(AppTexts().myAdsProductEvaluations),
+                returnSelectEvaluationAmountStars(),
+                returnEvaluationsAd(),
+                returnDivider(AppTexts().myAdsProductLocator),
+                returnLocatorInfo(),
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: screenHeight * 0.05,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
