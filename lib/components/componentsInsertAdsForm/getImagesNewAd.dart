@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/insertAdsPages/insertAdsProductInheritedClass.dart';
 import 'package:varied_rent/views/insertAdsPages/myAdsProductShowImages.dart';
 
@@ -12,6 +11,7 @@ class ImagesNewAd extends StatefulWidget {
   State<StatefulWidget> createState() => ImagesNewAdState();
 }
 
+//TODO: nivel 4: texts, colors, sizes......
 class ImagesNewAdState extends State<ImagesNewAd> {
   final Color backgroundOpacityImages;
   final double imagesHeight;
@@ -25,7 +25,7 @@ class ImagesNewAdState extends State<ImagesNewAd> {
   });
   @override
   Widget build(BuildContext context) {
-    List<File> images = CacheProviderInsertAd.of(context).imagesFile;
+    List<ImageFile> images = CacheProviderInsertAd.of(context).imagesFile;
     UniqueKey keySwiper = CacheProviderInsertAd.of(context).keyImages;
     return Material(
       color: backgroundOpacityImages.withOpacity(0.1),
@@ -37,14 +37,49 @@ class ImagesNewAdState extends State<ImagesNewAd> {
         child: Swiper(
           key: keySwiper,
           itemBuilder: (BuildContext context, int index) {
-            return FutureBuilder(
-              future: getLenghtImage(images[index]),
-              builder: (_, snapshot) {
-                return snapshot.data != null && snapshot.data
-                    ? Image.file(
-                        images[index],
-                        fit: BoxFit.cover,
-                        gaplessPlayback: true,
+            return images != null && images[index].isImageBig == false
+                ? Image.file(
+                    images[index].image,
+                    fit: BoxFit.cover,
+                    gaplessPlayback: true,
+                  )
+                : images != null && images[index].isImageBig
+                    ? Stack(
+                        children: <Widget>[
+                          Center(
+                            child: Image.file(
+                              images[index].image,
+                              height: imagesHeight == null
+                                  ? screenHeight * 0.40
+                                  : imagesHeight,
+                              width: screenWidth,
+                              fit: BoxFit.cover,
+                              gaplessPlayback: true,
+                            ),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.7),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.close,
+                            size: AppSizes.size40,
+                            color: Colors.red,
+                          ),
+                          Center(
+                            child: Text(
+                              "O tamanho da imagem deve ter no maximo 10 mb.",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       )
                     : Container(
                         height: imagesHeight == null
@@ -56,8 +91,6 @@ class ImagesNewAdState extends State<ImagesNewAd> {
                           child: CircularProgressIndicator(),
                         ),
                       );
-              },
-            );
           },
           itemCount: images != null ? images.length : 0,
           viewportFraction: 0.9,
@@ -69,18 +102,12 @@ class ImagesNewAdState extends State<ImagesNewAd> {
             AppRoutes.push(
               context,
               ShowImagesNewProduct(
-                imageUrl: images[index],
+                imageUrl: images[index].image,
               ),
             );
           },
         ),
       ),
     );
-  }
-
-  Future<bool> getLenghtImage(File file) async {
-    int assetVerify = await file.length();
-    bool verifyImageLength = assetVerify > 10000000 ? false : true;
-    return verifyImageLength;
   }
 }

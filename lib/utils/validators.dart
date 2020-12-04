@@ -1,5 +1,7 @@
 import 'package:varied_rent/utils/app_texts.dart';
 
+//TODO: nivel 4 - arrumar texts new ad;
+//TODO nivel 4 - olhar coisas de endereço
 class FieldValidators {
   String emailFormFieldValidator(String value) {
     String pattern =
@@ -132,6 +134,48 @@ class FieldValidators {
   String numberFormFieldValidator(String value) {
     if (value.length == 0) {
       return AppTexts().addressNumberTextFieldErrorTextEmptyField;
+    }
+    return null;
+  }
+
+  String titleFormNewAdFieldValidator(String value) {
+    String patttern =
+        r'(^[*\-$!(0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]{1}[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð *\-$!():&]{2,}$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "* Title Required";
+    } else if (!regExp.hasMatch(value)) {
+      return '* Invalid Title. Ex: Gol Quadrado 1995';
+    }
+    return null;
+  }
+
+  String descriptionFormNewAdFieldValidator(String value) {
+    String patttern =
+        r'(^[*\-$!(0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]{1}[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð *\-$!():&]{2,}$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "* Description Required";
+    } else if (!regExp.hasMatch(value)) {
+      return '* Invalid Description. Ex: O produto é muito resistente e de fácil manuseio.';
+    }
+    return null;
+  }
+
+  String categoryTypeFormNewAdFieldValidator(String value) {
+    if (value?.isEmpty ?? true) {
+      return '* Category Types Required';
+    }
+    return null;
+  }
+
+  String valueFormNewAdFieldValidator(String value) {
+    String patttern = r'(^[0-9]{1}[0-9.]{1,}[0-9]{1}$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.toString().length == 0) {
+      return '* Value Required';
+    } else if (!regExp.hasMatch(value.toString())) {
+      return '* Invalid Value Product. Ex: 10.00 or 0.50';
     }
     return null;
   }

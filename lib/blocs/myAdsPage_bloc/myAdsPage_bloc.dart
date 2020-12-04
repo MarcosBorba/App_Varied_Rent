@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +43,7 @@ class MyAdProductBloc extends Bloc<MyAdsPageEvent, MyAdProductState> {
         yield LoadingMyAdProduct();
         String token = await sharedPref.read('token');
         await adRepository.deleteAdRepository(event.id, token);
-        await event.ads.removeAt(event.index);
+        event.ads.removeAt(event.index);
         yield ShowMyAdProduct(ads: event.ads);
       } catch (error) {
         print(error);

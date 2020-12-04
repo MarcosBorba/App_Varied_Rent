@@ -7,8 +7,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/components/componentsInsertAdsForm/getTitle.dart';
-import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/insertAdsPages/insertAdsProductInheritedClass.dart';
 
 class InsertAdsForm extends StatefulWidget {
@@ -18,14 +18,15 @@ class InsertAdsForm extends StatefulWidget {
 
 class InsertAdsFormState extends State<InsertAdsForm> {
   List<Asset> imagesSelected = List<Asset>();
-  List<File> imagesFile = List<File>();
+  List<ImageFile> imagesFile = List<ImageFile>();
   SwiperController swiperController = new SwiperController();
   UniqueKey keyImages = new UniqueKey();
-  String _error = 'No Error Dectected';
+  GlobalKey<FormState> _keyFormInsertNewAd = new GlobalKey();
   TextEditingController _titleController = new TextEditingController();
   TextEditingController _descriptionController = new TextEditingController();
   TextEditingController _valueController = new TextEditingController();
   String selectedItemOfCategoryType;
+  bool haveBigImage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,97 +40,68 @@ class InsertAdsFormState extends State<InsertAdsForm> {
           imagesFile,
           swiperController,
           keyImages,
-          ListView(
-            children: <Widget>[
-              returnHeader(),
-              SizedBox(
-                height: screenHeight * 0.02,
-              ),
-              imagesFile != null && imagesFile.length > 0
-                  ? returnImagesAd()
-                  : Container(
-                      height: screenHeight * 0.40,
-                      width: screenWidth,
-                      child: RaisedButton(
-                        elevation: 10,
-                        color: Colors.white,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.camera_enhance,
-                              size: AppSizes.size100,
-                            ),
-                            Text("Clique para Adicionar Imagens"),
-                          ],
+          Form(
+            key: _keyFormInsertNewAd,
+            autovalidate: true,
+            child: ListView(
+              children: <Widget>[
+                returnHeader(),
+                SizedBox(
+                  height: screenHeight * 0.02,
+                ),
+                imagesFile != null && imagesFile.length > 0
+                    ? returnImagesAd()
+                    : Container(
+                        height: screenHeight * 0.40,
+                        width: screenWidth,
+                        child: RaisedButton(
+                          elevation: 10,
+                          color: Colors.white,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.camera_enhance,
+                                size: AppSizes.size100,
+                              ),
+                              Text("Clique para Adicionar Imagens"),
+                            ],
+                          ),
+                          onPressed: loadAssets2,
                         ),
-                        onPressed: loadAssets2,
                       ),
-                    ),
-              SizedBox(height: AppSizes.size20),
-              returnTitleTextField(),
-              SizedBox(height: AppSizes.size20),
-              returnDescriptionField(),
-              SizedBox(height: AppSizes.size20),
-              returnCategoryField(),
-              SizedBox(height: AppSizes.size20),
-              returnRowValueFieldAndButtonSubmit(),
-              SizedBox(height: AppSizes.size20),
-            ],
+                SizedBox(height: AppSizes.size20),
+                returnTitleTextField(),
+                SizedBox(height: AppSizes.size20),
+                returnDescriptionField(),
+                SizedBox(height: AppSizes.size20),
+                returnCategoryField(),
+                SizedBox(height: AppSizes.size20),
+                returnRowValueFieldAndButtonSubmit(),
+                SizedBox(height: AppSizes.size20),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
-    String error = 'No Error Dectected';
-
-    try {
-      await MultiImagePicker.pickImages(
-        maxImages: 5,
-        selectedAssets: imagesSelected,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: MaterialOptions(
-          actionBarColor: "#059dc0",
-          statusBarColor: "#059dc0",
-          actionBarTitle: "Get Images",
-          allViewTitle: "All Photos",
-          selectCircleStrokeColor: "#000000",
-        ),
-      ).then((value) {
-        resultList = value;
-      });
-    } on NoImagesSelectedException catch (e) {
-      print("######################");
-    } on Exception catch (e) {
-      error = e.toString();
-    }
-
-    if (!mounted) return;
-
-    setState(() {
-      imagesSelected = resultList;
-      _error = error;
-    });
-  }
-
   Future<void> loadAssets2() async {
     List<Asset> imagesNew;
-
+    haveBigImage = false;
     try {
       imagesNew = await MultiImagePicker.pickImages(
         maxImages: 5,
         selectedAssets: imagesSelected,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
-          actionBarColor: "#059dc0",
-          statusBarColor: "#059dc0",
-          actionBarTitle: "Get Images",
-          allViewTitle: "All Photos",
-          selectCircleStrokeColor: "#000000",
-        ),
+            actionBarColor: "#059dc0",
+            statusBarColor: "#059dc0",
+            actionBarTitle: "Get Images",
+            allViewTitle: "All Photos",
+            selectCircleStrokeColor: "#000000",
+            selectionLimitReachedText: "You can select up to 5 images"),
       );
     } on PlatformException catch (e) {
       print("###################### 1");
@@ -158,9 +130,20 @@ class InsertAdsFormState extends State<InsertAdsForm> {
 
   Future returnListFiles(List<Asset> resultListAssets) async {
     imagesFile.clear();
-    await Future.forEach(resultListAssets, (newAsset) async {
-      String pathFile = await returnFilePath(newAsset);
-      imagesFile.add(File(pathFile));
+    await Future.forEach(
+      resultListAssets,
+      (Asset newAsset) async {
+        String pathFile = await returnFilePath(newAsset);
+        imagesFile.add(ImageFile(File(pathFile)));
+      },
+    );
+    await verifyImageLength();
+  }
+
+  Future verifyImageLength() async {
+    await Future.forEach(imagesFile, (ImageFile imagesFiles) async {
+      imagesFiles.isImageBig = await imagesFiles.verifyImageLength;
+      imagesFiles.isImageBig ? haveBigImage = true : false;
     });
   }
 
@@ -212,6 +195,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+        validator: FieldValidators().titleFormNewAdFieldValidator,
       ),
     );
   }
@@ -229,6 +213,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+        validator: FieldValidators().descriptionFormNewAdFieldValidator,
       ),
     );
   }
@@ -241,17 +226,13 @@ class InsertAdsFormState extends State<InsertAdsForm> {
         suffixIcon: Icons.arrow_drop_down,
         hint: "Category",
         helperText: "Selecione ma categoria para o seu produto",
-        items: [
-          "Transporte",
-          "Comunicação",
-          "Fantasia",
-          "Máquinas",
-        ],
+        items: AppTexts().categoryAdsTypesList,
         value: selectedItemOfCategoryType,
         onChanged: (String newItemSelected) {
           FocusScope.of(context).nextFocus();
           _dropDownItemCategorySelected(newItemSelected);
         },
+        validator: FieldValidators().categoryTypeFormNewAdFieldValidator,
       ),
     );
   }
@@ -279,6 +260,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
               inputController: _valueController,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
+              validator: FieldValidators().valueFormNewAdFieldValidator,
             ),
           ),
         ),
@@ -289,13 +271,35 @@ class InsertAdsFormState extends State<InsertAdsForm> {
               heightButton: AppSizes.size60,
               textButton: "Save",
               color: AppColors.tertiaryColor,
-              onPressed: () {
-                print("submit new ad");
-              },
+              onPressed: onSubmitNewInsert,
             ),
           ),
         ),
       ],
+    );
+  }
+
+  onSubmitNewInsert() {
+    imagesFile == null || imagesFile.length == 0
+        ? functionShowSnackBarErrors('Adicione pelomenos 1 imagem', 5)
+        : haveBigImage
+            ? functionShowSnackBarErrors(
+                'OBSERVE AS IMAGENS: Tem uma Imagem muito grande, coloque imagens de até 10mb.',
+                10)
+            : false;
+    print(
+        "have big value  ###################################################################### " +
+            haveBigImage.toString());
+    print("submit new ad");
+  }
+
+  functionShowSnackBarErrors(String message, int duration) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: duration),
+      ),
     );
   }
 }

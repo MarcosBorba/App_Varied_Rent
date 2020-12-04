@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:varied_rent/blocs/myAdsProduct_bloc/myAdProductBloc.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/repositories.dart';
 part 'myAdProduct_event.dart';

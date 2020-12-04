@@ -312,4 +312,17 @@ class AppTexts {
   String myAdsProductResponseTitle = "Response user";
   ////LocatorInfo
   static const String myAdsProductLocatorTelephones = "Telephones:";
+
+  //Insert Ads Texts
+  List<String> categoryAdsTypesList = [
+    'Vehicle',
+    'Communication',
+    'Real Estate',
+    "Home Furniture",
+    "Animals",
+    "Clothing",
+    "Services",
+    "Machine",
+    "Toys",
+  ];
 }
