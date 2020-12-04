@@ -27,9 +27,10 @@ class ImagesAd extends StatelessWidget {
         color: Colors.transparent,
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
+            print("object passou");
             return new Image.network(
               images[index]['url'],
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             );
           },
           itemCount: images.length,

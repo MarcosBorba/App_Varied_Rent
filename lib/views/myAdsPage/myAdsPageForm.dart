@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/myAdProductPages/myAdsProduct.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductPage.dart';
 
 //TODO: nivel 4 - depois de criar outras telas, adicionar rotas....

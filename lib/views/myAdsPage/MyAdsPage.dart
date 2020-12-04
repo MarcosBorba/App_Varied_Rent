@@ -1,6 +1,7 @@
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:varied_rent/views/insertAdsPages/insertAdsPage.dart';
 import 'dart:async';
 import 'package:varied_rent/views/myAdsPage/myAdsPageForm.dart';
 import 'package:varied_rent/repositories/repositories.dart';
@@ -79,7 +80,7 @@ class MyAdsPageState extends State<MyAdsPage> {
   }
 
   navigationToTheInsertAdScreen() {
-    print("navigation to insert ad screen");
+    AppRoutes.push(context, InsertAdsPage());
   }
 
   Future<bool> onReturnHomePage() async {

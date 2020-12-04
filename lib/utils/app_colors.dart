@@ -21,7 +21,7 @@ class AppColors {
 
   //Colors Components Default
   static const Color cursorTextFieldDefault = secondaryColor;
-  static const Color hintTextTextFieldDefault = secondaryColor;
+  static const Color hintTextTextFieldDefault = tertiaryColor;
   static const Color prefixIconTextFieldDefault = tertiaryColor;
   static const Color labelTextTextFieldDefault = tertiaryColor;
   static const Color defaultFormBorderTextFieldDefault = secondaryColor;

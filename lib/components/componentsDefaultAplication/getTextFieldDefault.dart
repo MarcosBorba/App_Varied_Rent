@@ -28,6 +28,7 @@ class TextFieldDefaultAplication extends StatelessWidget {
   final List<TextInputFormatter> inputFormatters;
   final TextInputAction textInputAction;
   final FocusNode focusNode;
+  final int maxLines;
 
   TextFieldDefaultAplication({
     Key key,
@@ -54,8 +55,9 @@ class TextFieldDefaultAplication extends StatelessWidget {
     this.onFieldSubmitted,
     this.focusNode,
     this.filled = true,
-    this.autofocus = true,
+    this.autofocus = false,
     this.fillColor = AppColors.fillColorBorderSearchTextField,
+    this.maxLines,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -115,6 +117,7 @@ class TextFieldDefaultAplication extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       inputFormatters: inputFormatters,
+      maxLines: maxLines,
     );
   }
 }
