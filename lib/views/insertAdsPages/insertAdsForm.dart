@@ -1,12 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:varied_rent/blocs/blocs.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/components/componentsInsertAdsForm/getTitle.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/insertAdsPages/insertAdsProductInheritedClass.dart';
@@ -19,75 +21,102 @@ class InsertAdsForm extends StatefulWidget {
 class InsertAdsFormState extends State<InsertAdsForm> {
   List<Asset> imagesSelected = List<Asset>();
   List<ImageFile> imagesFile = List<ImageFile>();
-  SwiperController swiperController = new SwiperController();
-  UniqueKey keyImages = new UniqueKey();
-  GlobalKey<FormState> _keyFormInsertNewAd = new GlobalKey();
-  TextEditingController _titleController = new TextEditingController();
-  TextEditingController _descriptionController = new TextEditingController();
-  TextEditingController _valueController = new TextEditingController();
+  SwiperController swiperController = SwiperController();
+  UniqueKey keyImages = UniqueKey();
+  GlobalKey<FormState> _keyFormInsertNewAd = GlobalKey<FormState>();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _valueController = TextEditingController();
   String selectedItemOfCategoryType;
   bool haveBigImage = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: screenHeight,
-      width: screenWidth,
-      color: Colors.white,
-      child: SafeArea(
-        child: CacheProviderInsertAd(
-          imagesSelected,
-          imagesFile,
-          swiperController,
-          keyImages,
-          Form(
-            key: _keyFormInsertNewAd,
-            autovalidate: true,
-            child: ListView(
-              children: <Widget>[
-                returnHeader(),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                imagesFile != null && imagesFile.length > 0
-                    ? returnImagesAd()
-                    : Container(
-                        height: screenHeight * 0.40,
-                        width: screenWidth,
-                        child: RaisedButton(
-                          elevation: 10,
-                          color: Colors.white,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.camera_enhance,
-                                size: AppSizes.size100,
-                              ),
-                              Text("Clique para Adicionar Imagens"),
-                            ],
-                          ),
-                          onPressed: loadAssets2,
-                        ),
-                      ),
-                SizedBox(height: AppSizes.size20),
-                returnTitleTextField(),
-                SizedBox(height: AppSizes.size20),
-                returnDescriptionField(),
-                SizedBox(height: AppSizes.size20),
-                returnCategoryField(),
-                SizedBox(height: AppSizes.size20),
-                returnRowValueFieldAndButtonSubmit(),
-                SizedBox(height: AppSizes.size20),
-              ],
+    return BlocListener<InsertAdsBloc, InsertAdsState>(
+      listener: (context, state) async {
+        if (state is InsertAdsFailurePage) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${state.error}'),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 5),
             ),
-          ),
-        ),
+          );
+        } else if (state is SuccessOnSubmit) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppTexts().createNewAdSuccessInsertAd),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 7),
+            ),
+          );
+          await Future.delayed(Duration(seconds: 3));
+          AppRoutes.pop(context);
+        }
+      },
+      child: BlocBuilder<InsertAdsBloc, InsertAdsState>(
+        builder: (context, state) {
+          return CacheProviderInsertAd(
+            imagesSelected,
+            imagesFile,
+            swiperController,
+            keyImages,
+            Form(
+              key: _keyFormInsertNewAd,
+              autovalidate: true,
+              child: Container(
+                height: screenHeight,
+                width: screenWidth,
+                color: AppColors.insertAdBackground,
+                child: SafeArea(
+                  child: ListView(
+                    children: <Widget>[
+                      returnHeader(),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      imagesFile != null && imagesFile.length > 0
+                          ? returnImagesAd()
+                          : Container(
+                              height: screenHeight * 0.40,
+                              width: screenWidth,
+                              child: RaisedButton(
+                                elevation: 10,
+                                color: AppColors.insertAdBigButtonAddImages,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.camera_enhance,
+                                      size: AppSizes.size100,
+                                    ),
+                                    Text(AppTexts().clickAddImagesInsertAd),
+                                  ],
+                                ),
+                                onPressed: openGaleryImages,
+                              ),
+                            ),
+                      SizedBox(height: AppSizes.size20),
+                      returnTitleTextField(),
+                      SizedBox(height: AppSizes.size20),
+                      returnDescriptionField(),
+                      SizedBox(height: AppSizes.size20),
+                      returnCategoryField(),
+                      SizedBox(height: AppSizes.size20),
+                      returnRowValueFieldAndButtonSubmit(state),
+                      SizedBox(height: AppSizes.size20),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Future<void> loadAssets2() async {
+  Future<void> openGaleryImages() async {
     List<Asset> imagesNew;
     haveBigImage = false;
     try {
@@ -98,21 +127,12 @@ class InsertAdsFormState extends State<InsertAdsForm> {
         materialOptions: MaterialOptions(
             actionBarColor: "#059dc0",
             statusBarColor: "#059dc0",
-            actionBarTitle: "Get Images",
-            allViewTitle: "All Photos",
+            actionBarTitle: AppTexts().getImagesInsertAd,
+            allViewTitle: AppTexts().titleGaleryImagesInsertAd,
             selectCircleStrokeColor: "#000000",
-            selectionLimitReachedText: "You can select up to 5 images"),
+            selectionLimitReachedText: AppTexts().messageAlertImagesInsertAd),
       );
-    } on PlatformException catch (e) {
-      print("###################### 1");
-    } on NoImagesSelectedException catch (e) {
-      print("###################### 2");
-      print(imagesNew);
-      print(imagesSelected);
-      print(imagesFile);
-    } on Exception catch (e) {
-      print("###################### 3");
-    }
+    } on PlatformException catch (e) {} on NoImagesSelectedException catch (e) {} on Exception catch (e) {}
 
     if (imagesNew == null) {
       await returnListFiles(imagesSelected);
@@ -164,18 +184,18 @@ class InsertAdsFormState extends State<InsertAdsForm> {
           child: Material(
             elevation: 15,
             shape: CircleBorder(),
-            color: Colors.white,
+            color: AppColors.insertAdSmallButtonAddImages,
             child: InkWell(
-              splashColor: AppColors.secondaryColor,
+              splashColor: AppColors.insertAdSmallButtonAddImagesSplash,
               child: SizedBox(
                   width: AppSizes.size60,
                   height: AppSizes.size60,
                   child: Icon(
                     Icons.add_a_photo,
-                    color: AppColors.tertiaryColor,
+                    color: AppColors.insertAdIconSmallButtonAddImages,
                     size: AppSizes.size40,
                   )),
-              onTap: () => loadAssets2(),
+              onTap: () => openGaleryImages(),
             ),
           ),
         ),
@@ -187,9 +207,9 @@ class InsertAdsFormState extends State<InsertAdsForm> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 10),
       child: TextFieldDefaultAplication(
-        labelText: "Title",
-        hintText: "Type your ad title",
-        helperText: "Ex: Gol quadrado 1995",
+        labelText: AppTexts().labelTextFieldTitleInsertAd,
+        hintText: AppTexts().hintTextFieldTitleInsertAd,
+        helperText: AppTexts().helperTextFieldTitleInsertAd,
         prefixIcon: Icons.title,
         inputController: _titleController,
         keyboardType: TextInputType.text,
@@ -204,9 +224,9 @@ class InsertAdsFormState extends State<InsertAdsForm> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 10),
       child: TextFieldDefaultAplication(
-        labelText: "Description",
-        hintText: "Type your ad description",
-        helperText: "Ex: Este veiculo é muito lindo e confortavel.",
+        labelText: AppTexts().labelTextFieldDescriptionInsertAd,
+        hintText: AppTexts().hintTextFieldDescriptionInsertAd,
+        helperText: AppTexts().helperTextFieldDescriptionInsertAd,
         prefixIcon: Icons.description,
         inputController: _descriptionController,
         maxLines: null,
@@ -224,8 +244,8 @@ class InsertAdsFormState extends State<InsertAdsForm> {
       child: DropDownButtonSelectorDefault(
         prefixIcon: Icons.category,
         suffixIcon: Icons.arrow_drop_down,
-        hint: "Category",
-        helperText: "Selecione ma categoria para o seu produto",
+        hint: AppTexts().hintTextFieldCategoryInsertAd,
+        helperText: AppTexts().helperTextFieldCategoryInsertAd,
         items: AppTexts().categoryAdsTypesList,
         value: selectedItemOfCategoryType,
         onChanged: (String newItemSelected) {
@@ -243,7 +263,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
     });
   }
 
-  Widget returnRowValueFieldAndButtonSubmit() {
+  Widget returnRowValueFieldAndButtonSubmit(InsertAdsState state) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
@@ -253,9 +273,9 @@ class InsertAdsFormState extends State<InsertAdsForm> {
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
             child: TextFieldDefaultAplication(
-              labelText: "Value",
-              hintText: "0.00",
-              helperText: "Value por hora",
+              labelText: AppTexts().labelTextFieldValueInsertAd,
+              hintText: AppTexts().hintTextFieldValueInsertAd,
+              helperText: AppTexts().helperTextFieldValueInsertAd,
               prefixIcon: Icons.monetization_on,
               inputController: _valueController,
               keyboardType: TextInputType.number,
@@ -264,33 +284,63 @@ class InsertAdsFormState extends State<InsertAdsForm> {
             ),
           ),
         ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: ButtonFormDefault(
-              heightButton: AppSizes.size60,
-              textButton: "Save",
-              color: AppColors.tertiaryColor,
-              onPressed: onSubmitNewInsert,
-            ),
-          ),
-        ),
+        state is InsertAdsLoadingPage
+            ? Expanded(
+                child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                        height: AppSizes.size60,
+                        child: Center(child: returnsLinearProgressLoading))),
+              )
+            : Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: ButtonFormDefault(
+                    heightButton: AppSizes.size60,
+                    textButton: AppTexts().saveSubmitInsertAd,
+                    color: AppColors.insertAdSubmitButton,
+                    onPressed: () {
+                      onSubmitNewInsertValidateFields(state);
+                    },
+                  ),
+                ),
+              ),
       ],
     );
   }
 
-  onSubmitNewInsert() {
-    imagesFile == null || imagesFile.length == 0
-        ? functionShowSnackBarErrors('Adicione pelomenos 1 imagem', 5)
-        : haveBigImage
-            ? functionShowSnackBarErrors(
-                'OBSERVE AS IMAGENS: Tem uma Imagem muito grande, coloque imagens de até 10mb.',
-                10)
-            : false;
-    print(
-        "have big value  ###################################################################### " +
-            haveBigImage.toString());
-    print("submit new ad");
+  Widget get returnsLinearProgressLoading {
+    return CircularProgressIndicator(
+      backgroundColor: AppColors.insertAdSubmitButtonLoadingPrimary,
+      valueColor: AlwaysStoppedAnimation<Color>(
+          AppColors.insertAdSubmitButtonLoadingSecondary),
+    );
+  }
+
+  onSubmitNewInsertValidateFields(InsertAdsState state) {
+    state is! InsertAdsLoadingPage
+        ? _keyFormInsertNewAd.currentState.validate()
+            ? imagesFile == null || imagesFile.length < 1
+                ? functionShowSnackBarErrors(
+                    AppTexts().errorAddOneImageInsertAd, 5)
+                : haveBigImage
+                    ? functionShowSnackBarErrors(
+                        AppTexts().errorBigImageInsertAd, 10)
+                    : insertNewAd()
+            : functionShowSnackBarErrors(
+                AppTexts().errorFieldMandatoryInsertAd, 5)
+        : false;
+  }
+
+  insertNewAd() {
+    Ad newAd = new Ad();
+    newAd.title = _titleController.text;
+    newAd.description = _descriptionController.text;
+    newAd.category = selectedItemOfCategoryType.toString();
+    newAd.value = _valueController.text;
+    newAd.images = imagesFile;
+
+    BlocProvider.of<InsertAdsBloc>(context).add(SubmitNewAds(newAd));
   }
 
   functionShowSnackBarErrors(String message, int duration) {

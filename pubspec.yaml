@@ -34,6 +34,8 @@ dependencies:
   flutter_rating_bar: ^3.2.0+1
   multi_image_picker: ^4.7.10
   flutter_absolute_path: ^1.0.6
+  path: ^1.7.0
+  http_parser: ^3.1.4
 
 dev_dependencies:
   flutter_test:

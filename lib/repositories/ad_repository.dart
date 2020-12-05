@@ -12,10 +12,8 @@ class AdRepository {
     return ads;
   }
 
-  Future<List> addAdRepository(String image, String token) async {
-    List ads = await adApiClient.addAdComponents(image, token);
-    return ads;
-  }
+  Future addAdRepository(Ad ad, String token) async =>
+      await adApiClient.addAdComponents(ad, token);
 
   Future deleteAdRepository(String id, String token) async {
     await adApiClient.deleteAdComponents(id, token);

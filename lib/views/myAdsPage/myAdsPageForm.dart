@@ -34,41 +34,47 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                       ? returnBodyOnFailure()
                       : state is ShowMyAdProduct
                           ? state.ads.length > 0
-                              ? ListView.builder(
-                                  itemCount: state.ads.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      height: heightBodyScaffold * 0.30,
-                                      width: screenWidth,
-                                      margin: EdgeInsets.only(
-                                          top: AppSizes.size8,
-                                          bottom:
-                                              (state.ads.length - 1) == index
-                                                  ? AppSizes.size85
-                                                  : 0),
-                                      child: AdsMaterialButton(
-                                        listAds: state.ads,
-                                        indexListAds: index,
-                                        elevationButton: AppSizes.size4,
-                                        onPressedAds: () {
-                                          navigationToTheAdScreen(
-                                            state.ads[index].id,
-                                            state.ads[index].title,
-                                            state.ads[index].description,
-                                            state.ads[index].value,
-                                            state.ads[index].images,
-                                          );
-                                        },
-                                        onPressedEditAds: () {
-                                          navigationToTheEditAdScreen();
-                                        },
-                                        onPressedDeleteAds: () {
-                                          deleteTheAd(state.ads[index].id,
-                                              state.ads, index);
-                                        },
-                                      ),
-                                    );
+                              ? RefreshIndicator(
+                                  onRefresh: () async {
+                                    BlocProvider.of<MyAdProductBloc>(context)
+                                        .add(MyAdsPageStarted());
                                   },
+                                  child: ListView.builder(
+                                    itemCount: state.ads.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        height: heightBodyScaffold * 0.30,
+                                        width: screenWidth,
+                                        margin: EdgeInsets.only(
+                                            top: AppSizes.size8,
+                                            bottom:
+                                                (state.ads.length - 1) == index
+                                                    ? AppSizes.size85
+                                                    : 0),
+                                        child: AdsMaterialButton(
+                                          listAds: state.ads,
+                                          indexListAds: index,
+                                          elevationButton: AppSizes.size4,
+                                          onPressedAds: () {
+                                            navigationToTheAdScreen(
+                                              state.ads[index].id,
+                                              state.ads[index].title,
+                                              state.ads[index].description,
+                                              state.ads[index].value,
+                                              state.ads[index].images,
+                                            );
+                                          },
+                                          onPressedEditAds: () {
+                                            navigationToTheEditAdScreen();
+                                          },
+                                          onPressedDeleteAds: () {
+                                            deleteTheAd(state.ads[index].id,
+                                                state.ads, index);
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 )
                               : Center(
                                   child: Padding(

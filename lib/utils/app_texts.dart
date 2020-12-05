@@ -314,6 +314,7 @@ class AppTexts {
   static const String myAdsProductLocatorTelephones = "Telephones:";
 
   //Insert Ads Texts
+  String titleInsertAd = "Inserting a New Ad";
   List<String> categoryAdsTypesList = [
     'Vehicle',
     'Communication',
@@ -325,4 +326,35 @@ class AppTexts {
     "Machine",
     "Toys",
   ];
+  String titleRequiredInsertAd = "* Title Required";
+  String invalidTitleInsertAd = '* Invalid Title. Ex: Compact Car 1995';
+  String descriptionRequiredInsertAd = "* Description Required";
+  String invalidDescriptionInsertAd =
+      '* Invalid Description. Ex: The product is very resistant and easy to handle.';
+  String categoryRequiredInsertAd = '* Category Types Required';
+  String valueRequiredInsertAd = '* Value Required';
+  String invalidValueInsertAd = '* Invalid Value Product. Ex: 10.00 or 0.50';
+  String clickAddImagesInsertAd = "Click to Add Images";
+  String getImagesInsertAd = "Get Images";
+  String titleGaleryImagesInsertAd = "All Photos";
+  String messageAlertImagesInsertAd = "You can select up to 5 images";
+  String labelTextFieldTitleInsertAd = "Title";
+  String hintTextFieldTitleInsertAd = "Type your ad title";
+  String helperTextFieldTitleInsertAd = "Ex: Compact Car 1995";
+  String labelTextFieldDescriptionInsertAd = "Description";
+  String hintTextFieldDescriptionInsertAd = "Type your ad description";
+  String helperTextFieldDescriptionInsertAd =
+      "Ex: This vehicle is very beautiful and comfortable.";
+  String hintTextFieldCategoryInsertAd = "Category";
+  String helperTextFieldCategoryInsertAd = "Select a category for your product";
+  String labelTextFieldValueInsertAd = "Value";
+  String hintTextFieldValueInsertAd = "0.00";
+  String helperTextFieldValueInsertAd = "Value/Hr";
+  String saveSubmitInsertAd = "Save";
+  String errorAddOneImageInsertAd = "Add at least 2 image";
+  String errorBigImageInsertAd =
+      "OBSERVE THE IMAGES: It has a very large Image, put images up to 10mb.";
+  String warningBigImageInsertAd = "The image size must be a maximum of 10 mb.";
+  String errorFieldMandatoryInsertAd = "* Attention: All fields are mandatory";
+  String createNewAdSuccessInsertAd = "Create New Ad Success";
 }

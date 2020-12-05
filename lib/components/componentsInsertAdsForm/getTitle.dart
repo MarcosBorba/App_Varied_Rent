@@ -10,19 +10,19 @@ class TitleInsertAd extends StatelessWidget {
 
   TitleInsertAd({
     Key key,
-    this.titleColor = AppColors.titleAdsProduct,
-    this.titleBackgroundColor = AppColors.titleAdsProductBackground,
+    this.titleColor = AppColors.titleInsertAd,
+    this.titleBackgroundColor = AppColors.titleInsertAdBackground,
     this.sizeStars,
     this.titleSize,
     this.backgroundHeight,
   });
   @override
   Widget build(BuildContext context) {
-    String titleAd = "Inserindo Um Novo Anúncio";
+    String titleAd = AppTexts().titleInsertAd;
     return new Material(
       elevation: 7,
       child: new Container(
-        color: titleColor,
+        color: titleBackgroundColor,
         height: backgroundHeight == null ? AppSizes.size100 : backgroundHeight,
         width: screenWidth,
         padding: EdgeInsets.only(
@@ -39,7 +39,7 @@ class TitleInsertAd extends StatelessWidget {
               maxLines: 2,
               style: TextStyle(
                 fontSize: titleSize == null ? AppFontSize.s25 : titleSize,
-                color: titleBackgroundColor,
+                color: titleColor,
                 fontWeight: FontWeight.w500,
               ),
             ),

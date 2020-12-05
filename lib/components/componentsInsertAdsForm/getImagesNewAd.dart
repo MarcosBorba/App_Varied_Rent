@@ -11,7 +11,6 @@ class ImagesNewAd extends StatefulWidget {
   State<StatefulWidget> createState() => ImagesNewAdState();
 }
 
-//TODO: nivel 4: texts, colors, sizes......
 class ImagesNewAdState extends State<ImagesNewAd> {
   final Color backgroundOpacityImages;
   final double imagesHeight;
@@ -75,7 +74,7 @@ class ImagesNewAdState extends State<ImagesNewAd> {
                           ),
                           Center(
                             child: Text(
-                              "O tamanho da imagem deve ter no maximo 10 mb.",
+                              AppTexts().warningBigImageInsertAd,
                               textAlign: TextAlign.center,
                             ),
                           ),

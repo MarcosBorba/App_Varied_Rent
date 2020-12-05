@@ -175,4 +175,19 @@ class AppColors {
   static const Color adsProductQuestionTitle = Colors.blue;
   static const Color adsProductAnswerTitle = Colors.green;
   static const Color adsProductIconEditAnswer = Colors.black;
+  //Insert new Ad Page
+  static const Color insertAdStatusBar = AppColors.tertiaryColor;
+  static const Color insertAdBackground = Colors.white;
+  static const Color insertAdBigButtonAddImages = Colors.white;
+  static const Color insertAdSmallButtonAddImages = Colors.white;
+  static const Color insertAdSmallButtonAddImagesSplash =
+      AppColors.secondaryColor;
+  static const Color insertAdIconSmallButtonAddImages = AppColors.tertiaryColor;
+  static const Color insertAdSubmitButton = AppColors.tertiaryColor;
+  static const Color insertAdSubmitButtonLoadingPrimary =
+      AppColors.secondaryColor;
+  static const Color insertAdSubmitButtonLoadingSecondary =
+      AppColors.tertiaryColor;
+  static const Color titleInsertAd = Colors.white;
+  static const Color titleInsertAdBackground = AppColors.tertiaryColor;
 }

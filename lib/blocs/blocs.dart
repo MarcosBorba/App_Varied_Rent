@@ -6,3 +6,4 @@ export './editProfileData_bloc/editProfileData.dart';
 export './editAddressData_bloc/editAddressData.dart';
 export './myAdsPage_bloc/myAdsPageBloc.dart';
 export './myAdsProduct_bloc/myAdProductBloc.dart';
+export './insertAdsPage_bloc/insertAdsPageBloc.dart';
