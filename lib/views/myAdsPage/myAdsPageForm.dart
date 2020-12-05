@@ -5,9 +5,10 @@ import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/editAdsPages/editAdsPage.dart';
+import 'package:varied_rent/views/editAdsPages/editAdsProductInheritedClass.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductPage.dart';
 
-//TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
 class MyAdsPageForm extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MyAdsPageFormState();
@@ -65,7 +66,13 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                             );
                                           },
                                           onPressedEditAds: () {
-                                            navigationToTheEditAdScreen();
+                                            navigationToTheEditAdScreen(
+                                              state.ads[index].id,
+                                              state.ads[index].title,
+                                              state.ads[index].description,
+                                              state.ads[index].value,
+                                              state.ads[index].images,
+                                            );
                                           },
                                           onPressedDeleteAds: () {
                                             deleteTheAd(state.ads[index].id,
@@ -132,8 +139,19 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
         ));
   }
 
-  navigationToTheEditAdScreen() {
-    print("navigation to edit ad screen");
+  navigationToTheEditAdScreen(String id, String titleAd, String descriptionAd,
+      String valueAd, List imagesAd) {
+    AppRoutes.push(
+      context,
+      CacheProviderEditAd(
+        id,
+        titleAd,
+        descriptionAd,
+        valueAd,
+        imagesAd,
+        EditAdsPage(),
+      ),
+    );
   }
 
   deleteTheAd(String id, List<Ad> ads, int index) {
