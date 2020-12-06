@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/insertAdsPages/insertAdsProductInheritedClass.dart';
-import 'package:varied_rent/views/insertAdsPages/myAdsProductShowImages.dart';
 
 class ImagesNewAd extends StatefulWidget {
   @override
@@ -74,7 +74,7 @@ class ImagesNewAdState extends State<ImagesNewAd> {
                           ),
                           Center(
                             child: Text(
-                              AppTexts().warningBigImageInsertAd,
+                              AppTexts().warningBigImageAd,
                               textAlign: TextAlign.center,
                             ),
                           ),

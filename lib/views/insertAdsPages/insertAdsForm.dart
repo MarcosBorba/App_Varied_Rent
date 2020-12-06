@@ -21,7 +21,6 @@ class InsertAdsForm extends StatefulWidget {
 class InsertAdsFormState extends State<InsertAdsForm> {
   List<Asset> imagesSelected = List<Asset>();
   List<ImageFile> imagesFile = List<ImageFile>();
-  SwiperController swiperController = SwiperController();
   UniqueKey keyImages = UniqueKey();
   GlobalKey<FormState> _keyFormInsertNewAd = GlobalKey<FormState>();
   TextEditingController _titleController = TextEditingController();
@@ -59,7 +58,6 @@ class InsertAdsFormState extends State<InsertAdsForm> {
           return CacheProviderInsertAd(
             imagesSelected,
             imagesFile,
-            swiperController,
             keyImages,
             Form(
               key: _keyFormInsertNewAd,
@@ -72,9 +70,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
                   child: ListView(
                     children: <Widget>[
                       returnHeader(),
-                      SizedBox(
-                        height: screenHeight * 0.02,
-                      ),
+                      SizedBox(height: screenHeight * 0.02),
                       imagesFile != null && imagesFile.length > 0
                           ? returnImagesAd()
                           : Container(
@@ -90,7 +86,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
                                       Icons.camera_enhance,
                                       size: AppSizes.size100,
                                     ),
-                                    Text(AppTexts().clickAddImagesInsertAd),
+                                    Text(AppTexts().clickAddImagesAd),
                                   ],
                                 ),
                                 onPressed: openGaleryImages,
@@ -127,10 +123,10 @@ class InsertAdsFormState extends State<InsertAdsForm> {
         materialOptions: MaterialOptions(
             actionBarColor: "#059dc0",
             statusBarColor: "#059dc0",
-            actionBarTitle: AppTexts().getImagesInsertAd,
-            allViewTitle: AppTexts().titleGaleryImagesInsertAd,
+            actionBarTitle: AppTexts().getImagesAd,
+            allViewTitle: AppTexts().titleGaleryImagesAd,
             selectCircleStrokeColor: "#000000",
-            selectionLimitReachedText: AppTexts().messageAlertImagesInsertAd),
+            selectionLimitReachedText: AppTexts().messageAlertImagesAd),
       );
     } on PlatformException catch (e) {} on NoImagesSelectedException catch (e) {} on Exception catch (e) {}
 
@@ -207,9 +203,9 @@ class InsertAdsFormState extends State<InsertAdsForm> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 10),
       child: TextFieldDefaultAplication(
-        labelText: AppTexts().labelTextFieldTitleInsertAd,
-        hintText: AppTexts().hintTextFieldTitleInsertAd,
-        helperText: AppTexts().helperTextFieldTitleInsertAd,
+        labelText: AppTexts().labelTextFieldTitleAd,
+        hintText: AppTexts().hintTextFieldTitleAd,
+        helperText: AppTexts().helperTextFieldTitleAd,
         prefixIcon: Icons.title,
         inputController: _titleController,
         keyboardType: TextInputType.text,
@@ -224,9 +220,9 @@ class InsertAdsFormState extends State<InsertAdsForm> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 10),
       child: TextFieldDefaultAplication(
-        labelText: AppTexts().labelTextFieldDescriptionInsertAd,
-        hintText: AppTexts().hintTextFieldDescriptionInsertAd,
-        helperText: AppTexts().helperTextFieldDescriptionInsertAd,
+        labelText: AppTexts().labelTextFieldDescriptionAd,
+        hintText: AppTexts().hintTextFieldDescriptionAd,
+        helperText: AppTexts().helperTextFieldDescriptionAd,
         prefixIcon: Icons.description,
         inputController: _descriptionController,
         maxLines: null,
@@ -244,8 +240,8 @@ class InsertAdsFormState extends State<InsertAdsForm> {
       child: DropDownButtonSelectorDefault(
         prefixIcon: Icons.category,
         suffixIcon: Icons.arrow_drop_down,
-        hint: AppTexts().hintTextFieldCategoryInsertAd,
-        helperText: AppTexts().helperTextFieldCategoryInsertAd,
+        hint: AppTexts().hintTextFieldCategoryAd,
+        helperText: AppTexts().helperTextFieldCategoryAd,
         items: AppTexts().categoryAdsTypesList,
         value: selectedItemOfCategoryType,
         onChanged: (String newItemSelected) {
@@ -273,9 +269,9 @@ class InsertAdsFormState extends State<InsertAdsForm> {
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
             child: TextFieldDefaultAplication(
-              labelText: AppTexts().labelTextFieldValueInsertAd,
-              hintText: AppTexts().hintTextFieldValueInsertAd,
-              helperText: AppTexts().helperTextFieldValueInsertAd,
+              labelText: AppTexts().labelTextFieldValueAd,
+              hintText: AppTexts().hintTextFieldValueAd,
+              helperText: AppTexts().helperTextFieldValueAd,
               prefixIcon: Icons.monetization_on,
               inputController: _valueController,
               keyboardType: TextInputType.number,
@@ -297,7 +293,7 @@ class InsertAdsFormState extends State<InsertAdsForm> {
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: ButtonFormDefault(
                     heightButton: AppSizes.size60,
-                    textButton: AppTexts().saveSubmitInsertAd,
+                    textButton: AppTexts().saveSubmitAd,
                     color: AppColors.insertAdSubmitButton,
                     onPressed: () {
                       onSubmitNewInsertValidateFields(state);
@@ -321,14 +317,11 @@ class InsertAdsFormState extends State<InsertAdsForm> {
     state is! InsertAdsLoadingPage
         ? _keyFormInsertNewAd.currentState.validate()
             ? imagesFile == null || imagesFile.length < 1
-                ? functionShowSnackBarErrors(
-                    AppTexts().errorAddOneImageInsertAd, 5)
+                ? functionShowSnackBarErrors(AppTexts().errorAddOneImageAd, 5)
                 : haveBigImage
-                    ? functionShowSnackBarErrors(
-                        AppTexts().errorBigImageInsertAd, 10)
+                    ? functionShowSnackBarErrors(AppTexts().errorBigImageAd, 10)
                     : insertNewAd()
-            : functionShowSnackBarErrors(
-                AppTexts().errorFieldMandatoryInsertAd, 5)
+            : functionShowSnackBarErrors(AppTexts().errorFieldMandatoryAd, 5)
         : false;
   }
 

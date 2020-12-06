@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CacheProviderEditAd extends InheritedWidget {
-  final String idAd;
-  final String titleAd;
-  final String descriptionAd;
-  final String valueAd;
-  final List imagesAd;
+  final UniqueKey keyImages;
+  final List allImages;
   final Widget child;
   CacheProviderEditAd(
-    this.idAd,
-    this.titleAd,
-    this.descriptionAd,
-    this.valueAd,
-    this.imagesAd,
+    this.keyImages,
+    this.allImages,
     this.child, {
     Key key,
   })  : assert(child != null),

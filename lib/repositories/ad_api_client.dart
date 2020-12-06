@@ -4,7 +4,6 @@ import 'package:path/path.dart' as path;
 import 'package:varied_rent/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
-import 'dart:convert';
 
 class AdApiCLient {
   static const baseUrl = 'http://192.168.0.180:3000/adRoute';

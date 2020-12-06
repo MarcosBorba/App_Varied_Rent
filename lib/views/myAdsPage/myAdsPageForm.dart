@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editAdsPages/editAdsPage.dart';
 import 'package:varied_rent/views/editAdsPages/editAdsProductInheritedClass.dart';
+import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductPage.dart';
 
 class MyAdsPageForm extends StatefulWidget {
@@ -72,6 +75,7 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                                               state.ads[index].description,
                                               state.ads[index].value,
                                               state.ads[index].images,
+                                              state.ads[index].category,
                                             );
                                           },
                                           onPressedDeleteAds: () {
@@ -140,16 +144,16 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
   }
 
   navigationToTheEditAdScreen(String id, String titleAd, String descriptionAd,
-      String valueAd, List imagesAd) {
+      String valueAd, List imagesAd, String category) async {
     AppRoutes.push(
       context,
-      CacheProviderEditAd(
-        id,
-        titleAd,
-        descriptionAd,
-        valueAd,
-        imagesAd,
-        EditAdsPage(),
+      EditAdsPage(
+        idAd: id,
+        titleAd: titleAd,
+        descriptionAd: descriptionAd,
+        valueAd: valueAd,
+        imagesAd: imagesAd,
+        category: category,
       ),
     );
   }

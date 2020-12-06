@@ -142,9 +142,9 @@ class FieldValidators {
         r'(^[*\-$!(0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]{1}[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð *\-$!():&]{2,}$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
-      return AppTexts().titleRequiredInsertAd;
+      return AppTexts().titleRequiredAd;
     } else if (!regExp.hasMatch(value)) {
-      return AppTexts().invalidTitleInsertAd;
+      return AppTexts().invalidTitleAd;
     }
     return null;
   }
@@ -154,16 +154,16 @@ class FieldValidators {
         r'(^[*\-$!(0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]{1}[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž0-9A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð *\-$!():&,.]{2,}$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
-      return AppTexts().descriptionRequiredInsertAd;
+      return AppTexts().descriptionRequiredAd;
     } else if (!regExp.hasMatch(value)) {
-      return AppTexts().invalidDescriptionInsertAd;
+      return AppTexts().invalidDescriptionAd;
     }
     return null;
   }
 
   String categoryTypeFormNewAdFieldValidator(String value) {
     if (value?.isEmpty ?? true) {
-      return AppTexts().categoryRequiredInsertAd;
+      return AppTexts().categoryRequiredAd;
     }
     return null;
   }
@@ -172,9 +172,9 @@ class FieldValidators {
     String patttern = r'(^[0-9]{1}[0-9.]{1,}[0-9]{1}$)';
     RegExp regExp = new RegExp(patttern);
     if (value.toString().length == 0) {
-      return AppTexts().valueRequiredInsertAd;
+      return AppTexts().valueRequiredAd;
     } else if (!regExp.hasMatch(value.toString())) {
-      return AppTexts().invalidValueInsertAd;
+      return AppTexts().invalidValueAd;
     }
     return null;
   }
