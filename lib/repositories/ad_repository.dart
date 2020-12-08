@@ -18,4 +18,7 @@ class AdRepository {
   Future deleteAdRepository(String id, String token) async {
     await adApiClient.deleteAdComponents(id, token);
   }
+
+  Future updateAdRepository(Ad ad, List imagesAwsRemove, String token) async =>
+      await adApiClient.updateAdComponents(ad, imagesAwsRemove, token);
 }

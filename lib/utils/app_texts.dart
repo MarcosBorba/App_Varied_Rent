@@ -335,7 +335,8 @@ class AppTexts {
       '* Invalid Description. Ex: The product is very resistant and easy to handle.';
   String categoryRequiredAd = '* Category Types Required';
   String valueRequiredAd = '* Value Required';
-  String invalidValueAd = '* Invalid Value Product. Ex: 10.00 or 0.50';
+  String invalidValueAd =
+      '* Invalid Value Product. Ex: 10.00 or 0.50 or 1250.00';
   String clickAddImagesAd = "Click to Add Images";
   String getImagesAd = "Get Images";
   String titleGaleryImagesAd = "All Photos";
@@ -357,5 +358,6 @@ class AppTexts {
   String errorBigImageAd =
       "OBSERVE THE IMAGES: It has a very large Image, put images up to 10mb.";
   String warningBigImageAd = "The image size must be a maximum of 10 mb.";
-  String errorFieldMandatoryAd = "* Attention: All fields are mandatory";
+  String errorFieldMandatoryAd =
+      "* Attention: Check all fields, they are mandatory.";
 }

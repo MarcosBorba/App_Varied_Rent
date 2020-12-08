@@ -169,7 +169,8 @@ class FieldValidators {
   }
 
   String valueFormNewAdFieldValidator(String value) {
-    String patttern = r'(^[0-9]{1}[0-9.]{1,}[0-9]{1}$)';
+    String patttern =
+        r'(^(?!^0\.00$)(?!^00\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$)';
     RegExp regExp = new RegExp(patttern);
     if (value.toString().length == 0) {
       return AppTexts().valueRequiredAd;

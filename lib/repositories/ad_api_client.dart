@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
@@ -73,10 +75,10 @@ class AdApiCLient {
 
     var request = new http.MultipartRequest("POST", userCheckUserUrl)
       ..fields.addAll(jsonNewAdFields);
-    await populatesFiles(newAd.images, request);
+    return await populatesFiles(newAd.images, request);
   }
 
-  Future<int> populatesFiles(
+  Future populatesFiles(
       List<ImageFile> imageFile, http.MultipartRequest request) async {
     await Future.forEach(imageFile, (ImageFile image) async {
       List<int> imageData = image.image.readAsBytesSync();
@@ -97,28 +99,21 @@ class AdApiCLient {
       request.files.add(multipartFile);
     });
 
-    await uploadNewAd(request);
+    return await uploadNewAd(request);
   }
 
   Future uploadNewAd(http.MultipartRequest request) async {
-    var response;
+    http.StreamedResponse response;
     try {
       response = await request.send();
-      /* response.stream.transform(utf8.decoder).listen((value) {
-        print(value);
-      }); */
+      if (response.statusCode != 200) throw new Exception("");
     } catch (error) {
-      print("error message: " + error.message);
-      print("response : " + response.toString());
-      if (error is DioError) {
-        if (error.response == null) {
-          throw new DioError(error: "500 - Internal Server Error");
-        } else {
-          throw new DioError(
-              error: error.response.statusCode.toString() +
-                  " - " +
-                  error.response.data['message']);
-        }
+      if (error.response == null) {
+        throw new DioError(error: "500 - Internal Server Error");
+      } else {
+        throw new DioError(
+          error: response.statusCode.toString() + " - Error Update Ad",
+        );
       }
     }
   }
@@ -151,5 +146,20 @@ class AdApiCLient {
         }
       }
     }
+  }
+
+  Future updateAdComponents(Ad ad, List imagesAwsRemove, String token) async {
+    final updateAdUrl = Uri.parse('$baseUrl/update_ad');
+    final Map<String, String> jsonUpdateAd = {
+      "_id": ad.id,
+      "title": ad.title,
+      "value": ad.value,
+      'description': ad.description,
+      "category": ad.category,
+      "imagesAwsRemove": json.encode(imagesAwsRemove),
+    };
+    var request = new http.MultipartRequest("PUT", updateAdUrl)
+      ..fields.addAll(jsonUpdateAd);
+    await populatesFiles(ad.images, request);
   }
 }

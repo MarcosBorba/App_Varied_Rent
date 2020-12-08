@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
+import 'package:varied_rent/blocs/blocs.dart';
+import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
@@ -16,6 +19,8 @@ class EditAdsForm extends StatefulWidget {
   final List imagesAd;
   final String category;
   final UniqueKey keyImages;
+  final String locator_fk;
+  final List starsEvaluations;
 
   const EditAdsForm(
       {Key key,
@@ -25,18 +30,21 @@ class EditAdsForm extends StatefulWidget {
       this.valueAd,
       this.imagesAd,
       this.category,
-      this.keyImages})
+      this.keyImages,
+      this.locator_fk,
+      this.starsEvaluations})
       : super(key: key);
   @override
   State<StatefulWidget> createState() => EditAdsFormState(
-        idAd: idAd,
-        titleAd: titleAd,
-        descriptionAd: descriptionAd,
-        valueAd: valueAd,
-        imagesContinue: imagesAd,
-        category: category,
-        keyEditImages: keyImages,
-      );
+      idAd: idAd,
+      titleAd: titleAd,
+      descriptionAd: descriptionAd,
+      valueAd: valueAd,
+      imagesContinue: imagesAd,
+      category: category,
+      keyEditImages: keyImages,
+      locator_fk: locator_fk,
+      starsEvaluations: starsEvaluations);
 }
 
 class EditAdsFormState extends State<EditAdsForm> {
@@ -52,6 +60,8 @@ class EditAdsFormState extends State<EditAdsForm> {
   String descriptionAd;
   String valueAd;
   String category;
+  String locator_fk;
+  List starsEvaluations;
 
   List<Asset> imagesSelected = List<Asset>();
 
@@ -62,14 +72,17 @@ class EditAdsFormState extends State<EditAdsForm> {
   bool haveBigImage;
   int acceptHowManyImages;
 
-  EditAdsFormState(
-      {this.idAd,
-      this.titleAd,
-      this.descriptionAd,
-      this.valueAd,
-      this.imagesContinue,
-      this.category,
-      this.keyEditImages});
+  EditAdsFormState({
+    this.idAd,
+    this.titleAd,
+    this.descriptionAd,
+    this.valueAd,
+    this.imagesContinue,
+    this.category,
+    this.keyEditImages,
+    this.locator_fk,
+    this.starsEvaluations,
+  });
 
   @override
   void initState() {
@@ -93,55 +106,82 @@ class EditAdsFormState extends State<EditAdsForm> {
 
   @override
   Widget build(BuildContext context) {
-    return CacheProviderEditAd(
-      keyEditImages,
-      allImages,
-      Form(
-        key: _keyFormEditAd,
-        autovalidate: true,
-        child: Container(
-          height: screenHeight,
-          width: screenWidth,
-          color: Colors.white,
-          child: SafeArea(
-            child: ListView(
-              children: <Widget>[
-                returnHeader(),
-                SizedBox(height: screenHeight * 0.02),
-                allImages != null && allImages.length > 0
-                    ? returnImagesAd()
-                    : Container(
-                        height: screenHeight * 0.40,
-                        width: screenWidth,
-                        child: RaisedButton(
-                          elevation: 10,
-                          color: AppColors.insertAdBigButtonAddImages,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.camera_enhance,
-                                size: AppSizes.size100,
-                              ),
-                              Text(AppTexts().clickAddImagesAd),
-                            ],
-                          ),
-                          onPressed: openGaleryImages,
-                        ),
-                      ),
-                SizedBox(height: AppSizes.size20),
-                returnTitleTextField(),
-                SizedBox(height: AppSizes.size20),
-                returnDescriptionField(),
-                SizedBox(height: AppSizes.size20),
-                returnCategoryField(),
-                SizedBox(height: AppSizes.size20),
-                returnRowValueFieldAndButtonSubmit(),
-                SizedBox(height: AppSizes.size20),
-              ],
+    return BlocListener<EditAdsBloc, EditAdsState>(
+      listener: (context, state) async {
+        if (state is EditAdsFailurePage) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${state.error}'),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 5),
             ),
-          ),
-        ),
+          );
+        } else if (state is SuccessOnEditSubmit) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Update Ad Success"),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 5),
+            ),
+          );
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.of(context).pop(MyAdsPageStarted());
+        }
+      },
+      child: BlocBuilder<EditAdsBloc, EditAdsState>(
+        builder: (context, state) {
+          return CacheProviderEditAd(
+            keyEditImages,
+            allImages,
+            Form(
+              key: _keyFormEditAd,
+              autovalidate: true,
+              child: Container(
+                height: screenHeight,
+                width: screenWidth,
+                color: Colors.white,
+                child: SafeArea(
+                  child: ListView(
+                    children: <Widget>[
+                      returnHeader(),
+                      SizedBox(height: screenHeight * 0.02),
+                      allImages != null && allImages.length > 0
+                          ? returnImagesAd()
+                          : Container(
+                              height: screenHeight * 0.40,
+                              width: screenWidth,
+                              child: RaisedButton(
+                                elevation: 10,
+                                color: AppColors.insertAdBigButtonAddImages,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.camera_enhance,
+                                      size: AppSizes.size100,
+                                    ),
+                                    Text(AppTexts().clickAddImagesAd),
+                                  ],
+                                ),
+                                onPressed: openGaleryImages,
+                              ),
+                            ),
+                      SizedBox(height: AppSizes.size20),
+                      returnTitleTextField(),
+                      SizedBox(height: AppSizes.size20),
+                      returnDescriptionField(),
+                      SizedBox(height: AppSizes.size20),
+                      returnCategoryField(),
+                      SizedBox(height: AppSizes.size20),
+                      returnRowValueFieldAndButtonSubmit(state),
+                      SizedBox(height: AppSizes.size20),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -185,6 +225,7 @@ class EditAdsFormState extends State<EditAdsForm> {
     acceptHowManyImages--;
     imagesAwsRemove.add(value);
     allImages.remove(value);
+    imagesContinue.remove(value);
 
     setState(() {
       print("allImages: " + allImages.toString());
@@ -325,7 +366,7 @@ class EditAdsFormState extends State<EditAdsForm> {
     });
   }
 
-  Widget returnRowValueFieldAndButtonSubmit() {
+  Widget returnRowValueFieldAndButtonSubmit(EditAdsState state) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
@@ -347,20 +388,27 @@ class EditAdsFormState extends State<EditAdsForm> {
             ),
           ),
         ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: ButtonFormDefault(
-              heightButton: AppSizes.size60,
-              textButton: AppTexts().saveSubmitAd,
-              color: AppColors.insertAdSubmitButton,
-              onPressed: () {
-                print("Edit the ad");
-                //onSubmitNewInsertValidateFields();
-              },
-            ),
-          ),
-        ),
+        state is EditAdsLoadingPage
+            ? Expanded(
+                child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                        height: AppSizes.size60,
+                        child: Center(child: returnsLinearProgressLoading))),
+              )
+            : Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: ButtonFormDefault(
+                    heightButton: AppSizes.size60,
+                    textButton: AppTexts().saveSubmitAd,
+                    color: AppColors.insertAdSubmitButton,
+                    onPressed: () {
+                      onSubmitNewInsertValidateFields(state);
+                    },
+                  ),
+                ),
+              ),
       ],
     );
   }
@@ -373,26 +421,33 @@ class EditAdsFormState extends State<EditAdsForm> {
     );
   }
 
-  onSubmitNewInsertValidateFields() {
-    _keyFormEditAd.currentState.validate()
-        ? allImages == null || allImages.length < 1
-            ? functionShowSnackBarErrors(AppTexts().errorAddOneImageAd, 5)
-            : haveBigImage
-                ? functionShowSnackBarErrors(AppTexts().errorBigImageAd, 10)
-                : false
-        : functionShowSnackBarErrors(AppTexts().errorFieldMandatoryAd, 5);
+  onSubmitNewInsertValidateFields(EditAdsState state) {
+    print(_keyFormEditAd.currentState.validate().toString());
+    state is! InsertAdsLoadingPage
+        ? _keyFormEditAd.currentState.validate()
+            ? allImages == null || allImages.length < 2
+                ? functionShowSnackBarErrors(AppTexts().errorAddOneImageAd, 5)
+                : haveBigImage
+                    ? functionShowSnackBarErrors(AppTexts().errorBigImageAd, 10)
+                    : updateAd()
+            : functionShowSnackBarErrors(AppTexts().errorFieldMandatoryAd, 5)
+        : false;
   }
 
-  /* insertNewAd() {
+  updateAd() {
     Ad newAd = new Ad();
+    newAd.id = idAd;
+    newAd.locator_fk = locator_fk;
+    newAd.starsEvaluations = starsEvaluations;
     newAd.title = _titleController.text;
     newAd.description = _descriptionController.text;
     newAd.category = selectedItemOfCategoryType.toString();
     newAd.value = _valueController.text;
-    newAd.images = imagesFile;
+    newAd.images = imagesAwsInsert;
 
-    BlocProvider.of<InsertAdsBloc>(context).add(SubmitNewAds(newAd));
-  } */
+    BlocProvider.of<EditAdsBloc>(context)
+        .add(SubmitEditAds(newAd, imagesAwsRemove));
+  }
 
   functionShowSnackBarErrors(String message, int duration) {
     Scaffold.of(context).showSnackBar(

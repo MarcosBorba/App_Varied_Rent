@@ -11,6 +11,7 @@ import 'package:varied_rent/views/editAdsPages/editAdsPage.dart';
 import 'package:varied_rent/views/editAdsPages/editAdsProductInheritedClass.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductPage.dart';
+import 'package:varied_rent/views/myAdsPage/myAdsPageProductInheritedClass.dart';
 
 class MyAdsPageForm extends StatefulWidget {
   @override
@@ -38,53 +39,59 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
                       ? returnBodyOnFailure()
                       : state is ShowMyAdProduct
                           ? state.ads.length > 0
-                              ? RefreshIndicator(
-                                  onRefresh: () async {
-                                    BlocProvider.of<MyAdProductBloc>(context)
-                                        .add(MyAdsPageStarted());
-                                  },
-                                  child: ListView.builder(
-                                    itemCount: state.ads.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        height: heightBodyScaffold * 0.30,
-                                        width: screenWidth,
-                                        margin: EdgeInsets.only(
-                                            top: AppSizes.size8,
-                                            bottom:
-                                                (state.ads.length - 1) == index
-                                                    ? AppSizes.size85
-                                                    : 0),
-                                        child: AdsMaterialButton(
-                                          listAds: state.ads,
-                                          indexListAds: index,
-                                          elevationButton: AppSizes.size4,
-                                          onPressedAds: () {
-                                            navigationToTheAdScreen(
-                                              state.ads[index].id,
-                                              state.ads[index].title,
-                                              state.ads[index].description,
-                                              state.ads[index].value,
-                                              state.ads[index].images,
-                                            );
-                                          },
-                                          onPressedEditAds: () {
-                                            navigationToTheEditAdScreen(
-                                              state.ads[index].id,
-                                              state.ads[index].title,
-                                              state.ads[index].description,
-                                              state.ads[index].value,
-                                              state.ads[index].images,
-                                              state.ads[index].category,
-                                            );
-                                          },
-                                          onPressedDeleteAds: () {
-                                            deleteTheAd(state.ads[index].id,
-                                                state.ads, index);
-                                          },
-                                        ),
-                                      );
+                              ? CacheProviderAds(
+                                  state.ads,
+                                  RefreshIndicator(
+                                    onRefresh: () async {
+                                      return BlocProvider.of<MyAdProductBloc>(
+                                              context)
+                                          .add(MyAdsPageStarted());
                                     },
+                                    child: ListView.builder(
+                                      itemCount: state.ads.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          height: heightBodyScaffold * 0.30,
+                                          width: screenWidth,
+                                          margin: EdgeInsets.only(
+                                              top: AppSizes.size8,
+                                              bottom: (state.ads.length - 1) ==
+                                                      index
+                                                  ? AppSizes.size85
+                                                  : 0),
+                                          child: AdsMaterialButton(
+                                            indexListAds: index,
+                                            elevationButton: AppSizes.size4,
+                                            onPressedAds: () {
+                                              navigationToTheAdScreen(
+                                                state.ads[index].id,
+                                                state.ads[index].title,
+                                                state.ads[index].description,
+                                                state.ads[index].value,
+                                                state.ads[index].images,
+                                              );
+                                            },
+                                            onPressedEditAds: () async {
+                                              await navigationToTheEditAdScreen(
+                                                state.ads[index].id,
+                                                state.ads[index].title,
+                                                state.ads[index].description,
+                                                state.ads[index].value,
+                                                state.ads[index].images,
+                                                state.ads[index].category,
+                                                state.ads[index].locator_fk,
+                                                state.ads[index]
+                                                    .starsEvaluations,
+                                              );
+                                            },
+                                            onPressedDeleteAds: () {
+                                              deleteTheAd(state.ads[index].id,
+                                                  state.ads, index);
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 )
                               : Center(
@@ -143,9 +150,33 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
         ));
   }
 
-  navigationToTheEditAdScreen(String id, String titleAd, String descriptionAd,
-      String valueAd, List imagesAd, String category) async {
-    AppRoutes.push(
+  navigationToTheEditAdScreen(
+      String id,
+      String titleAd,
+      String descriptionAd,
+      String valueAd,
+      List imagesAd,
+      String category,
+      String locator_fk,
+      List starsEvaluations) async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditAdsPage(
+          idAd: id,
+          titleAd: titleAd,
+          descriptionAd: descriptionAd,
+          valueAd: valueAd,
+          imagesAd: imagesAd,
+          category: category,
+          locator_fk: locator_fk,
+          starsEvaluations: starsEvaluations,
+        ),
+      ),
+    );
+    if (result != null) BlocProvider.of<MyAdProductBloc>(context).add(result);
+
+    /* AppRoutes.push(
       context,
       EditAdsPage(
         idAd: id,
@@ -154,8 +185,10 @@ class MyAdsPageFormState extends State<MyAdsPageForm> {
         valueAd: valueAd,
         imagesAd: imagesAd,
         category: category,
+        locator_fk: locator_fk,
+        starsEvaluations: starsEvaluations,
       ),
-    );
+    ); */
   }
 
   deleteTheAd(String id, List<Ad> ads, int index) {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/myAdsPage/myAdsPageProductInheritedClass.dart';
 
 class AdsMaterialButton extends StatelessWidget {
   final double heightBodyScaffold =
       screenHeight - AppSizes.size60 - statusBarHeight;
-  final List<Ad> listAds;
   final int indexListAds;
   final Color color;
   final double elevationButton;
@@ -17,7 +18,6 @@ class AdsMaterialButton extends StatelessWidget {
 
   AdsMaterialButton({
     Key key,
-    this.listAds,
     this.indexListAds,
     this.color = Colors.white,
     this.elevationButton,
@@ -29,6 +29,7 @@ class AdsMaterialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Ad> listAds = CacheProviderAds.of(context).ads;
     //List<ImageAd> listImages = listAds[indexListAds].images.cast<ImageAd>();
     return MaterialButton(
       color: Colors.white,
@@ -44,42 +45,60 @@ class AdsMaterialButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.size18),
             clipBehavior: Clip.antiAlias,
             child: Container(
-              height: heightBodyScaffold * 0.30,
-              width: screenWidth * 0.40,
-              //List<String>.from(dlist);
-              //dlist.Cast <string> () .ToList ();
-              child: Image.network(
-                listAds[indexListAds].images[0]['url'],
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes
-                          : null,
-                    ),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.broken_image,
-                        color: Colors.red,
-                        size: AppSizes.size50,
-                      ),
-                      Text(
-                        "Error loading image!",
-                        textAlign: TextAlign.center,
+                height: heightBodyScaffold * 0.30,
+                width: screenWidth * 0.40,
+                //List<String>.from(dlist);
+                //dlist.Cast <string> () .ToList ();
+                child: listAds[indexListAds].images.length > 0 &&
+                        listAds[indexListAds].images != null
+                    ? Image.network(
+                        listAds[indexListAds].images[0]['url'],
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes
+                                  : null,
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.broken_image,
+                                color: Colors.red,
+                                size: AppSizes.size50,
+                              ),
+                              Text(
+                                "Error loading image!",
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          );
+                        },
                       )
-                    ],
-                  );
-                },
-              ),
-            ),
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Entypo.picture,
+                            color: Colors.grey[300],
+                            size: AppSizes.size50,
+                          ),
+                          SizedBox(
+                            height: AppSizes.size10,
+                          ),
+                          Text(
+                            "No Images",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      )),
           ),
           Expanded(
             flex: 3,
