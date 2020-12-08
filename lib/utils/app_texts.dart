@@ -360,4 +360,7 @@ class AppTexts {
   String warningBigImageAd = "The image size must be a maximum of 10 mb.";
   String errorFieldMandatoryAd =
       "* Attention: Check all fields, they are mandatory.";
+  ///////////////Edit Ad Page Texts
+  String updateSuccessEditAd = "Update Ad Success";
+  String titlePageEditAd = "Edit Ad";
 }

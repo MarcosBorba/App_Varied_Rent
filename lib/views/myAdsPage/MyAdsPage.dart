@@ -8,7 +8,7 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 
-//TODO: nivel 4 - depois de criar outras telas, adicionar rotas....
+//TODO: nivel 4 - text, depois de criar outras telas, adicionar rotas....
 class MyAdsPage extends StatefulWidget {
   final int typeNavigation;
 

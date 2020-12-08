@@ -20,13 +20,14 @@ class ShowMyAdProduct extends MyAdProductState {
 }
 
 class DeleteMyAdProductSuccess extends MyAdProductState {
-  DeleteMyAdProductSuccess();
+  final List<Ad> ads;
+  const DeleteMyAdProductSuccess({@required this.ads});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [ads];
 
   @override
-  String toString() => 'DeleteMyAdProduct';
+  String toString() => 'DeleteMyAdProduct { ads: $ads }';
 }
 
 class LoadingMyAdProduct extends MyAdProductState {}

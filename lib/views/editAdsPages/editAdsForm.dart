@@ -119,7 +119,7 @@ class EditAdsFormState extends State<EditAdsForm> {
         } else if (state is SuccessOnEditSubmit) {
           Scaffold.of(context).showSnackBar(
             SnackBar(
-              content: Text("Update Ad Success"),
+              content: Text(AppTexts().updateSuccessEditAd),
               backgroundColor: Colors.green,
               duration: Duration(seconds: 5),
             ),
@@ -139,7 +139,7 @@ class EditAdsFormState extends State<EditAdsForm> {
               child: Container(
                 height: screenHeight,
                 width: screenWidth,
-                color: Colors.white,
+                color: AppColors.editAdBackground,
                 child: SafeArea(
                   child: ListView(
                     children: <Widget>[
@@ -152,7 +152,7 @@ class EditAdsFormState extends State<EditAdsForm> {
                               width: screenWidth,
                               child: RaisedButton(
                                 elevation: 10,
-                                color: AppColors.insertAdBigButtonAddImages,
+                                color: AppColors.editAdBigButtonAddImages,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -202,15 +202,15 @@ class EditAdsFormState extends State<EditAdsForm> {
           child: Material(
             elevation: 15,
             shape: CircleBorder(),
-            color: AppColors.insertAdSmallButtonAddImages,
+            color: AppColors.editAdSmallButtonAddImages,
             child: InkWell(
-              splashColor: AppColors.insertAdSmallButtonAddImagesSplash,
+              splashColor: AppColors.editAdSmallButtonAddImagesSplash,
               child: SizedBox(
                   width: AppSizes.size60,
                   height: AppSizes.size60,
                   child: Icon(
                     Icons.add_a_photo,
-                    color: AppColors.insertAdIconSmallButtonAddImages,
+                    color: AppColors.editAdIconSmallButtonAddImages,
                     size: AppSizes.size40,
                   )),
               onTap: () => openGaleryImages(),
@@ -402,7 +402,7 @@ class EditAdsFormState extends State<EditAdsForm> {
                   child: ButtonFormDefault(
                     heightButton: AppSizes.size60,
                     textButton: AppTexts().saveSubmitAd,
-                    color: AppColors.insertAdSubmitButton,
+                    color: AppColors.editAdSubmitButton,
                     onPressed: () {
                       onSubmitNewInsertValidateFields(state);
                     },
@@ -415,9 +415,9 @@ class EditAdsFormState extends State<EditAdsForm> {
 
   Widget get returnsLinearProgressLoading {
     return CircularProgressIndicator(
-      backgroundColor: AppColors.insertAdSubmitButtonLoadingPrimary,
+      backgroundColor: AppColors.editAdSubmitButtonLoadingPrimary,
       valueColor: AlwaysStoppedAnimation<Color>(
-          AppColors.insertAdSubmitButtonLoadingSecondary),
+          AppColors.editAdSubmitButtonLoadingSecondary),
     );
   }
 

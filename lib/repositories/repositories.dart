@@ -7,3 +7,5 @@ export 'evalulation_api_client.dart';
 export 'evaluation_repository.dart';
 export 'questionAndAnswer_api_client.dart';
 export 'questionAndAnswer_repository.dart';
+export 'favorite_ads_api_client.dart';
+export 'favorite_ads_repository.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:varied_rent/utils/utils.dart';
 
-//TODO: nivel 4 definir texts,colors,size.....
 class TitleEditAd extends StatelessWidget {
   final double backgroundHeight;
   final Color titleBackgroundColor;
@@ -11,15 +10,15 @@ class TitleEditAd extends StatelessWidget {
 
   TitleEditAd({
     Key key,
-    this.titleColor = AppColors.titleInsertAd,
-    this.titleBackgroundColor = AppColors.titleInsertAdBackground,
+    this.titleColor = AppColors.titleEditAd,
+    this.titleBackgroundColor = AppColors.titleEditAdBackground,
     this.sizeStars,
     this.titleSize,
     this.backgroundHeight,
   });
   @override
   Widget build(BuildContext context) {
-    String titleAd = "Edit Ad";
+    String titleAd = AppTexts().titlePageEditAd;
     return new Material(
       elevation: 7,
       child: new Container(
@@ -48,7 +47,7 @@ class TitleEditAd extends StatelessWidget {
               padding: EdgeInsets.only(left: AppSizes.size20),
               child: Icon(
                 Icons.edit,
-                color: Colors.white,
+                color: AppColors.iconEditPageAd,
                 size: AppSizes.size30,
               ),
             ),

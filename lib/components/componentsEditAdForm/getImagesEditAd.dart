@@ -7,7 +7,6 @@ import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editAdsPages/editAdsProductInheritedClass.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 
-//TODO: nivel 4: images,colors,texts....
 class ImagesEditAd extends StatefulWidget {
   final Function(dynamic) onRemoveImageDatabase;
 
@@ -73,7 +72,8 @@ class ImagesEditAdState extends State<ImagesEditAd> {
                             height: AppSizes.size60,
                             child: Icon(
                               Icons.delete,
-                              color: Colors.red,
+                              color:
+                                  AppColors.editAdIconSmallButtonDeleteImages,
                               size: AppSizes.size40,
                             )),
                         onTap: () => onRemoveImageDatabase(images[index]),

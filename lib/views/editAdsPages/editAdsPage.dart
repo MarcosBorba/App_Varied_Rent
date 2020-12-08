@@ -66,7 +66,7 @@ class EditAdsPageState extends State<EditAdsPage> {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: AppColors.insertAdStatusBar,
+          statusBarColor: AppColors.editAdStatusBar,
         ),
         child: BlocProvider<EditAdsBloc>(
           create: (_) {

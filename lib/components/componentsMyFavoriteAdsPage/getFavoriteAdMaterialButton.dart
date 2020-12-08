@@ -3,38 +3,35 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/myAdsPage/myAdsPageProductInheritedClass.dart';
+import 'package:varied_rent/views/myFavoritesAdsPages/myFavoritesAdsProductInheritedClass.dart';
 
-class AdsMaterialButton extends StatelessWidget {
-  final double heightBodyScaffold =
-      screenHeight - AppSizes.size60 - statusBarHeight;
+class FavoriteAdMaterialButton extends StatelessWidget {
+  final double heightBodyScaffold = screenHeight - statusBarHeight;
   final int indexListAds;
   final Color color;
   final double elevationButton;
   final double elevationImage;
-  final Function onPressedAds;
-  final Function onPressedEditAds;
-  final Function onPressedDeleteAds;
+  final Function onPressedFavoriteAd;
+  final Function onPressedDeleteFavoriteAd;
 
-  AdsMaterialButton({
+  FavoriteAdMaterialButton({
     Key key,
     this.indexListAds,
     this.color = Colors.white,
     this.elevationButton,
-    this.onPressedAds,
-    this.onPressedEditAds,
-    this.onPressedDeleteAds,
+    this.onPressedFavoriteAd,
+    this.onPressedDeleteFavoriteAd,
     this.elevationImage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Ad> listAds = CacheProviderAds.of(context).ads;
-    //List<ImageAd> listImages = listAds[indexListAds].images.cast<ImageAd>();
+    List<Ad> listAds = CacheProviderFavoriteAds.of(context).ads;
+
     return MaterialButton(
       color: Colors.white,
       elevation: elevationButton == null ? AppSizes.size10 : elevationButton,
-      onPressed: onPressedAds,
+      onPressed: onPressedFavoriteAd,
       padding: EdgeInsets.all(
         AppSizes.size12,
       ),
@@ -42,7 +39,6 @@ class AdsMaterialButton extends StatelessWidget {
         children: <Widget>[
           Material(
             elevation: elevationImage == null ? AppSizes.size3 : elevationImage,
-            //borderRadius: BorderRadius.circular(AppSizes.size18),
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.grey[300]),
               borderRadius: BorderRadius.circular(18.0),
@@ -51,8 +47,6 @@ class AdsMaterialButton extends StatelessWidget {
             child: Container(
                 height: heightBodyScaffold * 0.30,
                 width: screenWidth * 0.40,
-                //List<String>.from(dlist);
-                //dlist.Cast <string> () .ToList ();
                 child: listAds[indexListAds].images.length > 0 &&
                         listAds[indexListAds].images != null
                     ? Image.network(
@@ -191,10 +185,8 @@ class AdsMaterialButton extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         returnBottomButtons(
-                            Icon(Icons.edit), onPressedEditAds, true),
-                        returnBottomButtons(
-                            Icon(Icons.delete_forever, color: Colors.red),
-                            onPressedDeleteAds,
+                            Icon(Icons.favorite, color: Colors.red),
+                            onPressedDeleteFavoriteAd,
                             false),
                       ],
                     ),
@@ -224,6 +216,7 @@ class AdsMaterialButton extends StatelessWidget {
         color: Colors.white,
         elevation: 3,
         shape: RoundedRectangleBorder(
+          side: BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(18.0),
         ),
         child: icon,

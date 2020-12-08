@@ -142,40 +142,40 @@ class AppColors {
   //Colors Edit My Ads Page
   static const Color myAdsIconOnFailure = Colors.red;
 
-  //Colors My Ads Product
+  ///////////////////////////Colors My Ads Product
   static const Color adsProductBackgroundPage = Colors.white;
-  ////Material Title
+  //Material Title
   static const Color titleAdsProduct = tertiaryColor;
   static const Color titleAdsProductBackground = Colors.white;
   static const Color starsAdsProductBackground = Colors.yellow;
   static const Color starsQtdAdsProductBackground = Colors.yellow;
-  ////Images Ad
+  //Images Ad
   static const Color backgroundOpacityImages = tertiaryColor;
-  ////Description
+  //Description
   static const Color adsProducttextDescription = Colors.black87;
   static Color adsProductBorderDescription = Colors.grey[300];
-  ////Questions And Answers
+  //Questions And Answers
   static const Color adsProductIconNoQuestion = AppColors.tertiaryColor;
-  ////Select Evalutions
+  //Select Evalutions
   static const Color adsProductIconStars = Colors.yellow;
   static const Color adsProductIconStarsBorder = Colors.yellow;
-  ////Evaluations
+  //Evaluations
   static const Color adsProductIconNoEvaluation = Colors.yellow;
-  ////Item Evaluation
+  //Item Evaluation
   static const Color adsProductIconTitleAnswer = Colors.blue;
   static const Color adsProductIconStarsItemEvaluation = Colors.yellow;
   static const Color adsProductIconStarsBorderItemEvaluation = Colors.yellow;
-  ////BaseBoxQuestionsAndEvaluations
+  //BaseBoxQuestionsAndEvaluations
   static Color adsProductBaseBoxQuestionsAndEvaluations = Colors.grey[300];
-  ////ShowDialogQuestionAndAnswer
+  //ShowDialogQuestionAndAnswer
   static Color adsProductShowDialogQuestionAndAnswerBackground = Colors.white;
   static Color adsProductShowDialogQuestionAndAnswerContainer =
       Colors.grey[300];
-  ////QuestionAndAnswerItem
+  //QuestionAndAnswerItem
   static const Color adsProductQuestionTitle = Colors.blue;
   static const Color adsProductAnswerTitle = Colors.green;
   static const Color adsProductIconEditAnswer = Colors.black;
-  //Insert new Ad Page
+  ////////////////////////////////////Insert new Ad Page
   static const Color insertAdStatusBar = AppColors.tertiaryColor;
   static const Color insertAdBackground = Colors.white;
   static const Color insertAdBigButtonAddImages = Colors.white;
@@ -190,4 +190,23 @@ class AppColors {
       AppColors.tertiaryColor;
   static const Color titleInsertAd = Colors.white;
   static const Color titleInsertAdBackground = AppColors.tertiaryColor;
+  ////////////////////////////////////Edit Ad Page colors
+  static const Color editAdStatusBar = AppColors.tertiaryColor;
+  static const Color editAdBackground = Colors.white;
+  static const Color editAdSubmitButton = AppColors.tertiaryColor;
+  static const Color editAdSubmitButtonLoadingPrimary =
+      AppColors.secondaryColor;
+  static const Color editAdSubmitButtonLoadingSecondary =
+      AppColors.tertiaryColor;
+  static const Color editAdBigButtonAddImages = Colors.white;
+  static const Color titleEditAd = Colors.white;
+  static const Color titleEditAdBackground = AppColors.tertiaryColor;
+  static const Color iconEditPageAd = Colors.white;
+  static const Color editAdSmallButtonAddImages = Colors.white;
+  static const Color editAdSmallButtonAddImagesSplash =
+      AppColors.secondaryColor;
+  static const Color editAdIconSmallButtonAddImages = AppColors.tertiaryColor;
+  static const Color editAdIconSmallButtonDeleteImages = Colors.red;
+  ////////////////////////////////////Favorites Ad Page Colors
+  static const Color favoriteAdsStatusBar = Colors.white;
 }

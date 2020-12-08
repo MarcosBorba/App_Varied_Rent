@@ -8,8 +8,6 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/editAdsPages/editAdsPage.dart';
-import 'package:varied_rent/views/editAdsPages/editAdsProductInheritedClass.dart';
-import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 import 'package:varied_rent/views/myAdProductPages/myAdsProductPage.dart';
 import 'package:varied_rent/views/myAdsPage/myAdsPageProductInheritedClass.dart';
 
@@ -19,7 +17,7 @@ class MyAdsPageForm extends StatefulWidget {
 }
 
 class MyAdsPageFormState extends State<MyAdsPageForm> {
-  double heightBodyScaffold = screenHeight - AppSizes.size60 - statusBarHeight;
+  double heightBodyScaffold = screenHeight - statusBarHeight;
 
   @override
   Widget build(BuildContext context) {

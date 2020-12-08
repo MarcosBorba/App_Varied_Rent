@@ -19,6 +19,7 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/myAccountPage/myAccountPage.dart';
 import 'package:varied_rent/views/myAdsPage/MyAdsPage.dart';
+import 'package:varied_rent/views/myFavoritesAdsPages/myFavoritesAdsPage.dart';
 
 //TODO: nivel - 4 depois de criar outras telas, adicionar a navegacao de cada uma
 
@@ -415,7 +416,7 @@ class HomePageState extends State<HomePage> {
   }
 
   navigationFunctionForFavoritesScreen() {
-    print("navega para tela de favoritos");
+    AppRoutes.push(context, MyFavoritesAdsPage());
   }
 
   logoutFunctionAndNavigationToTheLoginScreen() {
