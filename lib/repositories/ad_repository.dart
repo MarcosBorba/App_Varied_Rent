@@ -12,6 +12,13 @@ class AdRepository {
     return ads;
   }
 
+  Future getInfoAdRepository(
+      String adFk, String userId, String locatorFk, String token) async {
+    List ads =
+        await adApiClient.getInfoAdComponents(adFk, userId, locatorFk, token);
+    return ads;
+  }
+
   Future addAdRepository(Ad ad, String token) async =>
       await adApiClient.addAdComponents(ad, token);
 

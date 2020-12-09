@@ -5,6 +5,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 import 'package:varied_rent/models/models.dart';
 import 'package:http/http.dart' as http;
+import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 
 class AdApiCLient {
@@ -61,6 +62,59 @@ class AdApiCLient {
       );
     }
     return lista;
+  }
+
+  Future<List<dynamic>> getInfoAdComponents(
+      String adFk, String userId, String locatorFk, String token) async {
+    //_ad_fk, _user_id, _locator_fk
+    final infoAdCheckUrl = '$baseUrl/get_info_ad';
+    List infoAdList = [];
+    final Map<String, dynamic> jsonInfoAdProduct = {
+      "_ad_fk": adFk,
+      "_user_id": userId,
+      "_locator_fk": locatorFk,
+    };
+    Response<Map> infoAdResponse;
+    try {
+      infoAdResponse = await dio.get(
+        infoAdCheckUrl,
+        queryParameters: jsonInfoAdProduct,
+        options: Options(
+          headers: {'x-access-token': token},
+        ),
+      );
+    } catch (error) {
+      print("error message: " + error.message);
+      if (error is DioError) {
+        if (error.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: error.response.statusCode.toString() +
+                  " - " +
+                  error.response.data['message']);
+        }
+      }
+    }
+    User userLocator = new User();
+    infoAdList.add(
+      await userLocator.fromJsonSharedPrefenrence(
+        infoAdResponse.data['userLocator'],
+      ),
+    );
+    infoAdList.add(infoAdResponse.data['favoriteAd']);
+
+    infoAdList.add(
+      await QuestionAndAnswerApiCLient().populateQuestionAndAnswerAd(
+        infoAdResponse.data,
+      ),
+    );
+    infoAdList.add(
+      await EvaluationApiCLient().populateEvaluationAds(
+        infoAdResponse.data,
+      ),
+    );
+    return infoAdList;
   }
 
   Future addAdComponents(Ad newAd, String token) async {

@@ -12,3 +12,4 @@ export 'componentsMyAdsPage/componentsMyAdsPage.dart';
 export 'componentsInsertAdsForm/componentsInsertAds.dart';
 export 'componentsEditAdForm/componentsEditAd.dart';
 export 'componentsMyFavoriteAdsPage/getMyFavoriteAdsComponents.dart';
+export 'componentsAdProduct/componentsAdProduct.dart';

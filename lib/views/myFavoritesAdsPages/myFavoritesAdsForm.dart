@@ -5,6 +5,7 @@ import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
+import 'package:varied_rent/views/adProductPages/adProductPage.dart';
 import 'package:varied_rent/views/myFavoritesAdsPages/myFavoritesAdsProductInheritedClass.dart';
 
 class MyFavoritesAdsForm extends StatefulWidget {
@@ -60,6 +61,7 @@ class MyFavoritesAdsFormState extends State<MyFavoritesAdsForm> {
                                                 state.ads[index].description,
                                                 state.ads[index].value,
                                                 state.ads[index].images,
+                                                state.ads[index].locator_fk,
                                               );
                                             },
                                             onPressedDeleteFavoriteAd:
@@ -144,17 +146,18 @@ class MyFavoritesAdsFormState extends State<MyFavoritesAdsForm> {
   }
 
   navigationToTheAdScreen(String id, String titleAd, String descriptionAd,
-      String valueAd, List imagesAd) {
-    print("navigatioooooooooooooooooooonn");
-    /* AppRoutes.push(
-        context,
-        MyAdsProductPage(
-          idAd: id,
-          titleAd: titleAd,
-          descriptionAd: descriptionAd,
-          valueAd: valueAd,
-          imagesAd: imagesAd,
-        )); */
+      String valueAd, List imagesAd, String locatorFk) {
+    AppRoutes.push(
+      context,
+      AdProductPage(
+        idAd: id,
+        titleAd: titleAd,
+        descriptionAd: descriptionAd,
+        valueAd: valueAd,
+        imagesAd: imagesAd,
+        locatorFk: locatorFk,
+      ),
+    );
   }
 
   deleteTheFavoriteAd(String adId, String locatorFk, List<Ad> ads, int index) {

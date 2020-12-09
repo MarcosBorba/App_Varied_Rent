@@ -9,3 +9,4 @@ export './myAdsProduct_bloc/myAdProductBloc.dart';
 export './insertAdsPage_bloc/insertAdsPageBloc.dart';
 export './editAdspage_bloc/editAdsPageBloc.dart';
 export './favoriteAds_bloc/favoriteAdsBloc.dart';
+export './adProduct_bloc/adProductBloc.dart';

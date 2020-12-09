@@ -38,6 +38,7 @@ class QuestionAndAnswerApiCLient {
         }
       }
     }
+    print("question type: " + questionAndAnswerResponse.data.toString());
     questionsAndAnswersList =
         await populateQuestionAndAnswerAd(questionAndAnswerResponse.data);
 
