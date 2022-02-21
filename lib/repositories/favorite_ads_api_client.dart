@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:varied_rent/models/models.dart';
 
 class FavoriteAdApiCLient {
-  static const baseUrl = 'http://192.168.0.180:3000/favoriteAdsRoute';
+  //static const baseUrl = 'http://192.168.43.31:3000/favoriteAdsRoute';
   Dio dio = new Dio();
   FavoriteAdApiCLient();
+  static String get baseUrl => DotEnv().env['urlApi'] + '/favoriteAdsRoute';
 
   Future<List<Ad>> getFavoriteAds(String idUserLoggedIn, String token) async {
     final userCheckUserUrl = '$baseUrl/get_favorite_ad_one_user';
@@ -74,6 +76,38 @@ class FavoriteAdApiCLient {
           headers: {'x-access-token': token},
         ),
       );
+    } catch (error) {
+      print("error message: " + error.message);
+      if (error is DioError) {
+        if (error.response == null) {
+          throw new DioError(error: "500 - Internal Server Error");
+        } else {
+          throw new DioError(
+              error: error.response.statusCode.toString() +
+                  " - " +
+                  error.response.data['message']);
+        }
+      }
+    }
+  }
+
+  Future addFavoriteAd(String adFk, String locatorFk, String token) async {
+    final addAdUrl = '$baseUrl/add_favorite_ad';
+    final Map<String, dynamic> jsonId = {
+      "_ad_fk": adFk,
+      "_locator_fk": locatorFk
+    };
+    Response<Map> adsResponse;
+    try {
+      print("add Function");
+      adsResponse = await dio.post(
+        addAdUrl,
+        data: jsonId,
+        options: Options(
+          headers: {'x-access-token': token},
+        ),
+      );
+      print(adsResponse);
     } catch (error) {
       print("error message: " + error.message);
       if (error is DioError) {

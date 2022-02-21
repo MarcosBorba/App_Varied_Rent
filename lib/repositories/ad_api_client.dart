@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 import 'package:varied_rent/models/models.dart';
@@ -9,9 +10,10 @@ import 'package:varied_rent/repositories/repositories.dart';
 import 'package:varied_rent/views/insertAdsPages/imageFile.dart';
 
 class AdApiCLient {
-  static const baseUrl = 'http://192.168.0.180:3000/adRoute';
+  //static const baseUrl = 'http://192.168.43.31:3000/adRoute';
   Dio dio = new Dio();
   AdApiCLient();
+  static String get baseUrl => DotEnv().env['urlApi'] + '/adRoute';
 
   Future<List<Ad>> getAdsComponents(String idUserLoggedIn, String token) async {
     final userCheckUserUrl = '$baseUrl/get_ads_one_user';

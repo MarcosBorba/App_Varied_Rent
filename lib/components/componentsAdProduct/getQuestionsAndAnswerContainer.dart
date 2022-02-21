@@ -1,55 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
+import 'package:varied_rent/views/adProductPages/myAdsProductInheritedClass.dart';
 
-class QuestionsAndAnswerContainer extends StatefulWidget {
+class QuestionsAndAnswerAdContainer extends StatefulWidget {
   final Function onSubmitted;
   final Function onEditIconButtonPressed;
   final double containerHeight;
-  final String userNameLocator;
 
-  QuestionsAndAnswerContainer({
+  QuestionsAndAnswerAdContainer({
     Key key,
     this.onSubmitted,
     this.onEditIconButtonPressed,
     this.containerHeight,
-    this.userNameLocator,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => QuestionsAndAnswerContainerState(
+  State<StatefulWidget> createState() => QuestionsAndAnswerAdContainerState(
         onSubmitted: onSubmitted,
         onEditIconButtonPressed: onEditIconButtonPressed,
         containerHeight: containerHeight,
-        userNameLocator: userNameLocator,
       );
 }
 
-class QuestionsAndAnswerContainerState
-    extends State<QuestionsAndAnswerContainer> {
+class QuestionsAndAnswerAdContainerState
+    extends State<QuestionsAndAnswerAdContainer> {
   List<QuestionAndAnswer> questionsAnswers;
   Function onSubmitted;
   Function onEditIconButtonPressed;
   double containerHeight;
-  String userNameLocator;
+  TextEditingController textControllerEditQuestion = TextEditingController();
+  GlobalKey<FormState> _editQuestionFieldKey = GlobalKey();
+  FocusNode focusTextField = FocusNode();
 
-  QuestionsAndAnswerContainerState({
+  QuestionsAndAnswerAdContainerState({
     this.onSubmitted,
     this.onEditIconButtonPressed,
     this.containerHeight,
-    this.userNameLocator,
   });
 
   @override
   Widget build(BuildContext context) {
-    questionsAnswers = CacheProvider.of(context).questionsAndAnswers;
-    userNameLocator = CacheProvider.of(context).nameLocator;
-    String emailLocator = CacheProvider.of(context).emailLocator;
+    questionsAnswers = CacheProviderAdProduct.of(context).questionsAndAnswers;
     return Container(
       height: containerHeight == null ? screenHeight * 0.20 : containerHeight,
       width: screenWidth,
@@ -58,9 +53,11 @@ class QuestionsAndAnswerContainerState
               itemCount: questionsAnswers != null ? questionsAnswers.length : 0,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return QuestionAndAnswerItem(
+                return QuestionAndAnswerItemAd(
                   userNameQuestion:
                       questionsAnswers[index].question.tenant_name,
+                  userEmailQuestion:
+                      questionsAnswers[index].question.tenant_email,
                   dayTimeQuestion:
                       questionsAnswers[index].question.question_date_time,
                   question: questionsAnswers[index].question.question,
@@ -73,42 +70,28 @@ class QuestionsAndAnswerContainerState
                   answer: questionsAnswers[index].answer != null
                       ? questionsAnswers[index].answer.answer
                       : null,
+                  textController: textControllerEditQuestion,
+                  editQuestionFieldKey: _editQuestionFieldKey,
+                  focusTextField: focusTextField,
                   onSubmitted: (value) {
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(DateTime.now());
-                    setState(() {
-                      questionsAnswers[index].answer != null
-                          ? {
-                              questionsAnswers[index].answer.locator_email =
-                                  emailLocator,
-                              questionsAnswers[index].answer.locator_name =
-                                  userNameLocator,
-                              questionsAnswers[index].answer.answer_date_time =
-                                  formattedDate,
-                              questionsAnswers[index].answer.answer = value
-                            }
-                          : questionsAnswers[index].answer = new Answer(
-                              locator_name: userNameLocator,
-                              locator_email: emailLocator,
-                              answer_date_time: formattedDate,
-                              answer: value,
-                            );
-
-                      BlocProvider.of<MyAdProductPageBloc>(context).add(
-                        MyAdProductPageUpdateQuestionAndEvaluation(
-                          questionsAnswers[index],
-                        ),
-                      );
-                    });
+                    _editQuestionFieldKey.currentState.validate()
+                        ? {
+                            focusTextField.unfocus(),
+                            textControllerEditQuestion.clear(),
+                            setState(() {
+                              questionsAnswers[index].question.question = value;
+                              BlocProvider.of<AdProductPageBloc>(context).add(
+                                  AdProductPageEditQuestionAd(
+                                      questionsAnswers[index]));
+                            })
+                          }
+                        : FocusScope.of(context).requestFocus(focusTextField);
                   },
                   onEditIconButtonPressed: () {
                     setState(() {
-                      questionsAnswers[index].answer = null;
-                      BlocProvider.of<MyAdProductPageBloc>(context).add(
-                        MyAdProductPageUpdateQuestionAndEvaluation(
-                          questionsAnswers[index],
-                        ),
-                      );
+                      textControllerEditQuestion.text =
+                          questionsAnswers[index].question.question;
+                      questionsAnswers[index].question.question = null;
                     });
                   },
                 );
@@ -132,5 +115,12 @@ class QuestionsAndAnswerContainerState
               ],
             ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusTextField.dispose();
+    textControllerEditQuestion.dispose();
   }
 }

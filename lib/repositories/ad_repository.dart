@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:varied_rent/models/models.dart';
 import 'package:varied_rent/repositories/ad_api_client.dart';

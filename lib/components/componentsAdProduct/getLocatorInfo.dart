@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:varied_rent/components/components.dart';
 import 'package:varied_rent/utils/utils.dart';
-import 'package:varied_rent/views/myAdProductPages/myAdsProductInheritedClass.dart';
+import 'package:varied_rent/views/adProductPages/myAdsProductInheritedClass.dart';
 
+//TODO: nivel 4 sizes,colors,texts
 class LocatorInfoAdProduct extends StatelessWidget {
   final double heightContainer;
   final double sizeNameText;
@@ -22,14 +23,11 @@ class LocatorInfoAdProduct extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    /* String nameLocator = CacheProvider.of(context).nameLocator;
-    String landlordTypeLocator = CacheProvider.of(context).landlordTypeLocator;
-    String telephone1 = CacheProvider.of(context).telephone1;
-    String telephone2 = CacheProvider.of(context).telephone2; */
-    String nameLocator = "NameLocator";
-    String landlordTypeLocator = "Particulerio";
-    String telephone1 = "ulallau";
-    String telephone2 = "rashi no baki";
+    String nameLocator = CacheProviderAdProduct.of(context).nameLocator;
+    String landlordTypeLocator =
+        CacheProviderAdProduct.of(context).landlordTypeLocator;
+    String telephone1 = CacheProviderAdProduct.of(context).telephone1;
+    String telephone2 = CacheProviderAdProduct.of(context).telephone2;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[

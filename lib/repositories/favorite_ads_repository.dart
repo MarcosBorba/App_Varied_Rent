@@ -16,4 +16,10 @@ class FavoriteAdRepository {
       String id, String locatorFk, String token) async {
     await favoriteAdApiClient.deleteFavoriteAd(id, locatorFk, token);
   }
+
+  Future addFavoriteAdRepository(
+      String id, String locatorFk, String token) async {
+    print("repository");
+    await favoriteAdApiClient.addFavoriteAd(id, locatorFk, token);
+  }
 }

@@ -179,4 +179,15 @@ class FieldValidators {
     }
     return null;
   }
+
+  String questionFormFieldValidator(String value) {
+    String patttern = r'(^[A-Z](?=.*[?])(?=.*[a-zA-Z]).{5,}$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.toString().length == 0) {
+      return '* Question cannot be null';
+    } else if (!regExp.hasMatch(value.toString())) {
+      return '* Invalid Question. Ex: What color is the product?';
+    }
+    return null;
+  }
 }

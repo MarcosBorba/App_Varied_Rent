@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/adProductPages/myAdsProductInheritedClass.dart';
 
-//TODO: nivel 4 - arrumar parte de avaliaçoes, texts, colors, sizes.....
+//TODO: nivel 4 -  texts, colors, sizes.....
 class MaterialAdTitle extends StatelessWidget {
   final double backgroundHeight;
   final Color titleBackgroundColor;
@@ -21,11 +21,11 @@ class MaterialAdTitle extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    //int qtdEvaluations = 0;
-    //double adEvaluations = 0.0;
+    int qtdEvaluations = 0;
+    double adEvaluations = 0.0;
     String titleAd;
-    //qtdEvaluations = CacheProviderAdProduct.of(context).qtdEvaluations;
-    //adEvaluations = CacheProviderAdProduct.of(context).adEvaluation;
+    qtdEvaluations = CacheProviderAdProduct.of(context).qtdEvaluations;
+    adEvaluations = CacheProviderAdProduct.of(context).adEvaluation;
     titleAd = CacheProviderAdProduct.of(context).titleAd;
     return new Material(
       elevation: 7,
@@ -55,7 +55,7 @@ class MaterialAdTitle extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new RatingBar(
-                  initialRating: 3.5,
+                  initialRating: adEvaluations,
                   ignoreGestures: true,
                   itemSize: sizeStars == null ? AppSizes.size20 : sizeStars,
                   direction: Axis.horizontal,
@@ -72,7 +72,7 @@ class MaterialAdTitle extends StatelessWidget {
                   onRatingUpdate: null,
                 ),
                 new Text(
-                  " ( " + 5.toString() + " )",
+                  " ( " + qtdEvaluations.toString() + " )",
                   style: TextStyle(
                     color: AppColors.starsQtdAdsProductBackground,
                   ),

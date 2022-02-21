@@ -65,3 +65,6 @@ doc/api/
 *.js.deps
 *.js.map
 >>>>>>> 068f6c9ddf7fe2a89de5c6bef8c9d21d61e6157d
+
+# environment variable
+.env*

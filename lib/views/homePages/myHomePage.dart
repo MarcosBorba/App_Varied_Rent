@@ -394,7 +394,6 @@ class HomePageState extends State<HomePage> {
     );
     if (result) {
       listenKeyboardVisibleOrNot.resume();
-      print('passou no if');
     }
   }
 
@@ -415,8 +414,17 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  navigationFunctionForFavoritesScreen() {
-    AppRoutes.push(context, MyFavoritesAdsPage());
+  navigationFunctionForFavoritesScreen() async {
+    listenKeyboardVisibleOrNot.pause();
+    final result = await Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => MyFavoritesAdsPage(),
+      ),
+    );
+    if (result) {
+      listenKeyboardVisibleOrNot.resume();
+    }
   }
 
   logoutFunctionAndNavigationToTheLoginScreen() {

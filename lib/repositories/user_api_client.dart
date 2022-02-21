@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:varied_rent/models/models.dart';
 
 class UserApiClient {
-  static const baseUrl = 'http://192.168.0.180:3000/userRoute';
+  //static const baseUrl = 'http://192.168.0.180:3000/userRoute';
   Dio dio = new Dio();
 
   UserApiClient();
+  static String get baseUrl => DotEnv().env['urlApi'] + '/userRoute';
 
   Future<User> login(String email, password) async {
     final userLoginUrl = '$baseUrl/login';

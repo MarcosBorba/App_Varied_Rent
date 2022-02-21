@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:varied_rent/utils/app_sizes.dart';
 import 'package:varied_rent/views/homePages/myHomePage.dart';
 import 'package:varied_rent/views/loginPages/loginPage.dart';
@@ -31,7 +32,8 @@ class SimpleBlocDelegate extends BlocDelegate {
   }
 }
 
-main() {
+main() async {
+  await DotEnv().load('.env');
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final UserRepository userRepository = UserRepository(
     userApiClient: UserApiClient(),

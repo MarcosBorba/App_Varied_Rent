@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:varied_rent/blocs/blocs.dart';
 import 'package:varied_rent/utils/utils.dart';
 import 'package:varied_rent/views/adProductPages/myAdsProductInheritedClass.dart';
 
+//TODO: nivel 4 - olhar sizes,colors,texts, e estado favorite u nao
 class SubTitleAdProduct extends StatelessWidget {
   final double sizeValueAd;
   final String typeValue;
@@ -17,6 +20,11 @@ class SubTitleAdProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String valueAd = CacheProviderAdProduct.of(context).valueAd;
+    String idAd = CacheProviderAdProduct.of(context).idAd;
+    String idUserLogged = CacheProviderAdProduct.of(context).userLoggedId;
+    bool isFavorite = CacheProviderAdProduct.of(context).isFavorite;
+    bool isAnAnnouncementOfTheLoggedUser =
+        CacheProviderAdProduct.of(context).isAnAnnouncementOfTheLoggedUser;
     return Padding(
       padding: EdgeInsets.only(
         top: screenHeight * 0.02,
@@ -59,31 +67,48 @@ class SubTitleAdProduct extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  right: 10,
-                ),
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.red),
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  onPressed: () {
-                    print("object");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        FontAwesome5.heart,
-                        color: Colors.red,
+          isAnAnnouncementOfTheLoggedUser
+              ? Padding(
+                  padding: EdgeInsets.all(0),
+                )
+              : Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      right: 10,
+                    ),
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.circular(18.0),
                       ),
-                    ],
+                      onPressed: () {
+                        isFavorite
+                            ? BlocProvider.of<AdProductPageBloc>(context).add(
+                                AdProductPageRemoveFavoriteAd(
+                                    idAd, idUserLogged))
+                            : BlocProvider.of<AdProductPageBloc>(context).add(
+                                AdProductPageAddFavoriteAd(idAd, idUserLogged));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          isFavorite
+                              ? Icon(
+                                  FontAwesome5.heart,
+                                  color: Colors.red,
+                                  size: AppSizes.size35,
+                                )
+                              : Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.red,
+                                  size: AppSizes.size35,
+                                )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ))
         ],
       ),
     );

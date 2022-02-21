@@ -29,6 +29,7 @@ class TextFieldDefaultAplication extends StatelessWidget {
   final TextInputAction textInputAction;
   final FocusNode focusNode;
   final int maxLines;
+  final double borderWidth;
 
   TextFieldDefaultAplication({
     Key key,
@@ -58,6 +59,7 @@ class TextFieldDefaultAplication extends StatelessWidget {
     this.autofocus = false,
     this.fillColor = AppColors.fillColorBorderSearchTextField,
     this.maxLines,
+    this.borderWidth,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class TextFieldDefaultAplication extends StatelessWidget {
       return OutlineInputBorder(
         borderSide: BorderSide(
           color: color,
-          width: AppSizes.size4,
+          width: borderWidth == null ? AppSizes.size4 : borderWidth,
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(AppSizes.size30),
@@ -110,14 +112,18 @@ class TextFieldDefaultAplication extends StatelessWidget {
       autofocus: autofocus,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
-      onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText,
       cursorColor: cursorColor,
       controller: inputController,
       validator: validator,
-      onChanged: onChanged,
       inputFormatters: inputFormatters,
       maxLines: maxLines,
+      onTap: () {
+        print("ontap");
+        focusNode.requestFocus();
+      },
+      onFieldSubmitted: onFieldSubmitted,
+      onChanged: onChanged,
     );
   }
 }

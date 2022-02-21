@@ -27,6 +27,7 @@ class DividersAd extends StatelessWidget {
               endIndent: AppSizes.size10,
               indent: AppSizes.size10,
               thickness: AppSizes.size2,
+              color: AppColors.tertiaryColor,
             ),
           ),
           Text(textTitleDivider),

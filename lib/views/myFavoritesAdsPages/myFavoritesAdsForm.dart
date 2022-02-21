@@ -54,8 +54,8 @@ class MyFavoritesAdsFormState extends State<MyFavoritesAdsForm> {
                                           child: FavoriteAdMaterialButton(
                                             indexListAds: index,
                                             elevationButton: AppSizes.size4,
-                                            onPressedFavoriteAd: () {
-                                              navigationToTheAdScreen(
+                                            onPressedFavoriteAd: () async {
+                                              await navigationToTheAdScreen(
                                                 state.ads[index].id,
                                                 state.ads[index].title,
                                                 state.ads[index].description,
@@ -146,18 +146,22 @@ class MyFavoritesAdsFormState extends State<MyFavoritesAdsForm> {
   }
 
   navigationToTheAdScreen(String id, String titleAd, String descriptionAd,
-      String valueAd, List imagesAd, String locatorFk) {
-    AppRoutes.push(
+      String valueAd, List imagesAd, String locatorFk) async {
+    var result = await Navigator.push(
       context,
-      AdProductPage(
-        idAd: id,
-        titleAd: titleAd,
-        descriptionAd: descriptionAd,
-        valueAd: valueAd,
-        imagesAd: imagesAd,
-        locatorFk: locatorFk,
+      MaterialPageRoute(
+        builder: (context) => AdProductPage(
+          idAd: id,
+          titleAd: titleAd,
+          descriptionAd: descriptionAd,
+          valueAd: valueAd,
+          imagesAd: imagesAd,
+          locatorFk: locatorFk,
+          comesFromTheFavoritePage: true,
+        ),
       ),
     );
+    if (result != null) BlocProvider.of<FavoriteAdsBloc>(context).add(result);
   }
 
   deleteTheFavoriteAd(String adId, String locatorFk, List<Ad> ads, int index) {

@@ -18,7 +18,7 @@ class QuestionAndAnswerItem extends StatelessWidget {
   final Function onSubmitted;
   final int indexQuestion;
   final Function onEditIconButtonPressed;
-  String formatDate = DateFormat('y-M-d').format(DateTime.now());
+  String formatDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   QuestionAndAnswerItem({
     Key key,
@@ -104,8 +104,8 @@ class QuestionAndAnswerItem extends StatelessWidget {
             ),
       Row(
         children: <Widget>[
-          returnAnswerToEdit(showDialog, maxLinesAnswer),
-          dayTimeAnswer == formatDate
+          returnAnswerToEdit(maxLinesAnswer),
+          dayTimeAnswer == formatDate && showDialog == false
               ? Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
@@ -124,7 +124,7 @@ class QuestionAndAnswerItem extends StatelessWidget {
     ];
   }
 
-  Widget returnAnswerToEdit(bool showDialog, int maxLinesAnswer) {
+  Widget returnAnswerToEdit(int maxLinesAnswer) {
     if (answer != null) {
       return Flexible(
         flex: 1,

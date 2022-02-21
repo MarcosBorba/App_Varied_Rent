@@ -24,6 +24,7 @@ class QuestionRow extends StatelessWidget {
           width: screenWidth * 0.03,
         ),
         Flexible(
+          flex: 1,
           child: Text(
             question,
             overflow: TextOverflow.ellipsis,

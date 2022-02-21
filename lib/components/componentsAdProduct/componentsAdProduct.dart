@@ -3,3 +3,8 @@ export './getSubTitleAd.dart';
 export './getImagesAd.dart';
 export './getContainerDescription.dart';
 export './getLocatorInfo.dart';
+export './loadingAdsProduct.dart';
+export './getQuestionsAndAnswerContainer.dart';
+export './getQuestionAndAnswerItem.dart';
+export './getEvaluationsAd.dart';
+export './getDropDownButtonSelectStarsEvaluation.dart';
