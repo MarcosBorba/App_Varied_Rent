@@ -20,36 +20,39 @@ class MyAdsProductState extends State<MyAdsProduct> {
   @override
   Widget build(BuildContext context) {
     evaluations = CacheProvider.of(context).evaluations;
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: AppColors.tertiaryColor,
-        ),
-        child: Container(
-          height: screenHeight,
-          width: screenWidth,
-          color: AppColors.adsProductBackgroundPage,
-          child: SafeArea(
-            child: ListView(
-              children: <Widget>[
-                returnHeader(),
-                returnSubTitle(),
-                returnImagesAd(),
-                returnDivider(AppTexts().myAdsProductDescription),
-                returnDescription(),
-                returnDivider(AppTexts().myAdsProductQuestions),
-                returnQuestionsAndAnswer(),
-                returnDivider(AppTexts().myAdsProductEvaluations),
-                returnSelectEvaluationAmountStars(),
-                returnEvaluationsAd(),
-                returnDivider(AppTexts().myAdsProductLocator),
-                returnLocatorInfo(),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: screenHeight * 0.05,
-                  ),
-                )
-              ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light.copyWith(
+            statusBarColor: AppColors.tertiaryColor,
+          ),
+          child: Container(
+            height: screenHeight,
+            width: screenWidth,
+            color: AppColors.adsProductBackgroundPage,
+            child: SafeArea(
+              child: ListView(
+                children: <Widget>[
+                  returnHeader(),
+                  returnSubTitle(),
+                  returnImagesAd(),
+                  returnDivider(AppTexts().myAdsProductDescription),
+                  returnDescription(),
+                  returnDivider(AppTexts().myAdsProductQuestions),
+                  returnQuestionsAndAnswer(),
+                  returnDivider(AppTexts().myAdsProductEvaluations),
+                  returnSelectEvaluationAmountStars(),
+                  returnEvaluationsAd(),
+                  returnDivider(AppTexts().myAdsProductLocator),
+                  returnLocatorInfo(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: screenHeight * 0.05,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

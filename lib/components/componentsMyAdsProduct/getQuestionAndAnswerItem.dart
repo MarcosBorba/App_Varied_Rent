@@ -18,6 +18,8 @@ class QuestionAndAnswerItem extends StatelessWidget {
   final Function onSubmitted;
   final int indexQuestion;
   final Function onEditIconButtonPressed;
+  final FocusNode answerFocusNode;
+  final bool buttonEditVisibity;
   String formatDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   QuestionAndAnswerItem({
@@ -35,11 +37,14 @@ class QuestionAndAnswerItem extends StatelessWidget {
     this.onSubmitted,
     this.indexQuestion,
     this.onEditIconButtonPressed,
+    this.answerFocusNode,
+    this.buttonEditVisibity,
   })  : assert(question != null),
         super(key: key);
   @override
   Widget build(BuildContext context) {
     returnShowDialog() {
+      dismissKeyboard();
       return showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -55,6 +60,14 @@ class QuestionAndAnswerItem extends StatelessWidget {
         listComponents: returnFormQuestionAndAnswer(false, 2, 2),
       ),
     );
+  }
+
+  void showKeyboard() {
+    answerFocusNode.requestFocus();
+  }
+
+  void dismissKeyboard() {
+    answerFocusNode.unfocus();
   }
 
   List<Widget> returnFormQuestionAndAnswer(
@@ -80,40 +93,62 @@ class QuestionAndAnswerItem extends StatelessWidget {
       SizedBox(
         height: screenHeight * 0.02,
       ),
-      answer == null
-          ? TextField(
-              controller: textController,
-              onSubmitted: onSubmitted,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(),
-                labelText: AppTexts().myAdsProductResponseTitle,
-                prefixIconConstraints: BoxConstraints(
-                  minWidth: 30,
-                ),
-                prefixIcon: Icon(
-                  FontAwesome.right,
-                  color: Colors.black,
-                  size: AppSizes.size20,
-                ),
-              ),
-            )
-          : QuestionAndAnswerTitle(
+      answer != null
+          ? QuestionAndAnswerTitle(
               userName: userNameAnswer,
               dayTime: dayTimeAnswer,
               textColorsItems: colorAnswerTitle,
-            ),
+            )
+          : answer == null && showDialog == false
+              ? TextField(
+                  controller: textController,
+                  onSubmitted: onSubmitted,
+                  focusNode: answerFocusNode,
+                  onTap: () => showKeyboard,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(),
+                    labelText: AppTexts().myAdsProductResponseTitle,
+                    prefixIconConstraints: BoxConstraints(
+                      minWidth: 30,
+                    ),
+                    prefixIcon: Icon(
+                      FontAwesome.right,
+                      color: Colors.black,
+                      size: AppSizes.size20,
+                    ),
+                  ),
+                )
+              : Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 12,
+                        left: 2,
+                      ),
+                      child: Icon(
+                        FontAwesome.right,
+                        color: Colors.black,
+                        size: AppSizes.size20,
+                      ),
+                    ),
+                    Text("No answer yet."),
+                  ],
+                ),
       Row(
         children: <Widget>[
           returnAnswerToEdit(maxLinesAnswer),
           dayTimeAnswer == formatDate && showDialog == false
-              ? Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.edit,
-                      color: AppColors.adsProductIconEditAnswer,
+              ? Visibility(
+                  visible: buttonEditVisibity,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.edit,
+                        color: AppColors.adsProductIconEditAnswer,
+                      ),
+                      onPressed: onEditIconButtonPressed,
                     ),
-                    onPressed: onEditIconButtonPressed,
                   ),
                 )
               : Padding(

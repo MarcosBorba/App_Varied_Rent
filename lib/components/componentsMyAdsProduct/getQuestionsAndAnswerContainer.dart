@@ -37,6 +37,9 @@ class QuestionsAndAnswerContainerState
   Function onEditIconButtonPressed;
   double containerHeight;
   String userNameLocator;
+  TextEditingController textController = TextEditingController();
+  FocusNode answerFocusNode = FocusNode();
+  bool buttonEditVisibility = true;
 
   QuestionsAndAnswerContainerState({
     this.onSubmitted,
@@ -46,10 +49,18 @@ class QuestionsAndAnswerContainerState
   });
 
   @override
+  void dispose() {
+    textController.dispose();
+    answerFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     questionsAnswers = CacheProvider.of(context).questionsAndAnswers;
     userNameLocator = CacheProvider.of(context).nameLocator;
     String emailLocator = CacheProvider.of(context).emailLocator;
+
     return Container(
       height: containerHeight == null ? screenHeight * 0.20 : containerHeight,
       width: screenWidth,
@@ -59,6 +70,9 @@ class QuestionsAndAnswerContainerState
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return QuestionAndAnswerItem(
+                  textController: textController,
+                  answerFocusNode: answerFocusNode,
+                  buttonEditVisibity: buttonEditVisibility,
                   userNameQuestion:
                       questionsAnswers[index].question.tenant_name,
                   dayTimeQuestion:
@@ -73,42 +87,39 @@ class QuestionsAndAnswerContainerState
                   answer: questionsAnswers[index].answer != null
                       ? questionsAnswers[index].answer.answer
                       : null,
-                  onSubmitted: (value) {
+                  onSubmitted: (String value) {
                     String formattedDate =
                         DateFormat('yyyy-MM-dd').format(DateTime.now());
                     setState(() {
-                      questionsAnswers[index].answer != null
+                      questionsAnswers[index].answer.answer == null &&
+                              value.length > 1
                           ? {
-                              questionsAnswers[index].answer.locator_email =
-                                  emailLocator,
-                              questionsAnswers[index].answer.locator_name =
-                                  userNameLocator,
-                              questionsAnswers[index].answer.answer_date_time =
-                                  formattedDate,
-                              questionsAnswers[index].answer.answer = value
+                              questionsAnswers[index].answer = new Answer(
+                                locator_name: userNameLocator,
+                                locator_email: emailLocator,
+                                answer_date_time: formattedDate,
+                                answer: value,
+                              ),
+                              BlocProvider.of<MyAdProductPageBloc>(context).add(
+                                MyAdProductPageUpdateQuestionAndEvaluation(
+                                  questionsAnswers[index],
+                                ),
+                              ),
+                              buttonEditVisibility = true,
                             }
-                          : questionsAnswers[index].answer = new Answer(
-                              locator_name: userNameLocator,
-                              locator_email: emailLocator,
-                              answer_date_time: formattedDate,
-                              answer: value,
-                            );
-
-                      BlocProvider.of<MyAdProductPageBloc>(context).add(
-                        MyAdProductPageUpdateQuestionAndEvaluation(
-                          questionsAnswers[index],
-                        ),
-                      );
+                          : {
+                              answerFocusNode.unfocus(),
+                              buttonEditVisibility = false
+                            };
                     });
                   },
                   onEditIconButtonPressed: () {
                     setState(() {
-                      questionsAnswers[index].answer = null;
-                      BlocProvider.of<MyAdProductPageBloc>(context).add(
-                        MyAdProductPageUpdateQuestionAndEvaluation(
-                          questionsAnswers[index],
-                        ),
-                      );
+                      textController.text =
+                          questionsAnswers[index].answer.answer;
+                      questionsAnswers[index].answer.answer = null;
+                      answerFocusNode.requestFocus();
+                      buttonEditVisibility = false;
                     });
                   },
                 );
